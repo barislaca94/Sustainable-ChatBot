@@ -1,0 +1,164 @@
+# End-to-end dialogue tests exercised by
+# `rasa test core --stories tests/test_stories.yml`.
+#
+# NOTE ON WHAT THIS FILE CAN AND CANNOT TEST. `rasa test core` evaluates
+# predicted ACTIONS. Inside a form the predicted action is always
+# `trip_planning_form`; which question that form asks next is decided by
+# ValidateTripPlanningForm.required_slots() on the action server, which
+# `rasa test core` never runs. The four "adaptive branch" stories below
+# therefore look identical to the evaluator — it reports 8 stories from the
+# 11 written here, having collapsed them — and they document the branches
+# rather than testing them.
+#
+# The branching itself is covered by tests/test_actions.py
+# (test_form_skips_transport_preference_unless_sustainability_is_high and
+# friends), which calls required_slots() directly.
+version: "3.1"
+
+stories:
+- story: happy path — medium sustainability, no adaptive extras
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - slot_was_set:
+    - destination: Amsterdam
+  - slot_was_set:
+    - origin: Berlin
+  - slot_was_set:
+    - travel_dates: 15-20 August
+  - slot_was_set:
+    - budget: "1200"
+  - slot_was_set:
+    - sustainability_level: medium
+  - active_loop: null
+  - action: action_submit_trip_form
+
+- story: adaptive branch — high sustainability asks transport_preference
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - slot_was_set:
+    - destination: Barcelona
+  - slot_was_set:
+    - origin: London
+  - slot_was_set:
+    - travel_dates: next month
+  - slot_was_set:
+    - budget: "2000"
+  - slot_was_set:
+    - sustainability_level: high
+  - slot_was_set:
+    - transport_preference: train_or_bus
+  - active_loop: null
+  - action: action_submit_trip_form
+
+- story: adaptive branch — low budget asks trip_length
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - slot_was_set:
+    - destination: Lisbon
+  - slot_was_set:
+    - origin: Madrid
+  - slot_was_set:
+    - travel_dates: next week
+  - slot_was_set:
+    - budget: "300"
+  - slot_was_set:
+    - sustainability_level: low
+  - slot_was_set:
+    - trip_length: weekend
+  - active_loop: null
+  - action: action_submit_trip_form
+
+- story: adaptive — both branches (high sust AND low budget)
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - slot_was_set:
+    - destination: Berlin
+  - slot_was_set:
+    - origin: Hamburg
+  - slot_was_set:
+    - travel_dates: 10 to 17 September
+  - slot_was_set:
+    - budget: "400"
+  - slot_was_set:
+    - sustainability_level: high
+  - slot_was_set:
+    - transport_preference: any_low_carbon
+  - slot_was_set:
+    - trip_length: week
+  - active_loop: null
+  - action: action_submit_trip_form
+
+- story: hotels → human handover
+  steps:
+  - intent: ask_eco_hotels
+  - action: action_suggest_eco_hotels
+  - intent: request_human_advisor
+  - action: action_human_handover
+
+- story: place description → hotels
+  steps:
+  - intent: ask_place_description
+  - action: action_describe_place
+  - intent: ask_eco_hotels
+  - action: action_suggest_eco_hotels
+
+- story: weather then eco activities
+  steps:
+  - intent: ask_weather
+  - action: action_get_weather
+  - intent: ask_local_activities
+  - action: action_suggest_activities
+
+- story: carbon footprint follow-up with offset
+  steps:
+  - intent: ask_carbon_footprint
+  - action: action_calculate_carbon
+  - intent: ask_carbon_offset
+  - action: action_carbon_offset_programs
+
+- story: unrecognised message enters the two-stage clarification loop
+  steps:
+  - intent: nlu_fallback
+  - action: action_two_stage_fallback
+  - active_loop: action_two_stage_fallback
+
+- story: trip plan then escalation to a human advisor
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - slot_was_set:
+    - destination: Kyoto
+  - slot_was_set:
+    - origin: Osaka
+  - slot_was_set:
+    - travel_dates: first week of October
+  - slot_was_set:
+    - budget: "900"
+  - slot_was_set:
+    - sustainability_level: high
+  - slot_was_set:
+    - transport_preference: train_or_bus
+  - active_loop: null
+  - action: action_submit_trip_form
+  - intent: request_human_advisor
+  - action: action_human_handover
+
+- story: course companion still works alongside eco-travel
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_what_is_nlu
+  - action: utter_ask_what_is_nlu
+  - intent: ask_streamlit
+  - action: utter_ask_streamlit
+  - intent: goodbye
+  - action: utter_goodbye

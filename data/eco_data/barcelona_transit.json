@@ -1,0 +1,573 @@
+{
+  "city": "Barcelona",
+  "centre": {
+    "lat": 41.3825802,
+    "lon": 2.177073
+  },
+  "kind": "transit",
+  "radius_m": 2000,
+  "count": 30,
+  "records": [
+    {
+      "id": "node/21638918",
+      "name": "Pg. de Colom-Pl. Portal de la Pau",
+      "lat": 41.3758028,
+      "lon": 2.1781435,
+      "tags": {
+        "bus": "yes",
+        "name": "Pg. de Colom-Pl. Portal de la Pau",
+        "public_transport": "stop_position",
+        "ref": "106164",
+        "route_ref": "N0"
+      }
+    },
+    {
+      "id": "node/30243320",
+      "name": "València - Comte d'Urgell",
+      "lat": 41.3860643,
+      "lon": 2.154467,
+      "tags": {
+        "bus": "yes",
+        "name": "València - Comte d'Urgell",
+        "public_transport": "stop_position",
+        "ref": "138",
+        "route_ref": "H10 V11 109 N12"
+      }
+    },
+    {
+      "id": "node/30317892",
+      "name": "Port Vell",
+      "lat": 41.3771829,
+      "lon": 2.1834911,
+      "tags": {
+        "bus": "yes",
+        "name": "Port Vell",
+        "name:ca": "Port Vell",
+        "public_transport": "stop_position",
+        "ref": "1483",
+        "route_ref": "V17"
+      }
+    },
+    {
+      "id": "node/108229618",
+      "name": "Catalunya",
+      "lat": 41.3861607,
+      "lon": 2.1700763,
+      "tags": {
+        "name": "Catalunya",
+        "name:ca": "Catalunya",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "Transports Metropolitans de Barcelona",
+        "operator:short": "TMB",
+        "operator:type": "public",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "2",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wikidata": "Q800447"
+      }
+    },
+    {
+      "id": "node/108229629",
+      "name": "La Rambla | Drassanes",
+      "lat": 41.3766834,
+      "lon": 2.1757556,
+      "tags": {
+        "name": "La Rambla | Drassanes",
+        "name:ca": "La Rambla | Drassanes",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "Transports Metropolitans de Barcelona",
+        "operator:short": "TMB",
+        "operator:type": "public",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "2",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q2549147"
+      }
+    },
+    {
+      "id": "node/168330718",
+      "name": "Av Miramar - Escoles del Bosc",
+      "lat": 41.3689086,
+      "lon": 2.1622941,
+      "tags": {
+        "bus": "yes",
+        "name": "Av Miramar - Escoles del Bosc",
+        "public_transport": "stop_position",
+        "ref": "656",
+        "route_ref": "55 150"
+      }
+    },
+    {
+      "id": "node/190985732",
+      "name": "Barceloneta - Museu d'Història de Catalunya",
+      "lat": 41.3810573,
+      "lon": 2.1839468,
+      "tags": {
+        "bus": "yes",
+        "name": "Barceloneta - Museu d'Història de Catalunya",
+        "name:ca": "Museu d'Història de Catalunya",
+        "network": "Barcelona Bus Turístic",
+        "public_transport": "stop_position",
+        "route_ref": "100"
+      }
+    },
+    {
+      "id": "node/192328375",
+      "name": "Paral·lel - Cabanes",
+      "lat": 41.3748662,
+      "lon": 2.1706518,
+      "tags": {
+        "bus": "yes",
+        "name": "Paral·lel - Cabanes",
+        "public_transport": "stop_position",
+        "ref": "722"
+      }
+    },
+    {
+      "id": "node/216349848",
+      "name": "Pl. Catalunya - Portal de l'Àngel",
+      "lat": 41.3866204,
+      "lon": 2.170912,
+      "tags": {
+        "bus": "yes",
+        "name": "Pl. Catalunya - Portal de l'Àngel",
+        "public_transport": "stop_position",
+        "ref": "1103",
+        "route_ref": "55 59 H16 V15 N4 N8 N12 N15 N28 N24"
+      }
+    },
+    {
+      "id": "node/243341159",
+      "name": "Port Olimpic",
+      "lat": 41.3881251,
+      "lon": 2.1972519,
+      "tags": {
+        "bus": "yes",
+        "name": "Port Olimpic",
+        "network": "Barcelona Bus Turístic",
+        "public_transport": "stop_position",
+        "ref": "110365",
+        "route_ref": "99 100 N6 N28"
+      }
+    },
+    {
+      "id": "node/255406917",
+      "name": "Provença",
+      "lat": 41.3928867,
+      "lon": 2.1579915,
+      "tags": {
+        "name": "Provença",
+        "name:ca": "Provença",
+        "network": "Metro de Barcelona;Metro del Vallès",
+        "operator": "Ferrocarrils de la Generalitat de Catalunya",
+        "operator:short": "FGC",
+        "operator:wikidata": "Q83819",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "1",
+        "route_ref": "L6;L7;S1;S2",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "train": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q2472213",
+        "wikimedia_commons": "Category:Provença-Diagonal station",
+        "wikipedia": "ca:Estació de Diagonal-Provença"
+      }
+    },
+    {
+      "id": "node/429766634",
+      "name": "Barcelona-Arc de Triomf",
+      "lat": 41.3922652,
+      "lon": 2.1810426,
+      "tags": {
+        "name": "Barcelona-Arc de Triomf",
+        "name:ca": "Barcelona-Arc de Triomf",
+        "network": "Rodalies de Catalunya",
+        "network:wikidata": "Q3322422",
+        "operator": "Renfe",
+        "operator:type": "public",
+        "operator:wikidata": "Q2476154",
+        "owner": "Adif",
+        "owner:type": "public",
+        "owner:wikidata": "Q358752",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "1",
+        "tactile_paving": "yes",
+        "train": "yes",
+        "uic_ref": "7178804",
+        "wikidata": "Q800445"
+      }
+    },
+    {
+      "id": "node/462256384",
+      "name": "Barceloneta",
+      "lat": 41.3820417,
+      "lon": 2.1854434,
+      "tags": {
+        "name": "Barceloneta",
+        "name:ca": "Barceloneta",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "Transports Metropolitans de Barcelona",
+        "operator:short": "TMB",
+        "operator:type": "public",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "2",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q591874"
+      }
+    },
+    {
+      "id": "node/462256394",
+      "name": "Ciutadella | Vila Olímpica",
+      "lat": 41.3866663,
+      "lon": 2.1929982,
+      "tags": {
+        "name": "Ciutadella | Vila Olímpica",
+        "name:ca": "Ciutadella | Vila Olímpica",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "Transports Metropolitans de Barcelona",
+        "operator:short": "TMB",
+        "operator:type": "public",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "2",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wikidata": "Q1094407"
+      }
+    },
+    {
+      "id": "node/462256396",
+      "name": "Bogatell",
+      "lat": 41.3951757,
+      "lon": 2.1921294,
+      "tags": {
+        "emergency": "fire_extinguisher",
+        "name": "Bogatell",
+        "name:ca": "Bogatell",
+        "network": "Metro de Barcelona",
+        "operator": "Transports Metropolitans de Barcelona",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "source": "geolocation taken from http://en.wikipedia.org/wiki/Barcelona_metro_line_4",
+        "subway": "yes",
+        "wikidata": "Q890391",
+        "wikimedia_commons": "Category:Bogatell metrostation",
+        "wikipedia": "ca:Estació de Bogatell"
+      }
+    },
+    {
+      "id": "node/462256413",
+      "name": "Jaume I",
+      "lat": 41.3840029,
+      "lon": 2.1786463,
+      "tags": {
+        "emergency:fire_extinguisher": "yes",
+        "name": "Jaume I",
+        "name:ca": "Jaume I",
+        "network": "Metro de Barcelona",
+        "operator": "Transports Metropolitans de Barcelona",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "subway": "yes",
+        "wikidata": "Q2041028",
+        "wikimedia_commons": "Category:Jaume I metrostation",
+        "wikipedia": "ca:Estació de Jaume I"
+      }
+    },
+    {
+      "id": "node/462256414",
+      "name": "Urquinaona",
+      "lat": 41.3880381,
+      "lon": 2.1732975,
+      "tags": {
+        "emergency:fire_extinguisher": "yes",
+        "name": "Urquinaona",
+        "network": "Metro de Barcelona",
+        "operator": "Transports Metropolitans de Barcelona",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "source": "geolocation taken from http://en.wikipedia.org/wiki/Barcelona_metro_line_1",
+        "subway": "yes"
+      }
+    },
+    {
+      "id": "node/462256418",
+      "name": "Passeig de Gràcia",
+      "lat": 41.3899486,
+      "lon": 2.1679219,
+      "tags": {
+        "location": "underground",
+        "name": "Passeig de Gràcia",
+        "name:ca": "Passeig de Gràcia",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "TMB",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "2",
+        "route_ref": "L4",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q800446",
+        "wikipedia": "ca:Estació de Passeig de Gràcia"
+      }
+    },
+    {
+      "id": "node/462256419",
+      "name": "Girona",
+      "lat": 41.3950328,
+      "lon": 2.1709238,
+      "tags": {
+        "emergency:fire_extinguisher": "yes",
+        "name": "Girona",
+        "name:ca": "Girona",
+        "network": "Metro de Barcelona",
+        "operator": "Transports Metropolitans de Barcelona",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "subway": "yes"
+      }
+    },
+    {
+      "id": "node/462274213",
+      "name": "Liceu",
+      "lat": 41.3813895,
+      "lon": 2.1730568,
+      "tags": {
+        "emergency": "fire_extinguisher",
+        "name": "Liceu",
+        "name:ca": "Liceu",
+        "network": "Metro de Barcelona",
+        "operator": "Transports Metropolitans de Barcelona",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "source": "geolocation taken from http://en.wikipedia.org/wiki/Barcelona_metro_line_3",
+        "subway": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q2383315",
+        "wikimedia_commons": "Category:Liceu metrostation",
+        "wikipedia": "ca:Estació de Liceu"
+      }
+    },
+    {
+      "id": "node/462295947",
+      "name": "Sant Antoni",
+      "lat": 41.3797847,
+      "lon": 2.1633175,
+      "tags": {
+        "name": "Sant Antoni",
+        "name:ca": "Sant Antoni",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "Transports Metropolitans de Barcelona",
+        "operator:short": "TMB",
+        "operator:type": "public",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "2",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wikidata": "Q514447"
+      }
+    },
+    {
+      "id": "node/462295951",
+      "name": "Universitat",
+      "lat": 41.3856859,
+      "lon": 2.1641092,
+      "tags": {
+        "emergency": "fire_extinguisher",
+        "indoor": "yes",
+        "name": "Universitat",
+        "name:ca": "Universitat",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "TMB",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "1",
+        "route_ref": "L1",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wikidata": "Q678668",
+        "wikimedia_commons": "Category:Universitat metrostation",
+        "wikipedia": "ca:Estació d'Universitat"
+      }
+    },
+    {
+      "id": "node/462295955",
+      "name": "Tetuan",
+      "lat": 41.3948202,
+      "lon": 2.1756085,
+      "tags": {
+        "name": "Tetuan",
+        "name:ca": "Tetuan",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "Transports Metropolitans de Barcelona",
+        "operator:short": "TMB",
+        "operator:type": "public",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "2",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wikidata": "Q2692167"
+      }
+    },
+    {
+      "id": "node/462295962",
+      "name": "Monumental",
+      "lat": 41.4002844,
+      "lon": 2.1795937,
+      "tags": {
+        "name": "Monumental",
+        "name:ca": "Monumental",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "Transports Metropolitans de Barcelona",
+        "operator:short": "TMB",
+        "operator:type": "public",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "2",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q1877541"
+      }
+    },
+    {
+      "id": "node/463164950",
+      "name": "Marina",
+      "lat": 41.3949138,
+      "lon": 2.1862351,
+      "tags": {
+        "emergency": "fire_extinguisher",
+        "name": "Marina",
+        "name:ca": "Marina",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "subway": "yes",
+        "wikidata": "Q2251103",
+        "wikimedia_commons": "Category:Marina metrostation",
+        "wikipedia": "ca:Estació de Marina"
+      }
+    },
+    {
+      "id": "node/463164952",
+      "name": "Arc de Triomf",
+      "lat": 41.392103,
+      "lon": 2.1809408,
+      "tags": {
+        "name": "Arc de Triomf",
+        "name:ca": "Arc de Triomf",
+        "network": "Metro de Barcelona",
+        "network:wikidata": "Q237189",
+        "operator": "Transports Metropolitans de Barcelona",
+        "operator:short": "TMB",
+        "operator:type": "public",
+        "operator:wikidata": "Q1778212",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "1",
+        "subway": "yes",
+        "tactile_paving": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q800445"
+      }
+    },
+    {
+      "id": "node/463164953",
+      "name": "Urgell",
+      "lat": 41.3824781,
+      "lon": 2.1589124,
+      "tags": {
+        "emergency": "fire_extinguisher",
+        "name": "Urgell",
+        "name:ca": "Urgell",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "source": "geolocation taken from http://en.wikipedia.org/wiki/Barcelona_metro_line_1",
+        "subway": "yes",
+        "wikidata": "Q2094288",
+        "wikimedia_commons": "Category:Urgell metrostation",
+        "wikipedia": "ca:Estació d'Urgell"
+      }
+    },
+    {
+      "id": "node/463164954",
+      "name": "Rocafort",
+      "lat": 41.3792043,
+      "lon": 2.1545602,
+      "tags": {
+        "emergency": "fire_extinguisher",
+        "indoor": "no",
+        "name": "Rocafort",
+        "name:ca": "Rocafort",
+        "network": "Metro de Barcelona",
+        "operator": "Transports Metropolitans de Barcelona",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "source": "geolocation taken from http://en.wikipedia.org/wiki/Barcelona_metro_line_1",
+        "subway": "yes",
+        "wikidata": "Q935853",
+        "wikimedia_commons": "Category:Rocafort metrostation",
+        "wikipedia": "ca:Estació de Rocafort"
+      }
+    },
+    {
+      "id": "node/493812498",
+      "name": "Moll Sant Bertran - Moll Barcelona",
+      "lat": 41.3728825,
+      "lon": 2.1768423,
+      "tags": {
+        "bus": "yes",
+        "name": "Moll Sant Bertran - Moll Barcelona",
+        "public_transport": "stop_position",
+        "ref": "110034",
+        "route_ref": "88 89"
+      }
+    },
+    {
+      "id": "node/823781719",
+      "name": "Plaça de Catalunya",
+      "lat": 41.3861336,
+      "lon": 2.1697962,
+      "tags": {
+        "bus": "yes",
+        "name": "Plaça de Catalunya",
+        "name:ca": "Plaça de Catalunya",
+        "network": "Barcelona Bus Turístic",
+        "public_transport": "stop_position",
+        "route_ref": "100",
+        "wheelchair": "yes"
+      }
+    }
+  ]
+}

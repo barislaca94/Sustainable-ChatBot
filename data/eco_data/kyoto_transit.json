@@ -1,0 +1,589 @@
+{
+  "city": "Kyoto",
+  "centre": {
+    "lat": 35.0115754,
+    "lon": 135.7681441
+  },
+  "kind": "transit",
+  "radius_m": 2000,
+  "count": 28,
+  "records": [
+    {
+      "id": "node/335667494",
+      "name": "大宮",
+      "lat": 35.0036646,
+      "lon": 135.7485884,
+      "tags": {
+        "KSJ2:LIN": "京都線",
+        "KSJ2:STN": "大宮",
+        "local_ref": "1",
+        "name": "大宮",
+        "name:en": "Omiya",
+        "name:ja": "大宮",
+        "name:ja-Latn": "Ōmiya",
+        "name:ko": "오미야",
+        "note": "National-Land Numerical Information (Railway) 2007, MLIT Japan",
+        "note:ja": "国土数値情報（鉄道データ）平成19年　国土交通省",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "HK84",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-N02-v1_1.html",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/335667743",
+      "name": "烏丸",
+      "lat": 35.0037284,
+      "lon": 135.7604545,
+      "tags": {
+        "KSJ2:LIN": "京都線",
+        "KSJ2:STN": "烏丸",
+        "level": "-2",
+        "local_ref": "1",
+        "name": "烏丸",
+        "name:en": "Karasuma",
+        "name:ja": "烏丸",
+        "name:ja-Latn": "Karasuma",
+        "name:ko": "가라스마",
+        "name:zh": "乌丸",
+        "note": "National-Land Numerical Information (Railway) 2007, MLIT Japan",
+        "note:ja": "国土数値情報（鉄道データ）平成19年　国土交通省",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "HK85",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-N02-v1_1.html",
+        "train": "yes",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/335826528",
+      "name": "三条",
+      "lat": 35.0090188,
+      "lon": 135.7723609,
+      "tags": {
+        "KSJ2:STN": "三条",
+        "local_ref": "3",
+        "name": "三条",
+        "name:en": "Sanjo",
+        "name:ja": "三条",
+        "name:ja-Latn": "Sanjō",
+        "name:ko": "산조",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "KH40",
+        "train": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q2153196",
+        "wikipedia": "ja:三条駅 (京都府)"
+      }
+    },
+    {
+      "id": "node/335826792",
+      "name": "祇園四条",
+      "lat": 35.003226,
+      "lon": 135.7719569,
+      "tags": {
+        "local_ref": "2",
+        "name": "祇園四条",
+        "name:en": "Gion-shijo",
+        "name:es": "Gion-shijo",
+        "name:ja": "祇園四条",
+        "name:ja-Hira": "ぎおんしじょう",
+        "name:ja-Latn": "Gion-shijō",
+        "name:ko": "기온시죠",
+        "old_name": "四条",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "KH39",
+        "train": "yes",
+        "wikidata": "Q2153263",
+        "wikipedia": "ja:祇園四条駅"
+      }
+    },
+    {
+      "id": "node/339086095",
+      "name": "三条京阪",
+      "lat": 35.0091943,
+      "lon": 135.7734416,
+      "tags": {
+        "KSJ2:STN": "三条京阪",
+        "name": "三条京阪",
+        "name:en": "Sanjo Keihan",
+        "name:ja": "三条京阪",
+        "name:ja_rm": "Sanjō Keihan",
+        "name:ko": "산조케이한",
+        "name:zh": "三条京阪",
+        "phone": "+81-75-751-0510",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "T11",
+        "subway": "yes",
+        "toilets:wheelchair": "yes",
+        "website": "https://www.city.kyoto.lg.jp/kotsu/page/0000009980.html",
+        "wheelchair": "limited",
+        "wikidata": "Q2645261",
+        "wikipedia": "ja:三条京阪駅"
+      }
+    },
+    {
+      "id": "node/339086117",
+      "name": "東山",
+      "lat": 35.0094372,
+      "lon": 135.7792256,
+      "tags": {
+        "KSJ2:STN": "東山",
+        "int_name": "Higashiyama",
+        "name": "東山",
+        "name:en": "Higashiyama",
+        "name:ja": "東山",
+        "name:ja_rm": "Higashiyama",
+        "name:ko": "히가시야마",
+        "name:zh": "东山",
+        "phone": "+81 75 752 6076",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "T10",
+        "subway": "yes",
+        "website": "https://www.city.kyoto.lg.jp/kotsu/page/0000009969.html",
+        "wheelchair": "yes",
+        "wikidata": "Q2025937",
+        "wikipedia": "ja:東山駅 (京都府)"
+      }
+    },
+    {
+      "id": "node/339086204",
+      "name": "二条城前",
+      "lat": 35.0118652,
+      "lon": 135.7497173,
+      "tags": {
+        "alt_name:ko": "니조조마에",
+        "int_name": "Nijōjō-mae",
+        "name": "二条城前",
+        "name:en": "Nijojo-mae",
+        "name:ja": "二条城前",
+        "name:ja_rm": "Nijōjō-mae",
+        "name:ko": "니조성앞",
+        "name:zh": "二条城前",
+        "phone": "+81-75-822-4591",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "T14",
+        "subway": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q2477213",
+        "wikipedia": "ja:二条城前駅"
+      }
+    },
+    {
+      "id": "node/339086207",
+      "name": "京都市役所前",
+      "lat": 35.0108131,
+      "lon": 135.7683425,
+      "tags": {
+        "KSJ2:STN": "京都市役所前",
+        "alt_name:ko": "교토시야쿠쇼마에",
+        "alt_name:zh": "京都市政府",
+        "int_name": "Kyōto Shiyakusho-mae",
+        "name": "京都市役所前",
+        "name:en": "Kyoto Shiyakusho-mae",
+        "name:ja": "京都市役所前",
+        "name:ja_rm": "Kyōto Shiyakusho-mae",
+        "name:ko": "교토시청앞",
+        "name:zh": "京都市役所前",
+        "phone": "+81-75-213-1364",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "T12",
+        "subway": "yes",
+        "toilets:wheelchair": "yes",
+        "website": "https://www.city.kyoto.lg.jp/kotsu/page/0000009988.html",
+        "wheelchair": "yes",
+        "wikidata": "Q2210666",
+        "wikipedia": "ja:京都市役所前駅"
+      }
+    },
+    {
+      "id": "node/339087047",
+      "name": "丸太町",
+      "lat": 35.0162866,
+      "lon": 135.7594873,
+      "tags": {
+        "KSJ2:STN": "丸太町",
+        "int_name": "Marutamachi",
+        "local_ref": "2",
+        "location": "underground",
+        "name": "丸太町",
+        "name:en": "Marutamachi",
+        "name:fr": "Marutamachi",
+        "name:ja": "丸太町",
+        "name:ja-Hira": "まるたまち",
+        "name:ja_rm": "Marutamachi",
+        "name:ko": "마루타마치",
+        "name:zh": "丸太町",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "K07",
+        "subway": "yes",
+        "toilets:wheelchair": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q2346816",
+        "wikipedia": "ja:丸太町駅"
+      }
+    },
+    {
+      "id": "node/339087056",
+      "name": "五条",
+      "lat": 34.9949793,
+      "lon": 135.7596505,
+      "tags": {
+        "KSJ2:STN": "五条",
+        "local_ref": "2",
+        "name": "五条",
+        "name:en": "Gojō",
+        "name:ja": "五条",
+        "name:ko": "고조",
+        "name:zh": "五条",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "K10",
+        "subway": "yes",
+        "wikidata": "Q2579995",
+        "wikipedia": "ja:五条駅 (京都府)"
+      }
+    },
+    {
+      "id": "node/339087186",
+      "name": "四条",
+      "lat": 35.0025184,
+      "lon": 135.7595875,
+      "tags": {
+        "KSJ2:STN": "四条",
+        "local_ref": "2",
+        "name": "四条",
+        "name:en": "Shijō",
+        "name:ja": "四条",
+        "name:ja_rm": "Shijō",
+        "name:ko": "시조",
+        "name:zh": "四条",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "K09",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q2328455",
+        "wikipedia": "ja:四条駅"
+      }
+    },
+    {
+      "id": "node/339087268",
+      "name": "烏丸御池",
+      "lat": 35.0099743,
+      "lon": 135.759619,
+      "tags": {
+        "KSJ2:STN": "烏丸御池",
+        "int_name": "Karasuma Oike",
+        "local_ref": "2",
+        "name": "烏丸御池",
+        "name:en": "Karasuma Oike",
+        "name:es": "Karasuma Oike",
+        "name:fr": "Karasuma Oike",
+        "name:ja": "烏丸御池",
+        "name:ja-Hira": "からすまおいけ",
+        "name:ja_rm": "Karasuma Oike",
+        "name:ko": "가라스마오이케",
+        "name:zh": "乌丸御池",
+        "network": "京都市営地下鉄",
+        "phone": "+81-75-221-3193",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "K08",
+        "station": "subway",
+        "subway": "yes",
+        "website": "https://www.city.kyoto.lg.jp/kotsu/page/0000009448.html",
+        "wheelchair": "limited",
+        "wikidata": "Q2580142",
+        "wikipedia": "ja:烏丸御池駅"
+      }
+    },
+    {
+      "id": "node/339089256",
+      "name": "神宮丸太町",
+      "lat": 35.0186658,
+      "lon": 135.7722764,
+      "tags": {
+        "KSJ2:LIN": "鴨東線",
+        "KSJ2:STN": "丸太町",
+        "local_ref": "2",
+        "name": "神宮丸太町",
+        "name:en": "Jingu-marutamachi",
+        "name:ja": "神宮丸太町",
+        "name:ja-Hira": "じんぐうまるたまち",
+        "name:ja-Latn": "Jingū-Marutamachi",
+        "name:ko": "진구마루타마치",
+        "note": "National-Land Numerical Information (Railway) 2007, MLIT Japan",
+        "note:ja": "国土数値情報（鉄道データ）平成19年　国土交通省",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "KH41",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-N02-v1_1.html",
+        "train": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q2244767",
+        "wikipedia": "ja:神宮丸太町駅"
+      }
+    },
+    {
+      "id": "node/1854284667",
+      "name": "四条烏丸",
+      "lat": 35.0031338,
+      "lon": 135.7597198,
+      "tags": {
+        "bus": "yes",
+        "highway": "bus_stop",
+        "local_ref": "B",
+        "name": "四条烏丸",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/1854284715",
+      "name": "祇園",
+      "lat": 35.003807,
+      "lon": 135.7764777,
+      "tags": {
+        "bus": "yes",
+        "name": "祇園",
+        "name:en": "Gion",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/2785051569",
+      "name": "祇園",
+      "lat": 35.0045617,
+      "lon": 135.7775191,
+      "tags": {
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "祇園",
+        "name:en": "Gion",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/2787471645",
+      "name": "出町柳駅前",
+      "lat": 35.0287239,
+      "lon": 135.7739609,
+      "tags": {
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "出町柳駅前",
+        "operator": "京都市交通局;京都バス",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/2787471664",
+      "name": "出町柳駅前",
+      "lat": 35.0288926,
+      "lon": 135.7730587,
+      "tags": {
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "出町柳駅前",
+        "operator": "京都市交通局;京都バス",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4877105982",
+      "name": "河原町五条",
+      "lat": 34.9964755,
+      "lon": 135.7665645,
+      "tags": {
+        "bus": "yes",
+        "local_ref": "D",
+        "name": "河原町五条",
+        "name:en": "Kawaramachi Gojo",
+        "name:ja": "河原町五条",
+        "name:ja-Hira": "かわらまちごじょう",
+        "name:ja-Latn": "Kawaramachi Gojō",
+        "name:ko": "가와라마치고조",
+        "name:zh-Hans": "河原町五条",
+        "name:zh-Hant": "河原町五条",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4877105983",
+      "name": "河原町五条",
+      "lat": 34.9959345,
+      "lon": 135.7668759,
+      "tags": {
+        "bus": "yes",
+        "name": "河原町五条",
+        "name:en": "Kawaramachi Gojo",
+        "name:ja": "河原町五条",
+        "name:ja-Hira": "かわらまちごじょう",
+        "name:ja-Latn": "Kawaramachi Gojō",
+        "name:ko": "가와라마치고조",
+        "name:zh-Hans": "河原町五条",
+        "name:zh-Hant": "河原町五条",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4877105984",
+      "name": "河原町五条",
+      "lat": 34.9959012,
+      "lon": 135.7650718,
+      "tags": {
+        "bus": "yes",
+        "name": "河原町五条",
+        "name:en": "Kawaramachi Gojo",
+        "name:ja": "河原町五条",
+        "name:ja-Hira": "かわらまちごじょう",
+        "name:ja-Latn": "Kawaramachi Gojō",
+        "name:ko": "가와라마치고조",
+        "name:zh-Hans": "河原町五条",
+        "name:zh-Hant": "河原町五条",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4877105985",
+      "name": "河原町松原",
+      "lat": 34.9992875,
+      "lon": 135.7677647,
+      "tags": {
+        "bus": "yes",
+        "name": "河原町松原",
+        "name:en": "Kawaramachi Matsubara",
+        "name:ja": "河原町松原",
+        "name:ja-Hira": "かわらまちまつばら",
+        "name:ja-Latn": "Kawaramachi Matsubara",
+        "name:ko": "가와라마치마쓰바라",
+        "name:zh-Hans": "河原町松原",
+        "name:zh-Hant": "河原町松原",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4877105986",
+      "name": "河原町松原",
+      "lat": 34.9985578,
+      "lon": 135.7674522,
+      "tags": {
+        "bus": "yes",
+        "name": "河原町松原",
+        "name:en": "Kawaramachi Matsubara",
+        "name:ja": "河原町松原",
+        "name:ja-Hira": "かわらまちまつばら",
+        "name:ja-Latn": "Kawaramachi Matsubara",
+        "name:ko": "가와라마치마쓰바라",
+        "name:zh-Hans": "河原町松原",
+        "name:zh-Hant": "河原町松原",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4893246674",
+      "name": "岡崎公園 動物園前",
+      "lat": 35.013613,
+      "lon": 135.783999,
+      "tags": {
+        "bus": "yes",
+        "name": "岡崎公園 動物園前",
+        "name:en": "Okazaki Koen / Dobutsuen-mae",
+        "name:ja": "岡崎公園 動物園前",
+        "name:ja-Hira": "おかざきこうえん どうぶつえんまえ",
+        "name:ja-Latn": "Okazaki Kōen / Dōbutsuen-mae",
+        "name:ko": "오카자키코엔　도부쓰엔마에",
+        "name:zh-Hans": "冈崎公园　动物园前",
+        "name:zh-Hant": "岡崎公園　動物園前",
+        "official_name:en": "Okazaki Koen / Dobutsuen-mae (Zoo)",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4893246675",
+      "name": "岡崎公園 動物園前",
+      "lat": 35.0136131,
+      "lon": 135.7838872,
+      "tags": {
+        "bus": "yes",
+        "name": "岡崎公園 動物園前",
+        "name:en": "Okazaki Koen / Dobutsuen-mae",
+        "name:ja": "岡崎公園 動物園前",
+        "name:ja-Hira": "おかざきこうえん どうぶつえんまえ",
+        "name:ja-Latn": "Okazaki Kōen / Dōbutsuen-mae",
+        "name:ko": "오카자키코엔　도부쓰엔마에",
+        "name:zh-Hans": "冈崎公园　动物园前",
+        "name:zh-Hant": "岡崎公園　動物園前",
+        "official_name:en": "Okazaki Koen / Dobutsuen-mae (Zoo)",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4893246678",
+      "name": "岡崎公園 美術館・平安神宮前",
+      "lat": 35.0123613,
+      "lon": 135.7827,
+      "tags": {
+        "bus": "yes",
+        "name": "岡崎公園 美術館・平安神宮前",
+        "name:en": "Okazaki Koen Bijutsukan / Heian Jingu-mae",
+        "name:ja": "岡崎公園 美術館・平安神宮前",
+        "name:ja-Hira": "おかざきこうえん びじゅつかん・へいあんじんぐうまえ",
+        "name:ja-Latn": "Okazaki Kōen Bijutsukan / Heian Jingū-mae",
+        "name:ko": "오카자키코엔　비주쓰칸･헤이안진구마에",
+        "name:zh-Hans": "冈崎公园　美术馆・平安神宫前",
+        "name:zh-Hant": "岡崎公園　美術館・平安神宮前",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4893246679",
+      "name": "岡崎公園 美術館・平安神宮前",
+      "lat": 35.0123128,
+      "lon": 135.7827027,
+      "tags": {
+        "bus": "yes",
+        "name": "岡崎公園 美術館・平安神宮前",
+        "name:en": "Okazaki Koen Bijutsukan / Heian Jingu-mae",
+        "name:ja": "岡崎公園 美術館・平安神宮前",
+        "name:ja-Hira": "おかざきこうえん びじゅつかん・へいあんじんぐうまえ",
+        "name:ja-Latn": "Okazaki Kōen Bijutsukan / Heian Jingū-mae",
+        "name:ko": "오카자키코엔　비주쓰칸･헤이안진구마에",
+        "name:zh-Hans": "冈崎公园　美术馆・平安神宫前",
+        "name:zh-Hant": "岡崎公園　美術館・平安神宮前",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/4893246683",
+      "name": "河原町今出川",
+      "lat": 35.0278919,
+      "lon": 135.7694571,
+      "tags": {
+        "bus": "yes",
+        "name": "河原町今出川",
+        "name:en": "Kawaramachi Imadegawa",
+        "name:ja": "河原町今出川",
+        "name:ja-Hira": "かわらまちいまでがわ",
+        "name:ja-Latn": "Kawaramachi Imadegawa",
+        "name:ko": "가와라마치이마데가와",
+        "name:zh-Hans": "河原町今出川",
+        "name:zh-Hant": "河原町今出川",
+        "public_transport": "stop_position"
+      }
+    }
+  ]
+}

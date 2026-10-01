@@ -1,0 +1,781 @@
+{
+  "city": "Paris",
+  "centre": {
+    "lat": 48.8534951,
+    "lon": 2.3483915
+  },
+  "kind": "hotels",
+  "radius_m": 3000,
+  "count": 50,
+  "records": [
+    {
+      "id": "node/224711659",
+      "name": "Ibis",
+      "lat": 48.8403064,
+      "lon": 2.3155776,
+      "tags": {
+        "brand": "Ibis",
+        "brand:wikidata": "Q920166",
+        "brand:wikipedia": "en:Ibis (hotel)",
+        "check_date": "2025-06-19",
+        "name": "Ibis",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/247435032",
+      "name": "Hôtel Saint-Honoré",
+      "lat": 48.8611819,
+      "lon": 2.3436118,
+      "tags": {
+        "check_date": "2025-06-04",
+        "contact:city": "Paris",
+        "contact:housenumber": "85",
+        "contact:phone": "+33 1 42 36 20 38",
+        "contact:postcode": "75001",
+        "contact:street": "Rue Saint-Honoré",
+        "contact:website": "https://www.hotelsthonore.com",
+        "name": "Hôtel Saint-Honoré",
+        "ref:FR:SIRET": "59202468100013",
+        "stars": "3",
+        "tourism": "hotel",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/247435275",
+      "name": "Hôtel Montpensier",
+      "lat": 48.8643588,
+      "lon": 2.3362645,
+      "tags": {
+        "check_date": "2025-02-15",
+        "contact:housenumber": "12",
+        "contact:postcode": "75001",
+        "contact:street": "Rue de Richelieu",
+        "email": "hotel-montpensier@wanadoo.fr",
+        "name": "Hôtel Montpensier",
+        "phone": "+33 1 42 96 28 50",
+        "ref:FR:SIREN": "592016091",
+        "ref:FR:SIRET": "59201609100023",
+        "ref:vatin": "FR13592016091",
+        "stars": "2",
+        "tourism": "hotel",
+        "website": "https://www.hotelmontpensierparis.com/",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/247436637",
+      "name": "Hôtel Louvre Bon Enfants",
+      "lat": 48.8629098,
+      "lon": 2.3381793,
+      "tags": {
+        "check_date": "2024-06-01",
+        "name": "Hôtel Louvre Bon Enfants",
+        "ref:FR:SIRET": "48988043500016",
+        "stars": "3",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/247437972",
+      "name": "Hôtel Costes",
+      "lat": 48.8662827,
+      "lon": 2.3280089,
+      "tags": {
+        "addr:city": "Paris",
+        "addr:housenumber": "7",
+        "addr:postcode": "75001",
+        "addr:street": "Rue de Castiglione",
+        "name": "Hôtel Costes",
+        "tourism": "hotel",
+        "website": "https://hotelcostes.com",
+        "wikidata": "Q904945"
+      }
+    },
+    {
+      "id": "node/251001754",
+      "name": "Résidence les Boulevards",
+      "lat": 48.8696872,
+      "lon": 2.3486973,
+      "tags": {
+        "addr:housenumber": "10",
+        "addr:street": "Rue de la Villeneuve",
+        "check_date": "2025-07-03",
+        "name": "Résidence les Boulevards",
+        "stars": "4",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/251001755",
+      "name": "Hôtel Marie",
+      "lat": 48.8695728,
+      "lon": 2.348676,
+      "tags": {
+        "addr:housenumber": "6",
+        "addr:street": "Rue de la Villeneuve",
+        "check_date": "2025-07-03",
+        "name": "Hôtel Marie",
+        "ref:FR:SIRET": "85294858700013",
+        "tourism": "hotel",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/251127867",
+      "name": "Hôtel du Loiret",
+      "lat": 48.8569202,
+      "lon": 2.3552931,
+      "tags": {
+        "check_date": "2026-07-27",
+        "contact:email": "contact@hotelduloiret.fr",
+        "contact:fax": "+33 1 48 04 96 56",
+        "name": "Hôtel du Loiret",
+        "phone": "+33 1 48 87 77 00",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://www.hotelduloiret.fr",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/251127869",
+      "name": "Charles V",
+      "lat": 48.8534874,
+      "lon": 2.3618354,
+      "tags": {
+        "check_date": "2024-11-08",
+        "name": "Charles V",
+        "tourism": "hotel",
+        "wikidata": "Q112016371"
+      }
+    },
+    {
+      "id": "node/251130907",
+      "name": "Hôtel de la Place des Vosges",
+      "lat": 48.8544261,
+      "lon": 2.3652418,
+      "tags": {
+        "check_date": "2025-11-25",
+        "name": "Hôtel de la Place des Vosges",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/251531804",
+      "name": "Hôtel Port-Royal",
+      "lat": 48.8371263,
+      "lon": 2.350581,
+      "tags": {
+        "check_date": "2025-09-06",
+        "name": "Hôtel Port-Royal",
+        "phone": "+33 1 43 31 70 06",
+        "tourism": "hotel",
+        "website": "https://www.port-royal-hotel.fr"
+      }
+    },
+    {
+      "id": "node/251733867",
+      "name": "Le Clos Medicis",
+      "lat": 48.8482841,
+      "lon": 2.3405763,
+      "tags": {
+        "check_date": "2025-12-27",
+        "name": "Le Clos Medicis",
+        "stars": "3",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/251733871",
+      "name": "L'Hôtel",
+      "lat": 48.8563424,
+      "lon": 2.3352399,
+      "tags": {
+        "contact:email": "stay@l-hotel.com",
+        "contact:phone": "+33 1 44 41 99 00",
+        "name": "L'Hôtel",
+        "note": "c'est bien son nom",
+        "note:en": "this is the real name",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.l-hotel.com/",
+        "wikidata": "Q23283"
+      }
+    },
+    {
+      "id": "node/251733872",
+      "name": "Victoria Palace Hôtel",
+      "lat": 48.8457742,
+      "lon": 2.3243407,
+      "tags": {
+        "beds": "190",
+        "contact:phone": "+33 1 45 49 70 00",
+        "contact:website": "https://www.victoriapalace.com/",
+        "name": "Victoria Palace Hôtel",
+        "ref:FR:SIREN": "384753760",
+        "ref:FR:SIRET": "38475376000014",
+        "ref:vatin": "FR92384753760",
+        "rooms": "92",
+        "stars": "4",
+        "toilets:wheelchair": "yes",
+        "tourism": "hotel",
+        "wheelchair": "yes",
+        "wikidata": "Q21657468"
+      }
+    },
+    {
+      "id": "node/251758241",
+      "name": "Le Petit Chomel",
+      "lat": 48.8519344,
+      "lon": 2.3253667,
+      "tags": {
+        "contact:website": "http://www.lepetitchomel.com/",
+        "name": "Le Petit Chomel",
+        "stars": "3",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/251758242",
+      "name": "Signature",
+      "lat": 48.8521505,
+      "lon": 2.326091,
+      "tags": {
+        "alt_name": "Hôtel Signature - Saint-Germain-des-Prés",
+        "name": "Signature",
+        "phone": "+33 1 45 48 35 53",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.signature-saintgermain.com"
+      }
+    },
+    {
+      "id": "node/251758244",
+      "name": "Hôtel Saint-Dominique",
+      "lat": 48.8599286,
+      "lon": 2.308788,
+      "tags": {
+        "name": "Hôtel Saint-Dominique",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/251758245",
+      "name": "Hôtel Duquesne Eiffel",
+      "lat": 48.8526441,
+      "lon": 2.3090461,
+      "tags": {
+        "check_date": "2026-09-05",
+        "name": "Hôtel Duquesne Eiffel",
+        "tourism": "hotel",
+        "wikidata": "Q111390690"
+      }
+    },
+    {
+      "id": "node/251851365",
+      "name": "Matissia",
+      "lat": 48.876717,
+      "lon": 2.3485948,
+      "tags": {
+        "check_date": "2026-06-12",
+        "contact:city": "Paris",
+        "contact:email": "contact@matissia.com",
+        "contact:housenumber": "4",
+        "contact:phone": "+33 1 42 46 48 66",
+        "contact:postcode": "75009",
+        "contact:street": "Rue de Montholon",
+        "contact:website": "https://www.matissia.com/",
+        "name": "Matissia",
+        "stars": "4",
+        "tourism": "hotel",
+        "wikidata": "Q112016465"
+      }
+    },
+    {
+      "id": "node/251851395",
+      "name": "Hôtel du Terrage",
+      "lat": 48.8774454,
+      "lon": 2.3624214,
+      "tags": {
+        "check_date": "2024-10-18",
+        "contact:city": "Paris",
+        "contact:housenumber": "25",
+        "contact:postcode": "75010",
+        "contact:street": "Rue du Terrage",
+        "name": "Hôtel du Terrage",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/251851402",
+      "name": "Hôtel Brady",
+      "lat": 48.8711954,
+      "lon": 2.3550205,
+      "tags": {
+        "check_date": "2025-09-22",
+        "contact:city": "Paris",
+        "contact:email": "contact@hotelbrady.com",
+        "contact:housenumber": "31",
+        "contact:phone": "+33 1 47 70 25 00",
+        "contact:postcode": "75010",
+        "contact:street": "Boulevard de Strasbourg",
+        "contact:website": "https://www.hotelbrady.com/",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Hôtel Brady",
+        "ref:FR:SIRET": "53869527100014",
+        "rooms": "54",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/252683844",
+      "name": "New Hotel Republique",
+      "lat": 48.8661043,
+      "lon": 2.3685294,
+      "tags": {
+        "check_date": "2026-07-18",
+        "name": "New Hotel Republique",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/252684077",
+      "name": "Grand Hôtel Nouvel Opera",
+      "lat": 48.8551772,
+      "lon": 2.3787982,
+      "tags": {
+        "check_date": "2026-04-14",
+        "name": "Grand Hôtel Nouvel Opera",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/252732427",
+      "name": "Hôtel du Nord et de l'Est",
+      "lat": 48.8658412,
+      "lon": 2.367479,
+      "tags": {
+        "check_date": "2022-08-18",
+        "name": "Hôtel du Nord et de l'Est",
+        "stars": "3",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/252788280",
+      "name": "Hôtel Parisianer",
+      "lat": 48.8456578,
+      "lon": 2.3753746,
+      "tags": {
+        "check_date": "2024-08-09",
+        "name": "Hôtel Parisianer",
+        "ref:FR:SIRET": "54203966400017",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/252793231",
+      "name": "9 Hôtel Bastille-Lyon",
+      "lat": 48.8473827,
+      "lon": 2.3714639,
+      "tags": {
+        "addr:city": "Paris",
+        "addr:housenumber": "23",
+        "addr:postcode": "75012",
+        "addr:street": "Rue de Lyon",
+        "brand": "9 HOTEL COLLECTION",
+        "check_date": "2024-11-18",
+        "name": "9 Hôtel Bastille-Lyon",
+        "ref:FR:SIRET": "31839330300017",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/252806984",
+      "name": "Paris Reuilly - Aparthotels Adagio",
+      "lat": 48.8490103,
+      "lon": 2.3856902,
+      "tags": {
+        "brand": "Adagio",
+        "brand:wikidata": "Q2823880",
+        "brand:wikipedia": "fr:Adagio Aparthotel",
+        "check_date": "2026-08-12",
+        "name": "Paris Reuilly - Aparthotels Adagio",
+        "tourism": "hotel",
+        "website": "https://all.accor.com/hotel/8984/index.fr.shtml"
+      }
+    },
+    {
+      "id": "node/252806985",
+      "name": "Hôtel Palym",
+      "lat": 48.8462381,
+      "lon": 2.3733925,
+      "tags": {
+        "check_date": "2025-09-16",
+        "name": "Hôtel Palym",
+        "ref:FR:SIRET": "47793989600015",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/252809356",
+      "name": "Novotel",
+      "lat": 48.8452783,
+      "lon": 2.3754729,
+      "tags": {
+        "brand": "Novotel",
+        "brand:wikidata": "Q420545",
+        "brand:wikipedia": "en:Novotel",
+        "check_date": "2024-10-28",
+        "name": "Novotel",
+        "tourism": "hotel",
+        "website": "https://all.accor.com/hotel/1735/index.fr.shtml"
+      }
+    },
+    {
+      "id": "node/252817439",
+      "name": "Kyriad Italie Gobelins",
+      "lat": 48.8337711,
+      "lon": 2.3550065,
+      "tags": {
+        "brand": "Kyriad",
+        "brand:wikidata": "Q11751808",
+        "brand:wikipedia": "pl:Kyriad",
+        "description": "2 phone numbers : +33173219800 is for booking, +33147072090 is the hotel reception",
+        "name": "Kyriad Italie Gobelins",
+        "phone": "+33 1 73 21 98 00;+33 1 47 07 20 90",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "http://www.kyriad-paris-13-italie-gobelins.fr",
+        "wikidata": "Q111113788"
+      }
+    },
+    {
+      "id": "node/252819330",
+      "name": "Ibis Styles",
+      "lat": 48.8283394,
+      "lon": 2.3473619,
+      "tags": {
+        "addr:housenumber": "22",
+        "addr:postcode": "75013",
+        "addr:street": "Rue Barrault",
+        "branch": "Butte aux Cailles",
+        "brand": "Ibis Styles",
+        "brand:wikidata": "Q3147425",
+        "brand:wikipedia": "en:Ibis Styles",
+        "email": "HA4A6@accor.com",
+        "internet_access": "wlan",
+        "name": "Ibis Styles",
+        "operator": "Ibis",
+        "outdoor_seating": "no",
+        "phone": "+33 1 45 80 67 67",
+        "rooms": "72",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://all.accor.com/hotel/A4A6/index.fr.shtml",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/252819332",
+      "name": "Jack's",
+      "lat": 48.8329489,
+      "lon": 2.3593174,
+      "tags": {
+        "check_date": "2024-09-18",
+        "name": "Jack's",
+        "phone": "+33 1 45 85 17 34",
+        "ref:FR:SIRET": "31541058900016",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://www.jacks-hotel.com",
+        "wikidata": "Q111390530"
+      }
+    },
+    {
+      "id": "node/252819333",
+      "name": "La Manufacture",
+      "lat": 48.8329337,
+      "lon": 2.355328,
+      "tags": {
+        "check_date": "2024-09-01",
+        "name": "La Manufacture",
+        "tourism": "hotel",
+        "wikidata": "Q111390532"
+      }
+    },
+    {
+      "id": "node/252820658",
+      "name": "Mercure Gobelins",
+      "lat": 48.8321073,
+      "lon": 2.3538107,
+      "tags": {
+        "brand": "Mercure",
+        "brand:wikidata": "Q1709809",
+        "brand:wikipedia": "en:Mercure (hotel)",
+        "name": "Mercure Gobelins",
+        "tourism": "hotel",
+        "website": "https://all.accor.com/hotel/1191/index.fr.shtml",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/252820661",
+      "name": "Hôtel Inn Design",
+      "lat": 48.8316492,
+      "lon": 2.3573458,
+      "tags": {
+        "contact:email": "hid.paris13@gmail.com",
+        "contact:phone": "+33 1 44 24 01 01",
+        "contact:website": "https://hotel-inn-paris.fr/",
+        "name": "Hôtel Inn Design",
+        "stars": "3",
+        "tourism": "hotel",
+        "wheelchair": "designated"
+      }
+    },
+    {
+      "id": "node/253983923",
+      "name": "Hôtel Bonne Nouvelle",
+      "lat": 48.8693546,
+      "lon": 2.3495274,
+      "tags": {
+        "addr:floor": "0",
+        "addr:housenumber": "17",
+        "addr:street": "Rue Beauregard",
+        "check_date": "2025-07-03",
+        "level": "0",
+        "name": "Hôtel Bonne Nouvelle",
+        "stars": "3",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/253986765",
+      "name": "Tiquetonne Hôtel",
+      "lat": 48.8644952,
+      "lon": 2.3495828,
+      "tags": {
+        "name": "Tiquetonne Hôtel",
+        "ref:FR:SIRET": "98469335800025",
+        "stars": "1",
+        "tourism": "hotel",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/253987375",
+      "name": "Hôtel Paris Opéra",
+      "lat": 48.8713219,
+      "lon": 2.3426051,
+      "tags": {
+        "check_date": "2024-09-06",
+        "name": "Hôtel Paris Opéra",
+        "ref:FR:SIRET": "50152661000024",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "http://www.solmelia.com"
+      }
+    },
+    {
+      "id": "node/253993053",
+      "name": "Hôtel Victoires Opéra",
+      "lat": 48.8649114,
+      "lon": 2.3469659,
+      "tags": {
+        "addr:city": "Paris",
+        "addr:housenumber": "56",
+        "addr:postcode": "75002",
+        "addr:street": "Rue Montorgueil",
+        "air_conditioning": "yes",
+        "check_date": "2026-01-16",
+        "contact:phone": "+33 1 42 36 41 08",
+        "contact:website": "https://hotelvictoiresopera.com/",
+        "name": "Hôtel Victoires Opéra",
+        "source": "survey 01/2019",
+        "stars": "4",
+        "tourism": "hotel",
+        "wheelchair": "yes",
+        "wikidata": "Q111877121"
+      }
+    },
+    {
+      "id": "node/254009082",
+      "name": "Grand Hôtel des Arts et Métiers",
+      "lat": 48.866283,
+      "lon": 2.3573686,
+      "tags": {
+        "name": "Grand Hôtel des Arts et Métiers",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/259477205",
+      "name": "Novotel Paris Gare Montparnasse",
+      "lat": 48.8384924,
+      "lon": 2.3151043,
+      "tags": {
+        "addr:city": "Paris",
+        "addr:housenumber": "17",
+        "addr:postcode": "75015",
+        "addr:street": "Rue du Cotentin",
+        "air_conditioning": "yes",
+        "brand": "Novotel",
+        "brand:wikidata": "Q420545",
+        "brand:wikipedia": "fr:Novotel",
+        "check_date": "2026-05-03",
+        "email": "H5060@accor.com",
+        "internet_access": "wlan",
+        "name": "Novotel Paris Gare Montparnasse",
+        "phone": "+33 1 53 91 23 75",
+        "tourism": "hotel",
+        "website": "https://all.accor.com/hotel/5060/index.fr.shtml"
+      }
+    },
+    {
+      "id": "node/268057549",
+      "name": "Hôtel Le Littré",
+      "lat": 48.8454273,
+      "lon": 2.3241304,
+      "tags": {
+        "check_date": "2024-07-23",
+        "name": "Hôtel Le Littré",
+        "toilets:wheelchair": "yes",
+        "tourism": "hotel",
+        "wheelchair": "yes",
+        "wikidata": "Q111390611"
+      }
+    },
+    {
+      "id": "node/274261929",
+      "name": "InterContinental Paris le Grand",
+      "lat": 48.8707271,
+      "lon": 2.3303365,
+      "tags": {
+        "brand": "InterContinental",
+        "brand:wikidata": "Q1825730",
+        "check_date": "2025-07-28",
+        "email": "legrand.reservation@ihg.com",
+        "name": "InterContinental Paris le Grand",
+        "old_name": "Grand Hôtel",
+        "phone": "+33 1 40 07 32 32",
+        "tourism": "hotel",
+        "website": "https://parislegrand.intercontinental.com/fr/",
+        "wheelchair": "yes",
+        "wikidata": "Q3153054",
+        "wikipedia": "fr:InterContinental Paris Le Grand"
+      }
+    },
+    {
+      "id": "node/281000310",
+      "name": "Edgar & Achille",
+      "lat": 48.8684839,
+      "lon": 2.3499184,
+      "tags": {
+        "addr:housenumber": "1",
+        "addr:street": "Rue Sainte-Foy",
+        "check_date": "2025-08-20",
+        "contact:website": "http://www.edgarparis.com/accueil.html#hotel",
+        "email": "hello@edgaretachille.com",
+        "name": "Edgar & Achille",
+        "phone": "+33 1 40 41 05 19",
+        "tourism": "hotel",
+        "website": "https://edgaretachille.com",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/289439794",
+      "name": "Hôtel Sofitel Le Faubourg",
+      "lat": 48.8684048,
+      "lon": 2.3213802,
+      "tags": {
+        "name": "Hôtel Sofitel Le Faubourg",
+        "tourism": "hotel",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/293982721",
+      "name": "Crowne Plaza Paris Republique Hotel",
+      "lat": 48.8672946,
+      "lon": 2.3655334,
+      "tags": {
+        "addr:city": "Paris",
+        "addr:housenumber": "10",
+        "addr:place": "Place de la République",
+        "addr:postcode": "75011",
+        "addr:street": "Place de la République",
+        "brand": "Crowne Plaza",
+        "brand:wikidata": "Q2746220",
+        "brand:wikipedia": "en:Crowne Plaza",
+        "check_date": "2024-05-05",
+        "contact:facebook": "CrownePlazaParisRepublique",
+        "email": "reservations@cp-paris.com",
+        "internet_access": "wlan",
+        "name": "Crowne Plaza Paris Republique Hotel",
+        "phone": "+33 1 43 14 43 50",
+        "self_service": "no",
+        "tourism": "hotel",
+        "website": "https://www.ihg.com/crowneplaza/hotels/gb/en/paris/pardl/hoteldetail",
+        "wheelchair": "yes",
+        "wikidata": "Q111390786"
+      }
+    },
+    {
+      "id": "node/306024613",
+      "name": "Hôtel États-Unis Opéra",
+      "lat": 48.8690342,
+      "lon": 2.3336525,
+      "tags": {
+        "name": "Hôtel États-Unis Opéra",
+        "ref:FR:SIRET": "58202949200011",
+        "tourism": "hotel",
+        "wikidata": "Q111411982"
+      }
+    },
+    {
+      "id": "node/306025542",
+      "name": "Hôtel L'Horset Opéra",
+      "lat": 48.8690718,
+      "lon": 2.3338065,
+      "tags": {
+        "check_date": "2025-03-31",
+        "name": "Hôtel L'Horset Opéra",
+        "ref:FR:SIRET": "57206380800016",
+        "tourism": "hotel",
+        "wikidata": "Q111390813"
+      }
+    },
+    {
+      "id": "node/308530497",
+      "name": "Hôtel Scribe",
+      "lat": 48.8706574,
+      "lon": 2.3296691,
+      "tags": {
+        "check_date": "2024-05-20",
+        "name": "Hôtel Scribe",
+        "name:zh": "索菲特巴黎斯克里布酒店",
+        "stars": "5",
+        "tourism": "hotel",
+        "wikidata": "Q60321251"
+      }
+    },
+    {
+      "id": "node/320952626",
+      "name": "Hôtel de Suez",
+      "lat": 48.8497957,
+      "lon": 2.3426515,
+      "tags": {
+        "name": "Hôtel de Suez",
+        "phone": "+33 1 53 10 34 00",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "http://www.hoteldesuez.fr"
+      }
+    }
+  ]
+}

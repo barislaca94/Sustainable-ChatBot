@@ -1,0 +1,527 @@
+{
+  "city": "Berlin",
+  "centre": {
+    "lat": 52.5173885,
+    "lon": 13.3951309
+  },
+  "kind": "transit",
+  "radius_m": 2000,
+  "count": 30,
+  "records": [
+    {
+      "id": "node/27411231",
+      "name": "Alexanderplatz",
+      "lat": 52.5214176,
+      "lon": 13.4113816,
+      "tags": {
+        "description": "S Alexanderplatz, Gleis 3",
+        "light_rail": "yes",
+        "name": "Alexanderplatz",
+        "name:de": "Alexanderplatz",
+        "name:ja": "アレクサンダー広場",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "operator": "DB InfraGO AG",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "3",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/27411240",
+      "name": "Hackescher Markt",
+      "lat": 52.5226166,
+      "lon": 13.4023469,
+      "tags": {
+        "description": "S Hackescher Markt, Gleis 3",
+        "level": "1",
+        "light_rail": "yes",
+        "name": "Hackescher Markt",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "operator": "DB InfraGO AG",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "3",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/27412232",
+      "name": "Friedrichstraße",
+      "lat": 52.5203431,
+      "lon": 13.3871988,
+      "tags": {
+        "description": "S Friedrichstraße, Gleis 5",
+        "level": "3",
+        "light_rail": "yes",
+        "name": "Friedrichstraße",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "operator": "DB InfraGO AG",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "5",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/27412648",
+      "name": "Hauptbahnhof",
+      "lat": 52.5251819,
+      "lon": 13.37003,
+      "tags": {
+        "level": "2",
+        "light_rail": "yes",
+        "local_ref": "15",
+        "name": "Hauptbahnhof",
+        "operator": "DB InfraGO AG",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "15",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/27424921",
+      "name": "Berlin Potsdamer Platz",
+      "lat": 52.5093176,
+      "lon": 13.3756363,
+      "tags": {
+        "layer": "-4",
+        "level": "-3",
+        "local_ref": "1",
+        "name": "Berlin Potsdamer Platz",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "operator": "DB InfraGO AG",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "railway:ref": "BPOF",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/29058100",
+      "name": "Oranienburger Tor",
+      "lat": 52.5256031,
+      "lon": 13.3872745,
+      "tags": {
+        "name": "Oranienburger Tor",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "263501",
+        "subway": "yes",
+        "surveillance": "indoor",
+        "website": "https://qr.bvg.de/h263501"
+      }
+    },
+    {
+      "id": "node/29221534",
+      "name": "Memhardstraße",
+      "lat": 52.5239185,
+      "lon": 13.4107231,
+      "tags": {
+        "bus": "yes",
+        "gtfs:stop_id": "de:11000:900100030::8",
+        "highway": "bus_stop",
+        "name": "Memhardstraße",
+        "public_transport": "stop_position",
+        "ref:BVG": "107113",
+        "website": "https://fahrinfo.vbb.de/bin/stboard.exe/dn?start=yes&input=900100030"
+      }
+    },
+    {
+      "id": "node/29494288",
+      "name": "Heinrich-Heine-Straße",
+      "lat": 52.510471,
+      "lon": 13.4159741,
+      "tags": {
+        "name": "Heinrich-Heine-Straße",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "283801",
+        "subway": "yes",
+        "website": "https://qr.bvg.de/h283801"
+      }
+    },
+    {
+      "id": "node/29494289",
+      "name": "Moritzplatz",
+      "lat": 52.5036644,
+      "lon": 13.410604,
+      "tags": {
+        "description": "U Moritzplatz, Gleis 1",
+        "name": "Moritzplatz",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "283901",
+        "subway": "yes",
+        "website": "https://qr.bvg.de/h283901"
+      }
+    },
+    {
+      "id": "node/29494301",
+      "name": "Jannowitzbrücke",
+      "lat": 52.5153554,
+      "lon": 13.4181732,
+      "tags": {
+        "name": "Jannowitzbrücke",
+        "operator": "Berliner Verkehrsbetriebe",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q1647893",
+        "wikipedia": "de:Bahnhof Berlin Jannowitzbrücke"
+      }
+    },
+    {
+      "id": "node/29495029",
+      "name": "Klosterstraße",
+      "lat": 52.5172066,
+      "lon": 13.4125273,
+      "tags": {
+        "description": "U Klosterstraße, Gleis 2",
+        "name": "Klosterstraße",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "222702",
+        "subway": "yes",
+        "website": "https://qr.bvg.de/h222702"
+      }
+    },
+    {
+      "id": "node/29495034",
+      "name": "Märkisches Museum",
+      "lat": 52.5123062,
+      "lon": 13.4102013,
+      "tags": {
+        "description": "U Märkisches Museum, Gleis 2",
+        "name": "Märkisches Museum",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "222802",
+        "subway": "yes",
+        "website": "https://qr.bvg.de/h222802"
+      }
+    },
+    {
+      "id": "node/29495041",
+      "name": "Hausvogteiplatz",
+      "lat": 52.5133073,
+      "lon": 13.3955568,
+      "tags": {
+        "description": "U Hausvogteiplatz, Gleis 2",
+        "name": "Hausvogteiplatz",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "223002",
+        "subway": "yes",
+        "website": "https://qr.bvg.de/h223002",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/29495047",
+      "name": "Anton-Wilhelm-Amo-Straße",
+      "lat": 52.511813,
+      "lon": 13.3858515,
+      "tags": {
+        "description": "U Anton-Wilhelm-Amo-Straße, Gleis",
+        "name": "Anton-Wilhelm-Amo-Straße",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "223202",
+        "subway": "yes",
+        "website": "https://qr.bvg.de/h223202"
+      }
+    },
+    {
+      "id": "node/29495049",
+      "name": "Potsdamer Platz",
+      "lat": 52.509134,
+      "lon": 13.3783037,
+      "tags": {
+        "name": "Potsdamer Platz",
+        "name:BVG": "S+U Potsdamer Platz [U2]",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "223302",
+        "subway": "yes",
+        "website": "https://qr.bvg.de/h223302"
+      }
+    },
+    {
+      "id": "node/29805120",
+      "name": "Berlin Friedrichstraße",
+      "lat": 52.5200215,
+      "lon": 13.3870305,
+      "tags": {
+        "description": "Friedrichstraße, Gleis 1",
+        "level": "3",
+        "name": "Berlin Friedrichstraße",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "operator": "DB InfraGO AG",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "1",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/30353079",
+      "name": "Potsdamer Platz",
+      "lat": 52.5092642,
+      "lon": 13.3763912,
+      "tags": {
+        "light_rail": "yes",
+        "local_ref": "11",
+        "name": "Potsdamer Platz",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "operator": "DB InfraGO AG",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/30353449",
+      "name": "Oranienburger Straße",
+      "lat": 52.5251817,
+      "lon": 13.3928834,
+      "tags": {
+        "light_rail": "yes",
+        "name": "Oranienburger Straße",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref": "1",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/30731481",
+      "name": "Spandauer Straße/Marienkirche",
+      "lat": 52.5204243,
+      "lon": 13.4042441,
+      "tags": {
+        "name": "Spandauer Straße/Marienkirche",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "308806",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h308806"
+      }
+    },
+    {
+      "id": "node/30731497",
+      "name": "U Alexanderplatz",
+      "lat": 52.5221645,
+      "lon": 13.4147332,
+      "tags": {
+        "local_ref": "12",
+        "name": "U Alexanderplatz",
+        "name:BVG": "U Alexanderplatz [Tram]",
+        "name:ja": "U アレクサンダー広場",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "operator": "Berliner Verkehrsbetriebe",
+        "operator:short": "BVG",
+        "operator:wikidata": "Q99633",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "308808",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h308808",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/30731498",
+      "name": "Mollstraße/Otto-Braun-Straße",
+      "lat": 52.5249915,
+      "lon": 13.4204664,
+      "tags": {
+        "name": "Mollstraße/Otto-Braun-Straße",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "309132",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h309132",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/30731507",
+      "name": "Mollstraße/Otto-Braun-Straße",
+      "lat": 52.5255473,
+      "lon": 13.4202755,
+      "tags": {
+        "name": "Mollstraße/Otto-Braun-Straße",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "309429",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h309429",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/30731508",
+      "name": "S+U Alexanderplatz/Gontardstraße",
+      "lat": 52.5208822,
+      "lon": 13.4115103,
+      "tags": {
+        "local_ref": "16",
+        "name": "S+U Alexanderplatz/Gontardstraße",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "operator": "Berliner Verkehrsbetriebe",
+        "operator:short": "BVG",
+        "operator:wikidata": "Q99633",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "308807",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h308807"
+      }
+    },
+    {
+      "id": "node/30731700",
+      "name": "U Oranienburger Tor",
+      "lat": 52.5258817,
+      "lon": 13.3873633,
+      "tags": {
+        "gtfs:stop_id": "de:11000:900100019::3",
+        "name": "U Oranienburger Tor",
+        "name:BVG": "U Oranienburger Tor [Tram/Bus]",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "309378",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h309378",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/30732016",
+      "name": "U Rosa-Luxemburg-Platz",
+      "lat": 52.528517,
+      "lon": 13.4108348,
+      "tags": {
+        "name": "U Rosa-Luxemburg-Platz",
+        "name:ja": "U ロザ・ルクセンブルク広場",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "309150",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h309150",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/30732068",
+      "name": "S+U Alexanderplatz/Memhardstraße",
+      "lat": 52.5236711,
+      "lon": 13.4116514,
+      "tags": {
+        "gtfs:stop_id": "de:11000:900100030::6",
+        "local_ref": "5",
+        "name": "S+U Alexanderplatz/Memhardstraße",
+        "name:BVG": "S+U Alexanderplatz/Memhardstraße [4-5]",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "5",
+        "ref:BVG": "308818",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h308818",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/30732071",
+      "name": "Mollstraße/Prenzlauer Allee",
+      "lat": 52.5278448,
+      "lon": 13.4165112,
+      "tags": {
+        "name": "Mollstraße/Prenzlauer Allee",
+        "name:ja": "モル通り/プレンツラウアー・アレー",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "309556",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h309556"
+      }
+    },
+    {
+      "id": "node/55189765",
+      "name": "Schillingstraße",
+      "lat": 52.5206939,
+      "lon": 13.4212287,
+      "tags": {
+        "description": "U Schillingstraße, Gleis 2",
+        "name": "Schillingstraße",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "ref:BVG": "253902",
+        "subway": "yes",
+        "website": "https://qr.bvg.de/h253902"
+      }
+    },
+    {
+      "id": "node/244486083",
+      "name": "S+U Alexanderplatz/Dircksenstraße",
+      "lat": 52.521606,
+      "lon": 13.4117675,
+      "tags": {
+        "local_ref": "13",
+        "name": "S+U Alexanderplatz/Dircksenstraße",
+        "network": "Verkehrsverbund Berlin-Brandenburg",
+        "network:short": "VBB",
+        "network:wikidata": "Q315451",
+        "note": "sometimes (at least once a day) used by M2",
+        "operator": "Berliner Verkehrsbetriebe",
+        "operator:short": "BVG",
+        "operator:wikidata": "Q99633",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "308816",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h308816"
+      }
+    },
+    {
+      "id": "node/244486144",
+      "name": "Mollstraße/Otto-Braun-Straße",
+      "lat": 52.5247719,
+      "lon": 13.4194109,
+      "tags": {
+        "name": "Mollstraße/Otto-Braun-Straße",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:BVG": "308809",
+        "tram": "yes",
+        "website": "https://qr.bvg.de/h308809",
+        "wheelchair": "yes"
+      }
+    }
+  ]
+}

@@ -1,0 +1,599 @@
+{
+  "city": "Kyoto",
+  "centre": {
+    "lat": 35.0115754,
+    "lon": 135.7681441
+  },
+  "kind": "attractions",
+  "radius_m": 3000,
+  "count": 39,
+  "records": [
+    {
+      "id": "node/928666925",
+      "name": "西陣織会館",
+      "lat": 35.0288908,
+      "lon": 135.7514579,
+      "tags": {
+        "historic": "monument",
+        "image": "https://photos.app.goo.gl/enQokFdPMHkhXw1Q7",
+        "name": "西陣織会館",
+        "name:en": "NISHIJIN TEXTILE INDUSTRIUL ASSOCIATION",
+        "name:ja": "西陣織会館",
+        "name:zh": "西陣織會館",
+        "wheelchair": "limited",
+        "wheelchair:description": "入口前スロープあり"
+      }
+    },
+    {
+      "id": "node/1180840647",
+      "name": "京都市立考古資料館",
+      "lat": 35.0299042,
+      "lon": 135.7496545,
+      "tags": {
+        "fee": "no",
+        "name": "京都市立考古資料館",
+        "source": "Bing, 2007-12",
+        "tourism": "museum",
+        "website": "https://www.kyoto-arc.or.jp/siryoukan01.html"
+      }
+    },
+    {
+      "id": "node/1422960064",
+      "name": "京菓子資料館",
+      "lat": 35.032418,
+      "lon": 135.75896,
+      "tags": {
+        "name": "京菓子資料館",
+        "name:de": "Süsswaren-Museum",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum"
+      }
+    },
+    {
+      "id": "node/1422960588",
+      "name": "京都大学総合博物館",
+      "lat": 35.0273566,
+      "lon": 135.7792615,
+      "tags": {
+        "fee": "yes",
+        "name": "京都大学総合博物館",
+        "name:de": "Musuem der Universität Kyōto",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2 ; knowledge",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum"
+      }
+    },
+    {
+      "id": "node/1422961100",
+      "name": "京都市学校歴史博物館",
+      "lat": 35.0007007,
+      "lon": 135.7657254,
+      "tags": {
+        "name": "京都市学校歴史博物館",
+        "name:en": "Kyoto Municipal Museum of School History",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q11375001",
+        "wikipedia": "ja:京都市学校歴史博物館"
+      }
+    },
+    {
+      "id": "node/1422961228",
+      "name": "京都市歴史資料館",
+      "lat": 35.0191504,
+      "lon": 135.7676014,
+      "tags": {
+        "name": "京都市歴史資料館",
+        "name:de": "Museum für Stadtgeschichte",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q6452125"
+      }
+    },
+    {
+      "id": "node/1422961307",
+      "name": "京都芸大附属芸術資料館",
+      "lat": 34.9867719,
+      "lon": 135.7639168,
+      "tags": {
+        "museum": "art",
+        "name": "京都芸大附属芸術資料館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "operator": "公立大学法人京都市立芸術大学",
+        "operator:type": "university",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "website": "https://libmuse.kcua.ac.jp/muse/"
+      }
+    },
+    {
+      "id": "node/1422961323",
+      "name": "京都市考古資料館",
+      "lat": 35.030006,
+      "lon": 135.749673,
+      "tags": {
+        "name": "京都市考古資料館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q11375124",
+        "wikipedia": "ja:京都市考古資料館"
+      }
+    },
+    {
+      "id": "node/1422961787",
+      "name": "京都芸術センター",
+      "lat": 35.005437,
+      "lon": 135.7582688,
+      "tags": {
+        "fee": "no",
+        "name": "京都芸術センター",
+        "name:en": "Kyoto art center",
+        "name:fr": "Centre artistique de Kyoto",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "opening_hours": "Tu-Sa 10:00-18:00",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wheelchair": "yes",
+        "wikidata": "Q6452114"
+      }
+    },
+    {
+      "id": "node/1422962103",
+      "name": "何必館・京都現代美術館",
+      "lat": 35.0040072,
+      "lon": 135.7754288,
+      "tags": {
+        "name": "何必館・京都現代美術館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q136472115"
+      }
+    },
+    {
+      "id": "node/1422962861",
+      "name": "大西清右衛門美術館",
+      "lat": 35.0084203,
+      "lon": 135.7557561,
+      "tags": {
+        "KSJ2:ADS": "三条新町西入ル釜座町18",
+        "KSJ2:AdminArea": "京都府京都市中京区",
+        "check_date": "2025-04-12",
+        "name": "大西清右衛門美術館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "operator:type": "private",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q127602236"
+      }
+    },
+    {
+      "id": "node/1422964771",
+      "name": "幕末維新ミュージアム霊山歴史館",
+      "lat": 34.999059,
+      "lon": 135.782717,
+      "tags": {
+        "name": "幕末維新ミュージアム霊山歴史館",
+        "name:en": "Ryozen Museum of History",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q3329667"
+      }
+    },
+    {
+      "id": "node/1422965148",
+      "name": "FUREAIKAN ART & CRAFTS 日図デザイン博物館",
+      "lat": 35.0127156,
+      "lon": 135.7810163,
+      "tags": {
+        "addr:street": "Okasai Seishojicho9",
+        "name": "FUREAIKAN ART & CRAFTS 日図デザイン博物館",
+        "name:de": "Museum für Bildhauerei",
+        "name:en": "Kyoto Museum of Traditional Crafts",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "phone": "+81757622670",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "website": "https://kmtc.jp/"
+      }
+    },
+    {
+      "id": "node/1422966440",
+      "name": "樂美術館",
+      "lat": 35.025676,
+      "lon": 135.75327,
+      "tags": {
+        "KSJ2:ADS": "油小路中立売上ル",
+        "KSJ2:AdminArea": "京都府京都市上京区",
+        "name": "樂美術館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "operator:type": "private",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q125002905"
+      }
+    },
+    {
+      "id": "node/1422967954",
+      "name": "白沙村荘橋本関雪記念館",
+      "lat": 35.0270223,
+      "lon": 135.7930398,
+      "tags": {
+        "name": "白沙村荘橋本関雪記念館",
+        "name:en": "Hakusa-sonso Museum",
+        "name:fr": "Musee de Hakusa-sonso",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum"
+      }
+    },
+    {
+      "id": "node/1422970994",
+      "name": "細見美術館",
+      "lat": 35.0137793,
+      "lon": 135.7796211,
+      "tags": {
+        "name": "細見美術館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q11606115"
+      }
+    },
+    {
+      "id": "node/1422971835",
+      "name": "茶道資料館",
+      "lat": 35.0347064,
+      "lon": 135.7518151,
+      "tags": {
+        "name": "茶道資料館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum"
+      }
+    },
+    {
+      "id": "node/1422971893",
+      "name": "藤井斉成会有鄰館",
+      "lat": 35.0116305,
+      "lon": 135.7812083,
+      "tags": {
+        "name": "藤井斉成会有鄰館",
+        "name:en": "Yurinkan museum",
+        "name:fr": "Musée Yurinkan",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q11622794",
+        "wikipedia": "ja:藤井斉成会有鄰館"
+      }
+    },
+    {
+      "id": "node/1422972202",
+      "name": "豊国神社宝物館",
+      "lat": 34.990973,
+      "lon": 135.772511,
+      "tags": {
+        "KSJ2:ADS": "大和大路正面茶屋町530",
+        "KSJ2:AdminArea": "京都府京都市東山区",
+        "name": "豊国神社宝物館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "operator:type": "private",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum"
+      }
+    },
+    {
+      "id": "node/1422972380",
+      "name": "遠藤剛キ美術館",
+      "lat": 34.999693,
+      "lon": 135.750857,
+      "tags": {
+        "KSJ2:ADS": "猪熊通高辻下ル",
+        "KSJ2:AdminArea": "京都府京都市下京区",
+        "name": "遠藤剛キ美術館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "operator:type": "private",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum"
+      }
+    },
+    {
+      "id": "node/1422972907",
+      "name": "風俗博物館",
+      "lat": 34.993226,
+      "lon": 135.753275,
+      "tags": {
+        "KSJ2:ADS": "西中筋六条下ル住吉町42",
+        "KSJ2:AdminArea": "京都府京都市下京区",
+        "name": "風俗博物館",
+        "note": "National-Land Numerical Information (Public Facility) 2006, MLIT Japan",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "operator:type": "private",
+        "source": "KSJ2",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "museum",
+        "wikidata": "Q11665410",
+        "wikipedia": "ja:風俗博物館"
+      }
+    },
+    {
+      "id": "node/1977407608",
+      "name": "高台寺掌美術館",
+      "lat": 35.000624,
+      "lon": 135.7798039,
+      "tags": {
+        "contact:tripadvisor": "7279559",
+        "contact:website": "https://www.kodaiji.com/museum/",
+        "museum": "art",
+        "name": "高台寺掌美術館",
+        "name:en": "Kōdai-ji Shō Art Museum",
+        "name:fr": "Musée d'art Shō",
+        "name:ja": "高台寺掌美術館",
+        "name:ja-Hira": "こうたいじ しょう びじゅつかん",
+        "name:ja-Latn": "Kōdai-ji Shō bijutsukan",
+        "source": "Survey",
+        "start_date": "1998",
+        "tourism": "museum",
+        "wikidata": "Q3959661",
+        "wikimedia_commons": "Category:Shō Museum"
+      }
+    },
+    {
+      "id": "node/2274599728",
+      "name": "烏丸御池遺跡•平安京跡",
+      "lat": 35.011004,
+      "lon": 135.759932,
+      "tags": {
+        "historic": "monument",
+        "name": "烏丸御池遺跡•平安京跡",
+        "opening_hours": "24/7",
+        "operator": "京都市",
+        "source": "survey",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/2684518469",
+      "name": "安倍晴明像",
+      "lat": 35.027722,
+      "lon": 135.7510736,
+      "tags": {
+        "historic": "monument",
+        "name": "安倍晴明像"
+      }
+    },
+    {
+      "id": "node/2925674896",
+      "name": "京都伝統産業ふれあい館",
+      "lat": 35.0126264,
+      "lon": 135.7806273,
+      "tags": {
+        "name": "京都伝統産業ふれあい館",
+        "name:de": "Museum für das traditionelle Handwerk",
+        "source": "survey",
+        "tourism": "museum"
+      }
+    },
+    {
+      "id": "node/3740796912",
+      "name": "二の丸御殿",
+      "lat": 35.0135345,
+      "lon": 135.7497214,
+      "tags": {
+        "castle_type": "palace",
+        "heritage": "2",
+        "heritage:operator": "文部科学省",
+        "heritage:type": "国宝",
+        "historic": "castle",
+        "name": "二の丸御殿",
+        "name:en": "Ninomaru-goten Palace",
+        "name:ja": "二条城二ﾉ丸御殿",
+        "name:zh": "二之丸御殿",
+        "url": "https://youtu.be/374dyMUIjmI?si=FSe_5DgYZtZvzEWr"
+      }
+    },
+    {
+      "id": "node/3740796913",
+      "name": "本丸御殿",
+      "lat": 35.0141367,
+      "lon": 135.747817,
+      "tags": {
+        "castle_type": "palace",
+        "historic": "castle",
+        "name": "本丸御殿",
+        "name:de": "Honmaru-Palast",
+        "name:en": "Honmaru palace",
+        "name:zh": "本丸御殿"
+      }
+    },
+    {
+      "id": "node/3772788957",
+      "name": "伊藤仁斎宅（古義堂）跡並びに書庫",
+      "lat": 35.020757,
+      "lon": 135.752137,
+      "tags": {
+        "historic": "monument",
+        "name": "伊藤仁斎宅（古義堂）跡並びに書庫"
+      }
+    },
+    {
+      "id": "node/4045618965",
+      "name": "柳原銀行記念資料館",
+      "lat": 34.9861652,
+      "lon": 135.7647494,
+      "tags": {
+        "addr:block_number": "6",
+        "addr:housenumber": "3",
+        "addr:postcode": "600-8206",
+        "addr:quarter": "下之町",
+        "addr:suburb": "下京区",
+        "museum": "local",
+        "name": "柳原銀行記念資料館",
+        "name:en": "Yanagihara Bank Memorial Museum",
+        "name:fr": "Musée en mémoire de la banque de Yanagihara",
+        "tourism": "museum",
+        "wikidata": "Q11534162",
+        "wikipedia": "ja:柳原銀行"
+      }
+    },
+    {
+      "id": "node/4107706999",
+      "name": "六道之辻",
+      "lat": 34.9977969,
+      "lon": 135.7736499,
+      "tags": {
+        "historic": "monument",
+        "name": "六道之辻"
+      }
+    },
+    {
+      "id": "node/4198049508",
+      "name": "gion 衹园",
+      "lat": 35.002524,
+      "lon": 135.7747856,
+      "tags": {
+        "name": "gion 衹园",
+        "name:de": "Gion Viertel",
+        "name:en": "Gion Quarter",
+        "name:fr": "Quartier de Gion",
+        "name:ja": "祇園",
+        "name:ko": "기온",
+        "name:th": "ย่านกิออน เกอิชา",
+        "name:zh": "衹园",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4209380113",
+      "name": "京都動物園",
+      "lat": 35.0127946,
+      "lon": 135.7803282,
+      "tags": {
+        "name": "京都動物園",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4230208589",
+      "name": "Kira Karacho",
+      "lat": 35.0031498,
+      "lon": 135.759365,
+      "tags": {
+        "addr:street": "烏丸通",
+        "name": "Kira Karacho",
+        "phone": "075-353-5885",
+        "tourism": "attraction",
+        "website": "https://kirakaracho.jp/"
+      }
+    },
+    {
+      "id": "node/4233370290",
+      "name": "先斗町",
+      "lat": 35.0042456,
+      "lon": 135.7712126,
+      "tags": {
+        "name": "先斗町",
+        "name:en": "Pontochō",
+        "name:zh": "先斗町",
+        "tourism": "attraction",
+        "website": "https://www.japan-guide.com/e/e3921.html"
+      }
+    },
+    {
+      "id": "node/4237203174",
+      "name": "Kyoto Lookout",
+      "lat": 35.0000696,
+      "lon": 135.7876107,
+      "tags": {
+        "name": "Kyoto Lookout",
+        "opening_hours": "24/7",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4242307490",
+      "name": "行者橋",
+      "lat": 35.007111,
+      "lon": 135.7786745,
+      "tags": {
+        "name": "行者橋",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4259712692",
+      "name": "石塀小路",
+      "lat": 35.0009533,
+      "lon": 135.7786703,
+      "tags": {
+        "name": "石塀小路",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4259721789",
+      "name": "寧寧之道",
+      "lat": 35.0000375,
+      "lon": 135.7798699,
+      "tags": {
+        "name": "寧寧之道",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4459193690",
+      "name": "Camellia Tea Ceremony",
+      "lat": 34.998533,
+      "lon": 135.7805489,
+      "tags": {
+        "addr:housenumber": "349-12",
+        "addr:street": "川瀬小路",
+        "name:en": "Camellia Tea Ceremony",
+        "tourism": "attraction",
+        "website": "https://www.tea-kyoto.com/"
+      }
+    }
+  ]
+}

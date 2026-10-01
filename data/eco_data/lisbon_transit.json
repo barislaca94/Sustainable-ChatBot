@@ -1,0 +1,459 @@
+{
+  "city": "Lisbon",
+  "centre": {
+    "lat": 38.7077507,
+    "lon": -9.1365919
+  },
+  "kind": "transit",
+  "radius_m": 2000,
+  "count": 30,
+  "records": [
+    {
+      "id": "node/25743955",
+      "name": "Cais do Sodré",
+      "lat": 38.7066252,
+      "lon": -9.14335,
+      "tags": {
+        "bus": "yes",
+        "name": "Cais do Sodré",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "railway": "tram_level_crossing",
+        "ref": "03817"
+      }
+    },
+    {
+      "id": "node/25831517",
+      "name": "Campo de Santa Clara",
+      "lat": 38.7157201,
+      "lon": -9.1239621,
+      "tags": {
+        "bus": "yes",
+        "name": "Campo de Santa Clara",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "short_name": "Campo Sta. Clara"
+      }
+    },
+    {
+      "id": "node/69354726",
+      "name": "Estação de Santa Apolónia",
+      "lat": 38.7139458,
+      "lon": -9.1222073,
+      "tags": {
+        "bus": "yes",
+        "name": "Estação de Santa Apolónia",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "2133",
+        "short_name": "Estação Sta. Apolónia"
+      }
+    },
+    {
+      "id": "node/69404070",
+      "name": "Sapadores",
+      "lat": 38.7213409,
+      "lon": -9.1299148,
+      "tags": {
+        "name": "Sapadores",
+        "network": "Carris",
+        "network:wikidata": "Q1045108",
+        "operator": "Carris",
+        "operator:wikidata": "Q1045108",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "9128",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/69481534",
+      "name": "Rua dos Lagares",
+      "lat": 38.7154876,
+      "lon": -9.1320733,
+      "tags": {
+        "name": "Rua dos Lagares",
+        "network": "Carris",
+        "network:wikidata": "Q1045108",
+        "operator": "Carris",
+        "operator:wikidata": "Q1045108",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "13822",
+        "short_name": "R. Lagares",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/205317599",
+      "name": "Rossio",
+      "lat": 38.7144027,
+      "lon": -9.1392694,
+      "tags": {
+        "bus": "yes",
+        "name": "Rossio",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "919"
+      }
+    },
+    {
+      "id": "node/218023631",
+      "name": "Martim Moniz",
+      "lat": 38.7149888,
+      "lon": -9.1365402,
+      "tags": {
+        "name": "Martim Moniz",
+        "public_transport": "stop_position",
+        "ref": "805",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/254753716",
+      "name": "Hospital de Santo António dos Capuchos",
+      "lat": 38.722745,
+      "lon": -9.14165,
+      "tags": {
+        "bus": "yes",
+        "name": "Hospital de Santo António dos Capuchos",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/256063257",
+      "name": "Calçada de São Vicente",
+      "lat": 38.7134879,
+      "lon": -9.1286897,
+      "tags": {
+        "name": "Calçada de São Vicente",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "13806",
+        "short_name": "Cç. S. Vicente",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/256063279",
+      "name": "Limoeiro",
+      "lat": 38.7103532,
+      "lon": -9.1316592,
+      "tags": {
+        "bus": "yes",
+        "name": "Limoeiro",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "13803"
+      }
+    },
+    {
+      "id": "node/256065644",
+      "name": "Calçada da Estrela / Rua Borges Carneiro",
+      "lat": 38.7123448,
+      "lon": -9.1553966,
+      "tags": {
+        "bus": "yes",
+        "name": "Calçada da Estrela / Rua Borges Carneiro",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "06720",
+        "short_name": "Cç. Estrela / R. Borges Carneiro"
+      }
+    },
+    {
+      "id": "node/256065888",
+      "name": "Largo Vitorino Damásio",
+      "lat": 38.707854,
+      "lon": -9.1534432,
+      "tags": {
+        "name": "Largo Vitorino Damásio",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "3919",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/256066418",
+      "name": "Santos",
+      "lat": 38.706652,
+      "lon": -9.1559249,
+      "tags": {
+        "bus": "yes",
+        "name": "Santos",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "03913"
+      }
+    },
+    {
+      "id": "node/256328846",
+      "name": "Rua dos Poiais de São Bento",
+      "lat": 38.7107323,
+      "lon": -9.1518094,
+      "tags": {
+        "name": "Rua dos Poiais de São Bento",
+        "network": "Carris",
+        "network:wikidata": "Q1045108",
+        "operator": "Carris",
+        "operator:wikidata": "Q1045108",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "06724",
+        "short_name": "R. Poais S. Bento",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/258147219",
+      "name": "Santos",
+      "lat": 38.7064502,
+      "lon": -9.1542448,
+      "tags": {
+        "bus": "yes",
+        "name": "Santos",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "3926;3927"
+      }
+    },
+    {
+      "id": "node/258148017",
+      "name": "Cais do Sodré",
+      "lat": 38.7062821,
+      "lon": -9.1453315,
+      "tags": {
+        "bus": "yes",
+        "name": "Cais do Sodré",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "3802"
+      }
+    },
+    {
+      "id": "node/262253942",
+      "name": "Praça da Figueira",
+      "lat": 38.7130991,
+      "lon": -9.1377352,
+      "tags": {
+        "name": "Praça da Figueira",
+        "name:de": "Figueira Platz",
+        "name:en": "Figueira Square",
+        "name:pt": "Praça da Figueira",
+        "name:ru": "Остановка трамвая #15 в Белен, #12, #25",
+        "network": "Carris",
+        "network:wikidata": "Q1045108",
+        "operator": "Carris",
+        "operator:wikidata": "Q1045108",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "917",
+        "tram": "yes",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/376775237",
+      "name": "Cais do Sodré",
+      "lat": 38.7060296,
+      "lon": -9.1438821,
+      "tags": {
+        "bus": "yes",
+        "name": "Cais do Sodré",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/376775263",
+      "name": "Cais do Sodré",
+      "lat": 38.7058958,
+      "lon": -9.1438876,
+      "tags": {
+        "bus": "yes",
+        "name": "Cais do Sodré",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "3804"
+      }
+    },
+    {
+      "id": "node/377067810",
+      "name": "Largo da Academia Nacional das Belas Artes",
+      "lat": 38.7080221,
+      "lon": -9.1404533,
+      "tags": {
+        "bus": "no",
+        "name": "Largo da Academia Nacional das Belas Artes",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "10518",
+        "short_name": "Lg. Academia Nacional Belas Artes",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/414979642",
+      "name": "Cais do Sodré",
+      "lat": 38.7043741,
+      "lon": -9.1458431,
+      "tags": {
+        "amenity": "ferry_terminal",
+        "ferry": "yes",
+        "name": "Cais do Sodré",
+        "operator": "Transtejo Soflusa",
+        "operator:website": "https://ttsl.pt/",
+        "operator:wikidata": "Q2449795",
+        "public_transport": "stop_position",
+        "source": "https://ttsl.pt/"
+      }
+    },
+    {
+      "id": "node/469262613",
+      "name": "Conde Barão - Avenida 24 de Julho",
+      "lat": 38.7063528,
+      "lon": -9.1485485,
+      "tags": {
+        "bus": "yes",
+        "name": "Conde Barão - Avenida 24 de Julho",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "7101"
+      }
+    },
+    {
+      "id": "node/488783114",
+      "name": "Glória - Restauradores",
+      "lat": 38.7161443,
+      "lon": -9.1426936,
+      "tags": {
+        "funicular": "yes",
+        "name": "Glória - Restauradores",
+        "public_transport": "stop_position",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/488783135",
+      "name": "Glória - São Pedro de Alcântara",
+      "lat": 38.7141588,
+      "lon": -9.1439624,
+      "tags": {
+        "funicular": "yes",
+        "name": "Glória - São Pedro de Alcântara",
+        "public_transport": "stop_position",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/489341876",
+      "name": "Cais do Sodré",
+      "lat": 38.704494,
+      "lon": -9.1451722,
+      "tags": {
+        "amenity": "ferry_terminal",
+        "ferry": "yes",
+        "name": "Cais do Sodré",
+        "operator": "Transtejo Soflusa",
+        "operator:website": "https://ttsl.pt/",
+        "operator:wikidata": "Q2449795",
+        "public_transport": "stop_position",
+        "source": "https://ttsl.pt/"
+      }
+    },
+    {
+      "id": "node/489763351",
+      "name": "Corpo Santo",
+      "lat": 38.707292,
+      "lon": -9.1419894,
+      "tags": {
+        "bus": "yes",
+        "name": "Corpo Santo",
+        "network": "Carris",
+        "network:wikidata": "Q1045108",
+        "operator": "Carris",
+        "operator:wikidata": "Q1045108",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "03821",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/600134721",
+      "name": "Avenida",
+      "lat": 38.7190102,
+      "lon": -9.144831,
+      "tags": {
+        "name": "Avenida",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "subway": "yes"
+      }
+    },
+    {
+      "id": "node/970773008",
+      "name": "Socorro",
+      "lat": 38.7167412,
+      "lon": -9.135147,
+      "tags": {
+        "name": "Socorro",
+        "network": "Carris",
+        "network:wikidata": "Q1045108",
+        "operator": "Carris",
+        "operator:wikidata": "Q1045108",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "817",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/1106603473",
+      "name": "Rua de São Paulo (Bica)",
+      "lat": 38.7084653,
+      "lon": -9.1470514,
+      "tags": {
+        "name": "Rua de São Paulo (Bica)",
+        "network": "Carris",
+        "network:wikidata": "Q1045108",
+        "operator": "Carris",
+        "operator:wikidata": "Q1045108",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "09902",
+        "short_name": "R. S. Paulo",
+        "tram": "yes"
+      }
+    },
+    {
+      "id": "node/1122689181",
+      "name": "Restauradores",
+      "lat": 38.716134,
+      "lon": -9.1417886,
+      "tags": {
+        "bus": "yes",
+        "name": "Restauradores",
+        "network": "Carris",
+        "operator": "Carris",
+        "public_transport": "stop_position",
+        "ref": "1010"
+      }
+    }
+  ]
+}

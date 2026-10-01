@@ -1,0 +1,6 @@
+# Endpoints file used INSIDE docker-compose. The actions server is reachable
+# at the service name `actions` on the internal compose network, not on
+# localhost. For local development, use the plain `endpoints.yml` instead.
+
+action_endpoint:
+  url: "http://actions:5055/webhook"

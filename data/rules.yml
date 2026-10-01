@@ -1,0 +1,162 @@
+version: "3.1"
+
+rules:
+- rule: Respond to greetings
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Respond to goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Answer course overview
+  steps:
+  - intent: ask_course_overview
+  - action: utter_ask_course_overview
+
+- rule: Answer tools question
+  steps:
+  - intent: ask_tools
+  - action: utter_ask_tools
+
+- rule: Answer tool question
+  steps:
+  - intent: ask_about_tool
+  - action: action_respond_about_tool
+
+- rule: Answer what is NLU
+  steps:
+  - intent: ask_what_is_nlu
+  - action: utter_ask_what_is_nlu
+
+- rule: Answer assessment question
+  steps:
+  - intent: ask_assessment
+  - action: utter_ask_assessment
+
+- rule: Answer what is chatbot
+  steps:
+  - intent: ask_what_is_chatbot
+  - action: utter_ask_what_is_chatbot
+
+- rule: Answer deadlines question
+  steps:
+  - intent: ask_deadlines
+  - action: utter_ask_deadlines
+
+- rule: Answer office hours question
+  steps:
+  - intent: ask_office_hours
+  - action: utter_ask_office_hours
+
+- rule: Answer prerequisites question
+  steps:
+  - intent: ask_prerequisites
+  - action: utter_ask_prerequisites
+
+- rule: Answer what is Streamlit
+  steps:
+  - intent: ask_streamlit
+  - action: utter_ask_streamlit
+
+- rule: Get weather for a city
+  steps:
+  - intent: ask_weather
+  - action: action_get_weather
+
+- rule: Get currency exchange rate
+  steps:
+  - intent: ask_currency
+  - action: action_get_currency
+
+- rule: Suggest eco hotels
+  steps:
+  - intent: ask_eco_hotels
+  - action: action_suggest_eco_hotels
+
+- rule: Suggest green transport
+  steps:
+  - intent: ask_green_transport
+  - action: action_suggest_transport
+
+- rule: Calculate carbon footprint
+  steps:
+  - intent: ask_carbon_footprint
+  - action: action_calculate_carbon
+
+- rule: Suggest local activities
+  steps:
+  - intent: ask_local_activities
+  - action: action_suggest_activities
+
+- rule: Show carbon offset programs
+  steps:
+  - intent: ask_carbon_offset
+  - action: action_carbon_offset_programs
+
+- rule: Escalate to human advisor
+  steps:
+  - intent: request_human_advisor
+  - action: action_human_handover
+
+- rule: Describe a place from Wikipedia
+  steps:
+  - intent: ask_place_description
+  - action: action_describe_place
+
+- rule: Activate trip planning form
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+
+- rule: Submit trip planning form
+  condition:
+  - active_loop: trip_planning_form
+  steps:
+  - action: trip_planning_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_trip_form
+
+- rule: Answer who/what the bot is
+  steps:
+  - intent: bot_challenge
+  - action: utter_bot_challenge
+
+- rule: Acknowledge thanks
+  steps:
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- rule: Two-stage fallback loop
+  steps:
+  - intent: nlu_fallback
+  - action: action_two_stage_fallback
+  - active_loop: action_two_stage_fallback
+
+# A bare answer ("Barcelona", "1500") with no question to answer. Without
+# this rule TEDPolicy guessed, and usually guessed the greeting.
+- rule: Answer given outside the trip form
+  condition:
+  - active_loop: null
+  steps:
+  - intent: inform
+  - action: action_core_fallback
+
+- rule: Explain scope for an off-topic message
+  steps:
+  - intent: off_topic
+  - action: utter_out_of_scope_help
+
+# Only OUTSIDE the fallback loop. Inside it, out_of_scope is the "None of
+# these" answer and action_two_stage_fallback handles it itself.
+- rule: Explain scope when the user rejects every suggestion
+  condition:
+  - active_loop: null
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope_help

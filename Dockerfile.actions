@@ -1,0 +1,24 @@
+# Rasa Actions server (port 5055) — runs custom Python from actions/
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential \
+      curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements-actions.txt .
+RUN pip install --upgrade "pip<25" && pip install -r requirements-actions.txt
+
+# Custom actions and pre-fetched POI data.
+COPY actions/ actions/
+COPY data/eco_data/ data/eco_data/
+
+EXPOSE 5055
+
+CMD ["rasa", "run", "actions", "-p", "5055"]

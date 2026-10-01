@@ -1,0 +1,372 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - ask_course_overview
+  - ask_tools
+  - ask_about_tool
+  - ask_what_is_nlu
+  - ask_assessment
+  - ask_what_is_chatbot
+  - ask_deadlines
+  - ask_office_hours
+  - ask_prerequisites
+  - ask_streamlit
+  - ask_weather
+  - ask_currency
+  - plan_trip
+  - ask_eco_hotels
+  - ask_green_transport
+  - ask_carbon_footprint
+  - ask_local_activities
+  - ask_carbon_offset
+  - request_human_advisor
+  - ask_place_description
+  - bot_challenge
+  - thank_you
+  - inform
+  # Genuinely off-topic asks (general knowledge, personal-assistant chores).
+  # Separate from out_of_scope, which Rasa's two-stage fallback reserves for
+  # the "None of these" denial inside the clarification loop.
+  - off_topic
+  - out_of_scope
+
+entities:
+  - tool_name
+  - city_name
+  - from_currency
+  - to_currency
+  - destination
+  - origin
+  - transport_mode
+  - travel_dates
+  - budget
+  - sustainability_level
+  - transport_preference
+  - trip_length
+
+slots:
+  tool_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: tool_name
+
+  city_name:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: city_name
+
+  from_currency:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: from_currency
+
+  to_currency:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: to_currency
+
+  destination:
+    type: text
+    influence_conversation: false
+    mappings:
+      # Global from_entity: outside the form (e.g. "hotels in Barcelona") we
+      # still want the destination slot to be filled from NLU entities.
+      - type: from_entity
+        entity: destination
+        conditions:
+          - active_loop: null
+      # Inside the trip planning form, when we are asking for destination,
+      # take whatever the user typed as-is. This avoids the extractor picking
+      # only a partial token from a natural answer.
+      - type: from_text
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: destination
+
+  origin:
+    type: text
+    influence_conversation: false
+    mappings:
+      # Outside the form: "green transport from London to Paris" fills this
+      # from the NLU entity. Inside the form it is asked directly, and the
+      # whole reply is taken as the answer (same reasoning as destination).
+      - type: from_entity
+        entity: origin
+        conditions:
+          - active_loop: null
+      - type: from_text
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: origin
+
+  transport_mode:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: transport_mode
+
+  travel_dates:
+    type: text
+    influence_conversation: false
+    mappings:
+      # Only from_text: entity extraction on a natural date phrase like
+      # "next week" often clips to a single token ("next"). from_text
+      # takes the entire user reply during the form.
+      - type: from_text
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: travel_dates
+
+  budget:
+    type: text
+    influence_conversation: false
+    mappings:
+      # Only from_text — free-form numeric input is easier to accept as a
+      # whole and validate in Python than to entity-annotate.
+      - type: from_text
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: budget
+
+  sustainability_level:
+    type: categorical
+    values:
+      - low
+      - medium
+      - high
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: sustainability_level
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: sustainability_level
+      - type: from_text
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: sustainability_level
+
+  transport_preference:
+    type: categorical
+    values:
+      - train_or_bus
+      - any_low_carbon
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: transport_preference
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: transport_preference
+      - type: from_text
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: transport_preference
+
+  trip_length:
+    type: categorical
+    values:
+      - weekend
+      - week
+      - extended
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: trip_length
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: trip_length
+      - type: from_text
+        conditions:
+          - active_loop: trip_planning_form
+            requested_slot: trip_length
+
+  handover_active:
+    type: bool
+    influence_conversation: false
+    initial_value: false
+    mappings:
+      - type: custom
+
+  # JSON snapshot of the last completed trip plan. The form clears its own
+  # slots on submit, so without this a handover right after planning would
+  # reach the advisor with almost nothing.
+  last_trip_summary:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+forms:
+  trip_planning_form:
+    # NOTE: only destination/dates/budget/sustainability_level are asked every
+    # time. transport_preference and trip_length are added dynamically by
+    # ValidateTripPlanningForm.required_slots() when the user's earlier
+    # answers make them relevant. They must still be declared here so their
+    # slot mappings are recognised.
+    required_slots:
+      - destination
+      - origin
+      - travel_dates
+      - budget
+      - sustainability_level
+      - transport_preference
+      - trip_length
+
+actions:
+  - action_respond_about_tool
+  - action_get_weather
+  - action_get_currency
+  - action_suggest_eco_hotels
+  - action_suggest_transport
+  - action_calculate_carbon
+  - action_suggest_activities
+  - action_carbon_offset_programs
+  - action_human_handover
+  - action_submit_trip_form
+  - action_default_fallback
+  - action_default_ask_affirmation
+  - action_core_fallback
+  - action_deactivate_loop
+  - action_describe_place
+  - validate_trip_planning_form
+
+responses:
+  utter_greet:
+    - text: "Hello! I am your Eco-Travel & Course Companion bot. I can help you plan sustainable trips, look up carbon footprints, check the weather, convert currencies, or answer course questions. What would you like to do?"
+
+  utter_goodbye:
+    - text: "Goodbye! Travel light on the planet."
+
+  utter_ask_course_overview:
+    - text: "This course covers advanced conversational UI design and chatbot development. You will learn to build sophisticated chatbots using AI, focusing on design principles, NLU, and real-world deployment."
+
+  utter_ask_tools:
+    - text: "We will work with Rasa, Python, Streamlit, FastAPI, and Docker throughout the course."
+
+  utter_ask_what_is_nlu:
+    - text: "NLU stands for Natural Language Understanding. It is the part of the bot that figures out what the user means — identifying intents and extracting entities."
+
+  utter_ask_assessment:
+    - text: "The course is assessed through practical assignments and a final project. You will design, build, and deploy a working chatbot."
+
+  utter_ask_what_is_chatbot:
+    - text: "A chatbot is a software application that simulates human conversation. It understands user input using AI and responds intelligently."
+
+  utter_ask_deadlines:
+    - text: "Assignment deadlines are announced weekly on the course portal. Check the syllabus for major submission dates."
+
+  utter_ask_office_hours:
+    - text: "Office hours are held Tuesdays and Thursdays, 2-4 PM. You can also book a 1-on-1 slot via the course portal."
+
+  utter_ask_prerequisites:
+    - text: "Basic Python knowledge and familiarity with REST APIs are recommended. Prior chatbot experience is not required."
+
+  utter_ask_streamlit:
+    - text: "Streamlit is a Python library for building interactive web apps quickly. We use it as the frontend for our chatbot."
+
+  utter_ask_trip_planning_form_destination:
+    - text: "Great — where would you like to travel? (e.g. Barcelona, Kyoto, Amsterdam)"
+
+  utter_ask_trip_planning_form_origin:
+    - text: "And where will you be travelling from? (I use this to compare transport options and their carbon cost)"
+
+  utter_ask_trip_planning_form_travel_dates:
+    - text: "When are you planning to travel? (e.g. 15-20 August, next week)"
+
+  utter_ask_trip_planning_form_budget:
+    - text: "What is your approximate budget in EUR? (e.g. 800)"
+
+  utter_ask_trip_planning_form_sustainability_level:
+    - text: "How important is sustainability for this trip?"
+      buttons:
+        - title: "Low"
+          payload: '/inform{"sustainability_level":"low"}'
+        - title: "Medium"
+          payload: '/inform{"sustainability_level":"medium"}'
+        - title: "High"
+          payload: '/inform{"sustainability_level":"high"}'
+
+  utter_ask_trip_planning_form_transport_preference:
+    - text: "You picked high sustainability — how do you want to get around?"
+      buttons:
+        - title: "Train or bus only"
+          payload: '/inform{"transport_preference":"train_or_bus"}'
+        - title: "Any low-carbon option"
+          payload: '/inform{"transport_preference":"any_low_carbon"}'
+
+  utter_ask_trip_planning_form_trip_length:
+    - text: "With that budget, how long a trip do you have in mind?"
+      buttons:
+        - title: "Weekend"
+          payload: '/inform{"trip_length":"weekend"}'
+        - title: "One week"
+          payload: '/inform{"trip_length":"week"}'
+        - title: "Extended"
+          payload: '/inform{"trip_length":"extended"}'
+
+  # Stage 2 of the built-in two-stage fallback. Saying only "I didn't follow"
+  # leaves the user guessing what this bot is even for, so the second attempt
+  # states the scope and offers the three things it does most often. It still
+  # says plainly that it did not understand — no pretending otherwise.
+  utter_ask_rephrase:
+    - text: |-
+        Sorry, I still didn't follow. I'm an eco-travel assistant: I can plan a sustainable trip, compare low-carbon ways to travel, estimate a journey's carbon footprint, and suggest places to stay and things to do.
+        Could you say it another way, or pick one of these?
+      buttons:
+        - title: "Plan a sustainable trip"
+          payload: "/plan_trip"
+        - title: "Low-carbon transport"
+          payload: "/ask_green_transport"
+        - title: "Places to stay"
+          payload: "/ask_eco_hotels"
+
+  # Same idea for a message the bot understood as being outside its scope.
+  utter_out_of_scope_help:
+    - text: |-
+        That one is outside what I can help with. I'm an eco-travel assistant: I can plan a sustainable trip, compare low-carbon ways to travel, estimate a journey's carbon footprint, and suggest places to stay and things to do.
+      buttons:
+        - title: "Plan a sustainable trip"
+          payload: "/plan_trip"
+        - title: "Low-carbon transport"
+          payload: "/ask_green_transport"
+        - title: "Talk to a human advisor"
+          payload: "/request_human_advisor"
+
+  utter_bot_challenge:
+    - text: |-
+        I'm a bot — an eco-travel assistant built on Rasa. Here is what I can do:
+        • Plan a sustainable trip through a few questions (destination, dates, budget, how much sustainability matters to you)
+        • Compare trains, buses, cars and flights by carbon and estimated cost
+        • Estimate the carbon footprint of a specific journey
+        • Suggest places to stay, ranked by transit access and scale
+        • Suggest community-friendly things to do, and carbon offset programmes
+        • Hand you to a human travel advisor with the full conversation when you want one
+        I also answer questions about this Rasa course.
+      buttons:
+        - title: "Plan a sustainable trip"
+          payload: "/plan_trip"
+        - title: "Places to stay"
+          payload: "/ask_eco_hotels"
+        - title: "Talk to a human advisor"
+          payload: "/request_human_advisor"
+
+  utter_you_are_welcome:
+    - text: "You're welcome. Anything else I can help you plan?"
+
+  utter_privacy_note:
+    - text: "Note: I only keep your answers for this conversation to give recommendations. No personal data is stored permanently (GDPR-compliant)."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

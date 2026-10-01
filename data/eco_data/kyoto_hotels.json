@@ -1,0 +1,652 @@
+{
+  "city": "Kyoto",
+  "centre": {
+    "lat": 35.0115754,
+    "lon": 135.7681441
+  },
+  "kind": "hotels",
+  "radius_m": 3000,
+  "count": 48,
+  "records": [
+    {
+      "id": "node/299441374",
+      "name": "ホテルグランヴィア京都",
+      "lat": 34.9858426,
+      "lon": 135.7598191,
+      "tags": {
+        "addr:block_number": "901",
+        "addr:city": "京都市",
+        "addr:postcode": "600-8216",
+        "addr:province": "京都府",
+        "addr:quarter": "東塩小路町",
+        "addr:suburb": "下京区",
+        "check_date": "2023-09-05",
+        "name": "ホテルグランヴィア京都",
+        "name:en": "Hotel Granvia Kyoto",
+        "name:ja": "ホテルグランヴィア京都",
+        "rooms": "537",
+        "source": "survey",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.granvia-kyoto.co.jp",
+        "wheelchair": "yes",
+        "wikidata": "Q11337862",
+        "wikipedia": "ja:ホテルグランヴィア京都"
+      }
+    },
+    {
+      "id": "node/304484262",
+      "name": "京都新阪急ホテル",
+      "lat": 34.9874746,
+      "lon": 135.7577206,
+      "tags": {
+        "contact:website": "https://www.hankyu-hotel.com/hotel/hh/kyotoshh",
+        "name": "京都新阪急ホテル",
+        "rooms": "325",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/311766379",
+      "name": "ハイアットリージェンシー 京都",
+      "lat": 34.9886103,
+      "lon": 135.7737055,
+      "tags": {
+        "air_conditioning": "yes",
+        "bar": "yes",
+        "internet_access": "yes",
+        "name": "ハイアットリージェンシー 京都",
+        "name:en": "Hyatt Regency Kyoto",
+        "swimming_pool": "no",
+        "tourism": "hotel",
+        "wikidata": "Q11325962"
+      }
+    },
+    {
+      "id": "node/601836465",
+      "name": "ホテル法華クラブ京都",
+      "lat": 34.9874608,
+      "lon": 135.7587809,
+      "tags": {
+        "check_date": "2025-01-30",
+        "name": "ホテル法華クラブ京都",
+        "name:en": "Hotel Hokke Club Kyoto",
+        "tourism": "hotel",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/601837053",
+      "name": "ザ・サウザンド キョウト",
+      "lat": 34.9865001,
+      "lon": 135.7615609,
+      "tags": {
+        "addr:block_number": "570",
+        "addr:city": "京都市",
+        "addr:postcode": "600-8216",
+        "addr:province": "京都府",
+        "addr:quarter": "東塩小路町",
+        "addr:suburb": "下京区",
+        "internet_access": "wlan",
+        "name": "ザ・サウザンド キョウト",
+        "name:en": "THE THOUSAND KYOTO",
+        "name:ja": "ザ・サウザンド キョウト",
+        "rooms": "222",
+        "tourism": "hotel",
+        "website": "https://www.keihanhotels-resorts.co.jp/the-thousand-kyoto/",
+        "wikidata": "Q106358239"
+      }
+    },
+    {
+      "id": "node/601837055",
+      "name": "京都 センチュリー ホテル",
+      "lat": 34.9860822,
+      "lon": 135.7616536,
+      "tags": {
+        "name": "京都 センチュリー ホテル",
+        "name:en": "Kyoto Century Hotel",
+        "name:ja": "京都 センチュリー ホテル",
+        "tourism": "hotel",
+        "website": "https://www.keihanhotels-resorts.co.jp/kyoto-centuryhotel/",
+        "wikidata": "Q111406783"
+      }
+    },
+    {
+      "id": "node/810650905",
+      "name": "東横イン五条烏丸 (Toyoko Inn)",
+      "lat": 34.9986459,
+      "lon": 135.7595479,
+      "tags": {
+        "name": "東横イン五条烏丸 (Toyoko Inn)",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/924675163",
+      "name": "京都花宿 (Hana Hostel Kyoto)",
+      "lat": 34.9897331,
+      "lon": 135.7605644,
+      "tags": {
+        "name": "京都花宿 (Hana Hostel Kyoto)",
+        "operator": "J-Hoppers",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/1224217739",
+      "name": "Petit Hôtel Pension Kyoto",
+      "lat": 35.0296243,
+      "lon": 135.7504392,
+      "tags": {
+        "name": "Petit Hôtel Pension Kyoto",
+        "tourism": "hotel",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/1422963155",
+      "name": "Mimaru 京都 新町三条",
+      "lat": 35.009308,
+      "lon": 135.75633,
+      "tags": {
+        "addr:city": "京都市",
+        "addr:housenumber": "105",
+        "addr:neighbourhood": "町頭町",
+        "addr:province": "京都府",
+        "addr:suburb": "中京区",
+        "email": "shinmachi-sanjo@chm.cigr.co.jp",
+        "name": "Mimaru 京都 新町三条",
+        "note:ja": "国土数値情報（公共施設データ）平成19年　国土交通省",
+        "phone": "075-606-5013",
+        "source": "KSJ2;survey",
+        "source_ref": "http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html",
+        "tourism": "hotel",
+        "website": "https://mimaruhotels.com/jp/hotel/shinmachi-sanjo/?utm_source=google&utm_medium=cpc&utm_campaign=areabrandkyoto&utm_content=JP&utm_content=Brand&utm_content=Brand_Kyoto_Sanjyo&gad_source=1&gclid=CjwKCAiA9dGqBhAqEiwAmRpTCzx0YBJWtKJM4OpJhsEwb0Ep28tXUBZ-Iqkh"
+      }
+    },
+    {
+      "id": "node/1682446801",
+      "name": "Tour Club Kyoto",
+      "lat": 34.9906736,
+      "lon": 135.7543914,
+      "tags": {
+        "addr:city": "京都 Kyoto",
+        "addr:housenumber": "600-8345",
+        "name": "Tour Club Kyoto",
+        "phone": "+81 75-353-6968",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/1854928858",
+      "name": "スーパーホテル",
+      "lat": 35.0050025,
+      "lon": 135.7680091,
+      "tags": {
+        "internet_access": "wired",
+        "internet_access:fee": "no",
+        "name": "スーパーホテル",
+        "name:en": "Super Hotel Karawamachi",
+        "name:zh": "超級酒店",
+        "smoking": "separated",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/2365751839",
+      "name": "スマイルホテル京都四条",
+      "lat": 35.0033468,
+      "lon": 135.7546131,
+      "tags": {
+        "name": "スマイルホテル京都四条",
+        "name:en": "Smile Hotel (Kyoto Shijo)",
+        "name:ja-Hira": "すまいるほてるきょうとしじょう",
+        "tourism": "hotel",
+        "website": "https://smile-hotels.com/hotels/show/kyotoshijo",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/2503697554",
+      "name": "Jam Hostel",
+      "lat": 35.0049067,
+      "lon": 135.7724751,
+      "tags": {
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Jam Hostel",
+        "smoking": "no",
+        "tourism": "hotel",
+        "wheelchair": "no",
+        "wikidata": "Q111114382"
+      }
+    },
+    {
+      "id": "node/2510114313",
+      "name": "ホテル チェックイン 四条烏丸",
+      "lat": 35.0055753,
+      "lon": 135.7599692,
+      "tags": {
+        "internet_access": "yes",
+        "name": "ホテル チェックイン 四条烏丸",
+        "smoking": "separated",
+        "source": "survey",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/2691296677",
+      "name": "ブライトンホテル",
+      "lat": 35.024587,
+      "lon": 135.755745,
+      "tags": {
+        "addr:city": "京都市",
+        "name": "ブライトンホテル",
+        "name:en": "Brighton Hotel Kyoto",
+        "operator": "Brighton Hotels",
+        "tourism": "hotel",
+        "website": "https://www.brightonhotels.co.jp/kyoto/",
+        "wikidata": "Q111406760"
+      }
+    },
+    {
+      "id": "node/2789981138",
+      "name": "京湯元 ハトヤ瑞鳳閣",
+      "lat": 34.9868666,
+      "lon": 135.754975,
+      "tags": {
+        "name": "京湯元 ハトヤ瑞鳳閣",
+        "tourism": "hotel",
+        "website": "https://www.kyoto-hatoya.jp/"
+      }
+    },
+    {
+      "id": "node/2991605933",
+      "name": "京都東急ホテル",
+      "lat": 34.9951413,
+      "lon": 135.7516852,
+      "tags": {
+        "name": "京都東急ホテル",
+        "name:en": "Kyoto Tokyu Hotel",
+        "tourism": "hotel",
+        "website": "https://www.kyoto-h.tokyuhotels.co.jp/",
+        "wikidata": "Q111406780"
+      }
+    },
+    {
+      "id": "node/3068499750",
+      "name": "白河院",
+      "lat": 35.0139092,
+      "lon": 135.7876033,
+      "tags": {
+        "addr:city": "京都市左京区",
+        "addr:country": "JP",
+        "addr:housenumber": "16",
+        "addr:street": "岡崎法勝寺町",
+        "internet_access": "wired",
+        "internet_access:fee": "no",
+        "name": "白河院",
+        "operator": "日本私立学校振興・共済事業団",
+        "phone": "+81 (0)75 761 0201",
+        "tourism": "hotel",
+        "website": "https://www.hotelgp-kyoto.com/shirakawain/"
+      }
+    },
+    {
+      "id": "node/3259701361",
+      "name": "加茂川館",
+      "lat": 35.0090983,
+      "lon": 135.7709616,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "加茂川館",
+        "name:ja": "加茂川館",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/3337057131",
+      "name": "東横イン",
+      "lat": 34.9945287,
+      "lon": 135.7489355,
+      "tags": {
+        "branch": "京都五条大宮",
+        "brand": "東横イン",
+        "brand:en": "Toyoko Inn",
+        "brand:ja": "東横イン",
+        "brand:wikidata": "Q1320541",
+        "brand:wikipedia": "en:Toyoko Inn",
+        "check_date": "2026-01-27",
+        "internet_access": "yes",
+        "internet_access:fee": "no",
+        "name": "東横イン",
+        "name:en": "Toyoko Inn",
+        "name:ja": "東横イン",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/3518389965",
+      "name": "ドーミーインプレミアム京都駅前",
+      "lat": 34.9874601,
+      "lon": 135.7617839,
+      "tags": {
+        "check_date": "2025-02-25",
+        "name": "ドーミーインプレミアム京都駅前",
+        "name:en": "Dormy Inn Premium Kyoto Ekimae",
+        "name:ja": "ドーミーインプレミアム京都駅前",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/3645503959",
+      "name": "Hotel Station Kyoto 西館",
+      "lat": 34.9894222,
+      "lon": 135.7602555,
+      "tags": {
+        "name": "Hotel Station Kyoto 西館",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4107707115",
+      "name": "增井家",
+      "lat": 34.997716,
+      "lon": 135.7713459,
+      "tags": {
+        "name": "增井家",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4125686690",
+      "name": "519 Kitakinomotochō",
+      "lat": 35.0086117,
+      "lon": 135.7786232,
+      "tags": {
+        "name": "519 Kitakinomotochō",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4199874889",
+      "name": "o Yafo",
+      "lat": 34.9943943,
+      "lon": 135.7554318,
+      "tags": {
+        "name": "o Yafo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4206105090",
+      "name": "CMM Monthly Mansions Horikawa Sanjou 堀川三条",
+      "lat": 35.0081367,
+      "lon": 135.7514207,
+      "tags": {
+        "addr:street": "堀川通 ; 京都府道38号京都広河原美山線",
+        "name": "CMM Monthly Mansions Horikawa Sanjou 堀川三条",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4225072197",
+      "name": "京都汉娜宾馆",
+      "lat": 35.0195855,
+      "lon": 135.7476749,
+      "tags": {
+        "name": "京都汉娜宾馆",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4267761399",
+      "name": "Hotel Gran Ms Kyoto",
+      "lat": 35.009697,
+      "lon": 135.768552,
+      "tags": {
+        "addr:housenumber": "410-3",
+        "addr:postcode": "604-8006",
+        "addr:street": "Shimomaruya-Cho",
+        "internet_access": "wlan",
+        "name": "Hotel Gran Ms Kyoto",
+        "phone": "0752412000",
+        "tourism": "hotel",
+        "website": "https://granms.jp/"
+      }
+    },
+    {
+      "id": "node/4268106294",
+      "name": "Hotel Chatelet Inn Kyoto",
+      "lat": 35.0110995,
+      "lon": 135.7559546,
+      "tags": {
+        "addr:block_number": "1",
+        "addr:city": "京都市",
+        "addr:neighbourhood": "745",
+        "addr:postcode": "6040033",
+        "addr:province": "京都府",
+        "addr:quarter": "御池通西洞院東入橋之町",
+        "addr:suburb": "中央区",
+        "check_date": "2026-06-01",
+        "internet_access": "wlan",
+        "name": "Hotel Chatelet Inn Kyoto",
+        "name:ja": "ホテルシャトレーイン京都",
+        "phone": "075-223-4800",
+        "rooms": "41",
+        "tourism": "hotel",
+        "website": "https://www.chatelet.jp/"
+      }
+    },
+    {
+      "id": "node/4269013789",
+      "name": "Sakura Urushi tei",
+      "lat": 34.9999731,
+      "lon": 135.7641262,
+      "tags": {
+        "internet_access": "wlan",
+        "name": "Sakura Urushi tei",
+        "name:ja": "さくらうるし邸",
+        "phone": "+81 75 3430 003",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4450301191",
+      "name": "ホテルグレイスリー 京都三条",
+      "lat": 35.0075211,
+      "lon": 135.767323,
+      "tags": {
+        "check_date": "2026-07-02",
+        "contact:facebook": "https://www.facebook.com/HotelGraceryKyotoSanjo/",
+        "contact:instagram": "https://www.instagram.com/hotel_gracery_kyoto_sanjo",
+        "fax": "+81 75-2221-112",
+        "name": "ホテルグレイスリー 京都三条",
+        "name:en": "Hotel Gracery Kyoto Sanjo",
+        "name:ja": "ホテルグレイスリー 京都三条",
+        "phone": "+81 75-2221-111",
+        "tourism": "hotel",
+        "website": "https://gracery.com/kyoto/"
+      }
+    },
+    {
+      "id": "node/4467936289",
+      "name": "Marion",
+      "lat": 35.0101779,
+      "lon": 135.7703629,
+      "tags": {
+        "name": "Marion",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4551239594",
+      "name": "Shiraume",
+      "lat": 35.0053292,
+      "lon": 135.7735443,
+      "tags": {
+        "name": "Shiraume",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4563417477",
+      "name": "ユニゾイン 京都河原町四条",
+      "lat": 35.0069676,
+      "lon": 135.7686114,
+      "tags": {
+        "name": "ユニゾイン 京都河原町四条",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4607726060",
+      "name": "Daiwa Roynet Hotel",
+      "lat": 34.9887101,
+      "lon": 135.7594526,
+      "tags": {
+        "level": "0;1;2",
+        "name": "Daiwa Roynet Hotel",
+        "name:ja": "ダイワロイネットホテル京都駅前",
+        "tourism": "hotel",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/4686773893",
+      "name": "和泉屋旅館",
+      "lat": 34.9907708,
+      "lon": 135.753385,
+      "tags": {
+        "name": "和泉屋旅館",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4686773898",
+      "name": "旅館あづまや",
+      "lat": 34.9906448,
+      "lon": 135.7533906,
+      "tags": {
+        "name": "旅館あづまや",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4744341222",
+      "name": "コミカプ京都",
+      "lat": 35.0053412,
+      "lon": 135.7675419,
+      "tags": {
+        "level": "4",
+        "name": "コミカプ京都",
+        "name:en": "Comicap Kyoto",
+        "name:ja": "コミカプ京都",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4813050121",
+      "name": "Mitsui Garden Hotel Kyoto Shijo",
+      "lat": 35.0030109,
+      "lon": 135.7549679,
+      "tags": {
+        "building": "yes",
+        "name": "Mitsui Garden Hotel Kyoto Shijo",
+        "operator": "Mitsui Garden",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.gardenhotels.co.jp/eng/kyoto-shijo/",
+        "wikidata": "Q111406776"
+      }
+    },
+    {
+      "id": "node/5005273424",
+      "name": "一条Premium",
+      "lat": 35.0264794,
+      "lon": 135.750552,
+      "tags": {
+        "addr:street": "猪熊通",
+        "internet_access": "wlan",
+        "name": "一条Premium",
+        "name:ja": "一条Premium",
+        "phone": "752559009",
+        "tourism": "hotel",
+        "website": "http://ivy.free-jp"
+      }
+    },
+    {
+      "id": "node/5010312270",
+      "name": "相鉄Fresca Inn Kyoto Shijo",
+      "lat": 35.0024671,
+      "lon": 135.7588807,
+      "tags": {
+        "name": "相鉄Fresca Inn Kyoto Shijo",
+        "name:ja": "相鉄Fresca Inn Kyoto Shijo",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/5049770422",
+      "name": "Gion united hotel",
+      "lat": 34.998571,
+      "lon": 135.7714032,
+      "tags": {
+        "name": "Gion united hotel",
+        "name:ja": "Gion united hotel",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/5085959347",
+      "name": "Petit Hotel Racine Home",
+      "lat": 34.9927139,
+      "lon": 135.7609601,
+      "tags": {
+        "name": "Petit Hotel Racine Home",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/5086047335",
+      "name": "たびやホテル",
+      "lat": 35.0026442,
+      "lon": 135.7664131,
+      "tags": {
+        "name": "たびやホテル",
+        "name:en": "Tabiya Hotel",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/5132372223",
+      "name": "Kyoto airbnb",
+      "lat": 34.9966801,
+      "lon": 135.7556052,
+      "tags": {
+        "name:en": "Kyoto airbnb",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/5166754480",
+      "name": "清水山荘",
+      "lat": 34.9977119,
+      "lon": 135.7813477,
+      "tags": {
+        "name": "清水山荘",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/5272804388",
+      "name": "レディースホテル西陣",
+      "lat": 35.0339458,
+      "lon": 135.7498191,
+      "tags": {
+        "name": "レディースホテル西陣",
+        "tourism": "hotel"
+      }
+    }
+  ]
+}

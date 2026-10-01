@@ -1,0 +1,104 @@
+version: "3.1"
+
+stories:
+- story: greet and plan trip
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - active_loop: null
+  - action: action_submit_trip_form
+
+- story: greet and ask course overview
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_course_overview
+  - action: utter_ask_course_overview
+
+- story: ask weather then plan trip
+  steps:
+  - intent: ask_weather
+  - action: action_get_weather
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - active_loop: null
+  - action: action_submit_trip_form
+
+- story: request human handover after trip planning
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - active_loop: null
+  - action: action_submit_trip_form
+  - intent: request_human_advisor
+  - action: action_human_handover
+
+# Adaptive branch A: high sustainability → transport_preference asked
+- story: plan trip with high sustainability branch
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - slot_was_set:
+    - destination: Barcelona
+  - slot_was_set:
+    - origin: London
+  - slot_was_set:
+    - travel_dates: 15-20 August
+  - slot_was_set:
+    - budget: "1500"
+  - slot_was_set:
+    - sustainability_level: high
+  - slot_was_set:
+    - transport_preference: train_or_bus
+  - active_loop: null
+  - action: action_submit_trip_form
+
+# Adaptive branch B: low budget (<500) → trip_length asked
+- story: plan trip with low budget branch
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - slot_was_set:
+    - destination: Lisbon
+  - slot_was_set:
+    - origin: Madrid
+  - slot_was_set:
+    - travel_dates: next week
+  - slot_was_set:
+    - budget: "200"
+  - slot_was_set:
+    - sustainability_level: low
+  - slot_was_set:
+    - trip_length: weekend
+  - active_loop: null
+  - action: action_submit_trip_form
+
+# Adaptive branch C: high sustainability AND low budget → both extras asked
+- story: plan trip with both adaptive branches
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - slot_was_set:
+    - destination: Berlin
+  - slot_was_set:
+    - origin: Hamburg
+  - slot_was_set:
+    - travel_dates: 10 to 17 September
+  - slot_was_set:
+    - budget: "300"
+  - slot_was_set:
+    - sustainability_level: high
+  - slot_was_set:
+    - transport_preference: any_low_carbon
+  - slot_was_set:
+    - trip_length: week
+  - active_loop: null
+  - action: action_submit_trip_form

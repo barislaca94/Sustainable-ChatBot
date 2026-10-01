@@ -1,0 +1,160 @@
+# Held-out NLU regression set — NOT training data.
+#
+# Phase 4 added training examples that fixed three weak intents but quietly
+# broke small talk: "How are you" started being classified as `goodbye` with
+# 0.91 confidence, because five of the new goodbye examples contained the word
+# "you". Cross-validation did not catch it, because the phrase was not in the
+# training data at all — cross-validation can only test what you have already
+# written down.
+#
+# This file is that missing test: realistic phrasings a real user would type,
+# including the ones that regressed, plus genuinely out-of-scope messages that
+# SHOULD fall through to the clarification flow.
+#
+# Run it against a trained model (no retraining):
+#
+#   rasa test nlu --nlu tests/nlu_regression.yml \
+#                 --model models/<model>.tar.gz \
+#                 --out results/regression
+#
+# Then read results/regression/intent_report.json. Keep these examples out of
+# data/nlu.yml — a test set the model trained on proves nothing.
+#
+# Phase 6 (2026-09-17): the Phase 5 version of this file was NOT held out —
+# 23 of its 59 sentences were already in data/nlu.yml word for word and 7 more
+# only swapped an entity value. Those 30 were replaced with paraphrases written
+# before any measurement, and the file is now frozen: it changes only to remove
+# contamination, never to make a number look better. If a sentence here fails,
+# add a *different* variant to the training data, not this one.
+# tests/test_actions.py::test_regression_set_is_disjoint_from_training guards it.
+
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hi how are you
+    - how's your day going
+    - how have you been?
+    - hello, how are you today?
+    - yo
+    - good day
+
+- intent: goodbye
+  examples: |
+    - catch you later then
+    - I'm heading off, bye for now
+    - that's all I needed, see ya
+
+- intent: thank_you
+  examples: |
+    - ta, that helped
+    - thanks so much for this
+    - brilliant, much appreciated
+    - that was helpful, thanks
+
+- intent: bot_challenge
+  examples: |
+    - what exactly are you
+    - what sort of things can you do for me?
+    - are you a real person?
+    - I'm lost, can you help?
+    - what are you able to help with?
+
+- intent: off_topic
+  examples: |
+    - What is 2+2
+    - when did the Berlin wall fall
+    - who wrote Hamlet
+
+- intent: plan_trip
+  examples: |
+    - I want to plan a trip
+    - help me organise a green holiday
+    - book a sustainable trip to [Kyoto](destination)
+
+- intent: ask_eco_hotels
+  examples: |
+    - eco hotels in [Barcelona](destination)
+    - hotels in [Berlin](destination)
+    - where's a good place to sleep in [Lisbon](destination)?
+
+- intent: ask_green_transport
+  examples: |
+    - green transport from [London](origin) to [Paris](destination)
+    - what is the cleanest way from [Berlin](origin) to [Prague](destination)?
+
+- intent: ask_carbon_footprint
+  examples: |
+    - carbon footprint of a [flight](transport_mode) from [Madrid](origin) to [Rome](destination)
+    - how much CO2 is a [train](transport_mode) from [Paris](origin) to [Lyon](destination)?
+
+- intent: ask_carbon_offset
+  examples: |
+    - how can I offset my flight
+    - which offset programme should I use?
+
+- intent: ask_local_activities
+  examples: |
+    - things to do in [Kyoto](destination)
+    - community experiences in [Amsterdam](destination)
+
+- intent: ask_place_description
+  examples: |
+    - what's the vibe like in [Kyoto](destination)?
+    - I've never been to [Lisbon](destination), what's it like?
+
+- intent: ask_weather
+  examples: |
+    - do I need an umbrella in [Berlin](city_name) today?
+    - is it sunny in [Oslo](city_name) right now?
+
+- intent: ask_currency
+  examples: |
+    - how many [EUR](to_currency) would I get for 100 [USD](from_currency)?
+    - what's the [GBP](from_currency) to [TRY](to_currency) exchange rate at the moment?
+
+- intent: request_human_advisor
+  examples: |
+    - I'd like a real human to take over
+    - can an advisor help me?
+
+- intent: ask_about_tool
+  examples: |
+    - what's [Rasa](tool_name) used for?
+    - I've heard of [Dialogflow](tool_name), what is it?
+
+- intent: ask_what_is_nlu
+  examples: |
+    - what does the NLU part of a chatbot actually do?
+    - can you define natural language understanding?
+
+- intent: ask_tools
+  examples: |
+    - what tools will we use in the course?
+    - which software do I need to install?
+
+- intent: ask_prerequisites
+  examples: |
+    - what do I need to know before starting?
+    - do I need Python?
+
+- intent: ask_deadlines
+  examples: |
+    - when do I have to hand the assignment in?
+    - what is the submission deadline?
+
+- intent: ask_office_hours
+  examples: |
+    - when can I go and see the lecturer with questions?
+    - what time is the support session?
+
+- intent: ask_assessment
+  examples: |
+    - how am I assessed
+    - what grade do I need to pass?
+
+- intent: ask_streamlit
+  examples: |
+    - what's this Streamlit thing?
+    - why do we use Streamlit?

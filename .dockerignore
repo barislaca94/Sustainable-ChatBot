@@ -1,0 +1,37 @@
+# Local virtualenv should never be shipped in an image.
+rasa-env/
+
+# Course reference materials — not for distribution.
+Checks/
+
+# Scratch / test outputs regenerated in CI.
+results/
+tests/
+
+# Handoff and worksheet PDFs.
+HANDOFF.md
+*.pdf
+*.docx
+
+# Python caches.
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# macOS metadata.
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE junk.
+.vscode/
+.idea/
+
+# Secrets — pull via env_file in docker-compose instead.
+.env
+.env.local
+
+# The Overpass pre-fetch script is only useful for a maintainer, not the
+# running image (the JSON output under data/eco_data/ IS copied in).
+scripts/

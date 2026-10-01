@@ -1,0 +1,737 @@
+{
+  "city": "Barcelona",
+  "centre": {
+    "lat": 41.3825802,
+    "lon": 2.177073
+  },
+  "kind": "attractions",
+  "radius_m": 3000,
+  "count": 39,
+  "records": [
+    {
+      "id": "node/438426043",
+      "name": "Homenatge als castellers",
+      "lat": 41.3820329,
+      "lon": 2.177009,
+      "tags": {
+        "historic": "monument",
+        "name": "Homenatge als castellers",
+        "name:ca": "Homenatge als castellers",
+        "wikidata": "Q11926010",
+        "wikimedia_commons": "Category:Homenatge als castellers",
+        "wikipedia": "ca:Homenatge als castellers"
+      }
+    },
+    {
+      "id": "node/506236262",
+      "name": "El Cul. A Santiago Roldan",
+      "lat": 41.3889468,
+      "lon": 2.1938265,
+      "tags": {
+        "historic": "monument",
+        "name": "El Cul. A Santiago Roldan"
+      }
+    },
+    {
+      "id": "node/671914513",
+      "name": "Pastelería Escribá Rambla De Les Flors",
+      "lat": 41.3815258,
+      "lon": 2.1726713,
+      "tags": {
+        "addr:housenumber": "546",
+        "addr:postcode": "08011",
+        "addr:street": "Gran Via de les Corts Catalanes",
+        "name": "Pastelería Escribá Rambla De Les Flors",
+        "name:ru": "кондитерская Escriba",
+        "opening_hours": "Mo-Su 09:00-22:00",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "phone": "+34 934547535",
+        "shop": "confectionery",
+        "tourism": "attraction",
+        "website": "http://escriba.es/es/#_=_",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/673264230",
+      "name": "Museu de la Música",
+      "lat": 41.3988917,
+      "lon": 2.1855755,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housename": "L'Auditori",
+        "addr:housenumber": "150",
+        "addr:postcode": "08013",
+        "addr:street": "Carrer de Lepant",
+        "contact:email": "museumusica@bcn.cat",
+        "contact:phone": "+34932563650",
+        "fee": "yes",
+        "fee:conditional": "no @ (Su[1]; Su 20:00+; Feb 18,Jun 21,Sep 23-Sep 24,Nov 22)",
+        "name": "Museu de la Música",
+        "name:ca": "Museu de la Música",
+        "name:es": "Museo de la música",
+        "official_name": "Museu de la Música de Barcelona",
+        "opening_hours": "Tu-We,Fr 10:00-18:00; Th 10:00-23:15; Sa,Su 10:00-19:00; Dec 24; Dec 31; Jan 05 10:00-15:00; PH,Mo off",
+        "tourism": "museum",
+        "website": "https://www.bcn.cat/museumusica/",
+        "wheelchair": "yes",
+        "wikidata": "Q5016197",
+        "wikimedia_commons": "Category:Museu de la Música de Barcelona",
+        "wikipedia": "ca:Museu de la Música de Barcelona"
+      }
+    },
+    {
+      "id": "node/1072728133",
+      "name": "Sala Güell",
+      "lat": 41.3844934,
+      "lon": 2.1744806,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housenumber": "5",
+        "addr:postcode": "08002",
+        "addr:street": "Carrer dels Arcs",
+        "name": "Sala Güell",
+        "name:ca": "Sala Güell",
+        "name:ru": "Дворец Гуэля",
+        "note": "Está dintre del Reial Cercle Artístic de Barcelona",
+        "tourism": "museum"
+      }
+    },
+    {
+      "id": "node/1643199193",
+      "name": "Museu d'Història de Barcelona",
+      "lat": 41.383921,
+      "lon": 2.1776778,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:country": "ES",
+        "addr:housenumber": "4",
+        "addr:postcode": "08002",
+        "addr:province": "Barcelona",
+        "addr:street": "Carrer del Veguer",
+        "fee": "yes",
+        "name": "Museu d'Història de Barcelona",
+        "name:ca": "Museu d'Història de Barcelona",
+        "name:de": "Historisches Museum der Stadt Barcelona",
+        "name:ja": "市歴史博物館",
+        "name:ru": "Исторический музей Барселоны",
+        "opening_hours": "Mo-Sa 10:00-19:00; Su 10:00-20:00",
+        "operator": "Ajuntament de Barcelona",
+        "operator:type": "government",
+        "operator:wikidata": "Q3129773",
+        "phone": "+34932562100",
+        "short_name": "MUHBA",
+        "tourism": "museum",
+        "website": "https://www.barcelona.cat/museuhistoria/",
+        "wheelchair": "yes",
+        "wikidata": "Q3571337"
+      }
+    },
+    {
+      "id": "node/1654108403",
+      "name": "Museu de la Moto",
+      "lat": 41.3833403,
+      "lon": 2.17453,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housenumber": "10",
+        "addr:postcode": "08002",
+        "addr:street": "Carrer de la Palla",
+        "designation": "http://www.museumoto.com",
+        "name": "Museu de la Moto",
+        "name:ca": "Museu de la Moto",
+        "name:es": "Museo de la moto",
+        "operator": "Areas de Bassella",
+        "tourism": "museum",
+        "website": "http://www.museumoto.com",
+        "wikidata": "Q17043328",
+        "wikimedia_commons": "Category:Museu de la Moto de Barcelona",
+        "wikipedia": "ca:Museu de la Moto de Barcelona"
+      }
+    },
+    {
+      "id": "node/1962720907",
+      "name": "Museu del Modernisme Català",
+      "lat": 41.3888541,
+      "lon": 2.1633974,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housenumber": "48",
+        "addr:postcode": "08008",
+        "addr:street": "Carrer de Balmes",
+        "alt_name": "Museu del Modernisme de Barcelona",
+        "email": "mmbcn@mmbcn.cat",
+        "fee": "yes",
+        "name": "Museu del Modernisme Català",
+        "name:ca": "Museu del Modernisme Català",
+        "name:es": "Museo del modernismo catalán",
+        "opening_hours": "Mo-Fr 10:30-14:00,16:00-19:00; Sa 10:30-14:00",
+        "tourism": "museum",
+        "website": "https://www.mmbcn.cat/",
+        "wikidata": "Q15735772",
+        "wikimedia_commons": "Category:Museu del Modernisme Català",
+        "wikipedia": "ca:Museu del Modernisme Català"
+      }
+    },
+    {
+      "id": "node/1962723905",
+      "name": "Museu Tàpies",
+      "lat": 41.3916216,
+      "lon": 2.1636636,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housenumber": "255",
+        "addr:postcode": "08007",
+        "addr:street": "Carrer d'Aragó",
+        "fee": "yes",
+        "name": "Museu Tàpies",
+        "name:ca": "Museu Tàpies",
+        "opening_hours": "Tu-Sa 10:00-19:00; Su 10:00-15:00; Jan 1 off; Jan 6 off; Dec 25 off; Dec 26 off",
+        "phone": "+34 934 870 315",
+        "tourism": "museum",
+        "website": "https://museutapies.org/",
+        "wikidata": "Q2447148",
+        "wikimedia_commons": "Category:Fundació Antoni Tàpies",
+        "wikipedia": "ca:Fundació Antoni Tàpies"
+      }
+    },
+    {
+      "id": "node/2136227451",
+      "name": "Museu de la Marihuana",
+      "lat": 41.3808075,
+      "lon": 2.180124,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housenumber": "35",
+        "addr:postcode": "08002",
+        "addr:street": "Carrer Ample",
+        "name": "Museu de la Marihuana",
+        "name:ca": "Museu de la Marihuana",
+        "name:es": "Museo de la marihuana",
+        "name:ru": "Музей марихуаны",
+        "tourism": "museum",
+        "website": "http://hempmuseumgallery.com/",
+        "wheelchair": "no",
+        "wheelchair:description": "Imposible visitar el museo. Todo escaleras",
+        "wikidata": "Q11682430",
+        "wikimedia_commons": "Category:Hemp Museum Gallery",
+        "wikipedia": "ca:Hash Marihuana & Hemp Museum (Barcelona)"
+      }
+    },
+    {
+      "id": "node/2269130820",
+      "name": "Monument a Bartomeu Robert",
+      "lat": 41.3948867,
+      "lon": 2.1755625,
+      "tags": {
+        "alt_name": "Monument al Doctor Robert",
+        "artist_name": "Josep Llimona",
+        "artwork_type": "statue",
+        "end_date": "1010-11-13",
+        "height": "12.6",
+        "historic": "monument",
+        "length": "11.25",
+        "material": "metal",
+        "name": "Monument a Bartomeu Robert",
+        "name:ca": "Monument a Bartomeu Robert",
+        "start_date": "1904-01-31",
+        "tourism": "artwork",
+        "width": "9.26",
+        "wikidata": "Q15726782",
+        "wikimedia_commons": "Category:Monument al Doctor Robert",
+        "wikipedia": "ca:Monument al Doctor Robert"
+      }
+    },
+    {
+      "id": "node/2456223233",
+      "name": "Temple d'August",
+      "lat": 41.3833749,
+      "lon": 2.1772306,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:country": "ES",
+        "addr:housenumber": "10",
+        "addr:postcode": "08002",
+        "addr:province": "Barcelona",
+        "addr:street": "Carrer del Paradís",
+        "email": "museuhistoria@bcn.cat",
+        "fee": "no",
+        "historic": "temple",
+        "museum": "archaeological",
+        "name": "Temple d'August",
+        "name:ca": "Temple d'August",
+        "opening_hours": "Mo 10:00-14:00; Tu-Sa 10:00-19:00; Su 10:00-20:00; Jan 01,May 01,Jun 24,Dec 25 off; PH off",
+        "operator": "Museu d'Història de Barcelona",
+        "operator:short": "MUHBA",
+        "operator:type": "public",
+        "operator:wikidata": "Q3571337",
+        "phone": "+34932562122",
+        "ruins": "temple",
+        "tourism": "museum",
+        "website": "https://www.barcelona.cat/museuhistoria/ca/patrimonis-i-recerca/els-espais-del-museu/temple-daugust",
+        "wheelchair": "limited",
+        "wikidata": "Q3819019"
+      }
+    },
+    {
+      "id": "node/2524480042",
+      "name": "Monument a la sardana",
+      "lat": 41.3679677,
+      "lon": 2.1686962,
+      "tags": {
+        "historic": "monument",
+        "name": "Monument a la sardana",
+        "name:ca": "Monument a la sardana",
+        "name:es": "Monumento a la Sardana",
+        "panoramax": "84a536fa-3e7d-41b5-a5c6-91cb609e7bdf",
+        "wikidata": "Q99455699",
+        "wikimedia_commons": "Category:Monument a la Sardana (Montjuïc)",
+        "wikipedia": "ca:Monument a la Sardana (Barcelona)"
+      }
+    },
+    {
+      "id": "node/3045464831",
+      "name": "Crescendo appare",
+      "lat": 41.3763684,
+      "lon": 2.1875561,
+      "tags": {
+        "artist_name": "Mario Merz",
+        "historic": "monument",
+        "name": "Crescendo appare",
+        "tourism": "artwork",
+        "wikidata": "Q99509371",
+        "wikimedia_commons": "Category:Crescendo appare",
+        "wikipedia": "ca:Crescendo appare"
+      }
+    },
+    {
+      "id": "node/3545789430",
+      "name": "Rellotge dels Llums",
+      "lat": 41.3754483,
+      "lon": 2.158477,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housenumber": "2",
+        "addr:postcode": "08015",
+        "addr:street": "Carrer de Rocafort",
+        "amenity": "clock",
+        "artist_name": "Juan Cabrerizo",
+        "description:ca": "Instal·lat el 1929, està fet de pedra artificial, llautó i vidre. Al centre del quadrant està representat el déu Hermes amb l'escut de Barcelona. Marca les hores cada cinc minuts mitjançant uns discos lluminosos.",
+        "name": "Rellotge dels Llums",
+        "name:ca": "Rellotge dels Llums",
+        "name:en": "Clock of Lights",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/3647299861",
+      "name": "Museu Europeu d'Art Modern",
+      "lat": 41.3850115,
+      "lon": 2.1804656,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housenumber": "5",
+        "addr:postcode": "08003",
+        "addr:street": "Carrer Barra de Ferro",
+        "alt_name": "MEAM",
+        "email": "info@meam.es",
+        "fee": "yes",
+        "name": "Museu Europeu d'Art Modern",
+        "name:ca": "Museu Europeu d'Art Modern",
+        "name:es": "museo europeo de arte moderno",
+        "opening_hours": "Tu-Th,Su 11:00-19:00; Fr,Sa 11:00-20:00; Dec 25 off; Dec 26 off",
+        "phone": "+34 934 186 891",
+        "short_name": "MEAM",
+        "tourism": "museum",
+        "website": "https://www.meam.es/ca/",
+        "wikidata": "Q1872977",
+        "wikimedia_commons": "Category:Museu Europeu d'Art Modern",
+        "wikipedia": "ca:Museu Europeu d'Art Modern"
+      }
+    },
+    {
+      "id": "node/3797211477",
+      "name": "Refugi 307",
+      "lat": 41.3714368,
+      "lon": 2.1666274,
+      "tags": {
+        "access": "yes",
+        "building": "bunker",
+        "fee": "no",
+        "historic": "yes",
+        "military": "bunker",
+        "name": "Refugi 307",
+        "name:ca": "Refugi 307",
+        "name:zh": "城市历史博物馆",
+        "operator": "MUHBA",
+        "reservation": "required",
+        "start_date": "1937",
+        "tourism": "museum",
+        "website": "https://ajuntament.barcelona.cat/museuhistoria/muhba-refugi-307",
+        "wikidata": "Q6103595",
+        "wikipedia": "ca:Refugi 307"
+      }
+    },
+    {
+      "id": "node/4008985789",
+      "name": "Monument a Anselm Clavé",
+      "lat": 41.4039835,
+      "lon": 2.16352,
+      "tags": {
+        "architect": "Josep Vilaseca i Casanovas",
+        "architect:wikidata": "Q517127",
+        "architect:wikipedia": "ca:Josep Vilaseca i Casanovas",
+        "artist:wikidata": "Q4493323",
+        "artist:wikipedia": "ca:Manuel Fuxà i Leal",
+        "artist_name": "Manuel Fuxà i Leal",
+        "artwork_subject": "Josep Anselm Clavé i Camps",
+        "artwork_type": "statue",
+        "historic": "monument",
+        "name": "Monument a Anselm Clavé",
+        "name:ca": "Monument a Anselm Clavé",
+        "subject:wikidata": "Q2335557",
+        "subject:wikipedia": "ca:Josep Anselm Clavé i Camps",
+        "tourism": "artwork",
+        "wikidata": "Q18004983",
+        "wikimedia_commons": "Category:Monument a Anselm Clavé, Barcelona",
+        "wikipedia": "ca:Monument a Josep Anselm Clavé"
+      }
+    },
+    {
+      "id": "node/4147619822",
+      "name": "Escales de Forestier",
+      "lat": 41.3706564,
+      "lon": 2.1732114,
+      "tags": {
+        "architect": "Jean Claude Nicolas Forestier",
+        "architect:wikidata": "Q3049328",
+        "architect:wikipedia": "ca:Jean Claude Nicolas Forestier",
+        "name": "Escales de Forestier",
+        "name:ca": "Escales de Forestier",
+        "name:en": "Forestier stairs",
+        "name:es": "Escaleras de Forestier",
+        "tourism": "attraction",
+        "wikidata": "Q115438081"
+      }
+    },
+    {
+      "id": "node/4232407089",
+      "name": "Monument Barcelona al general Moragues. 1672 – 1715. Heroi i màrtir de Catalunya",
+      "lat": 41.3823653,
+      "lon": 2.1840439,
+      "tags": {
+        "historic": "monument",
+        "name": "Monument Barcelona al general Moragues. 1672 – 1715. Heroi i màrtir de Catalunya",
+        "panoramax": "bda47114-49c2-41b8-b317-7cc40c4da4c4"
+      }
+    },
+    {
+      "id": "node/4234485153",
+      "name": "Monument a Lepanto",
+      "lat": 41.3749495,
+      "lon": 2.1767586,
+      "tags": {
+        "historic": "monument",
+        "name": "Monument a Lepanto",
+        "name:ca": "Monument a Lepanto",
+        "name:en": "Español",
+        "name:es": "Monumento a Lepanto"
+      }
+    },
+    {
+      "id": "node/4316268495",
+      "name": "Museu del Perfum",
+      "lat": 41.3913658,
+      "lon": 2.1653221,
+      "tags": {
+        "addr:housenumber": "39",
+        "addr:street": "Passeig de Gràcia",
+        "fee": "yes",
+        "name": "Museu del Perfum",
+        "name:ca": "Museu del Perfum",
+        "name:en": "Museu del Perfum",
+        "name:es": "museo del perfume",
+        "tourism": "museum",
+        "website": "http://www.museudelperfum.com/",
+        "wikidata": "Q30095026",
+        "wikimedia_commons": "Category:Museu del Perfum",
+        "wikipedia": "ca:Museu del Perfum"
+      }
+    },
+    {
+      "id": "node/4389069101",
+      "name": "Pi i Margall",
+      "lat": 41.4071495,
+      "lon": 2.1632748,
+      "tags": {
+        "historic": "monument",
+        "name": "Pi i Margall",
+        "name:ca": "Pi i Margall",
+        "name:es": "Pi i Margall"
+      }
+    },
+    {
+      "id": "node/4418178414",
+      "name": "Porta de Sant Iu",
+      "lat": 41.3840784,
+      "lon": 2.1768144,
+      "tags": {
+        "addr:housenumber": "1",
+        "addr:postcode": "08002",
+        "addr:street": "Plaça de Sant Iu",
+        "entrance": "yes",
+        "historic": "yes",
+        "name": "Porta de Sant Iu",
+        "name:ca": "Porta de Sant Iu",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4438083492",
+      "name": "A Narcís Monturiol",
+      "lat": 41.3985855,
+      "lon": 2.1667997,
+      "tags": {
+        "alt_name": "Ictineo II",
+        "historic": "monument",
+        "name": "A Narcís Monturiol",
+        "name:ca": "A Narcís Monturiol",
+        "wikidata": "Q6023078",
+        "wikimedia_commons": "Category:Monument a Narcís Monturiol (Avinguda Diagonal)",
+        "wikipedia": "ca:A Narcís Monturiol"
+      }
+    },
+    {
+      "id": "node/4475257011",
+      "name": "Monument a Rius i Taulet",
+      "lat": 41.389027,
+      "lon": 2.1833188,
+      "tags": {
+        "historic": "monument",
+        "name": "Monument a Rius i Taulet",
+        "name:ca": "Monument a Rius i Taulet",
+        "panoramax": "8eb6c78c-061f-4634-8461-1f2ffc5e4a32",
+        "wikidata": "Q11937550",
+        "wikimedia_commons": "Category:Monument a Rius i Taulet",
+        "wikipedia": "ca:Monument a Rius i Taulet"
+      }
+    },
+    {
+      "id": "node/4553142274",
+      "name": "Museu de la Sagrada Família",
+      "lat": 41.4031293,
+      "lon": 2.1742612,
+      "tags": {
+        "check_date": "2024-01-14",
+        "fee": "yes",
+        "name": "Museu de la Sagrada Família",
+        "name:ca": "Museu de la Sagrada Família",
+        "name:es": "Museo de la Sagrada Família",
+        "name:ko": "성가족 성당",
+        "name:ru": "Храм Саграда Фамилия",
+        "name:zh": "圣家族大教堂博物馆",
+        "tourism": "museum",
+        "website": "https://sagradafamilia.org/casa-museu-gaudi"
+      }
+    },
+    {
+      "id": "node/4675120818",
+      "name": "Refugi Antiaeri de la Plaça del Diamant",
+      "lat": 41.4040737,
+      "lon": 2.1560573,
+      "tags": {
+        "addr:postcode": "08012",
+        "building": "bunker",
+        "bunker_type": "bomb_shelter",
+        "fee": "yes",
+        "historic": "yes",
+        "military": "bunker",
+        "name": "Refugi Antiaeri de la Plaça del Diamant",
+        "name:es": "Refugio Antiaéreo de la Plaça del Diamant",
+        "opening_hours": "Su 11:00+;PH off",
+        "phone": "+34932196134",
+        "reservation": "required",
+        "tourism": "attraction",
+        "website": "https://guia.barcelona.cat/detall/visites-guiades-al-refugi-antiaeri-de-la-placa-del-diamant_99400176077.html",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/4691937190",
+      "name": "Cubic",
+      "lat": 41.3783414,
+      "lon": 2.1681808,
+      "tags": {
+        "name": "Cubic",
+        "name:es": "Cubic",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4724329201",
+      "name": "Museu Eròtic de Barcelona",
+      "lat": 41.382243,
+      "lon": 2.1725665,
+      "tags": {
+        "fee": "yes",
+        "name": "Museu Eròtic de Barcelona",
+        "name:ca": "Museu Eròtic de Barcelona",
+        "name:en": "Erotic Museum",
+        "name:es": "museo erótico de Barcelona",
+        "name:ru": "Музей эротики",
+        "tourism": "museum",
+        "website": "http://www.erotica-museum.com/",
+        "wikidata": "Q3329871",
+        "wikimedia_commons": "Category:Erotic Museum of Barcelona",
+        "wikipedia": "es:Museo de la Erótica de Barcelona"
+      }
+    },
+    {
+      "id": "node/4724895518",
+      "name": "Museu i Centre d'Estudis de l'Esport Doctor Melcior Colet",
+      "lat": 41.393093,
+      "lon": 2.1481907,
+      "tags": {
+        "name": "Museu i Centre d'Estudis de l'Esport Doctor Melcior Colet",
+        "name:ca": "Museu i Centre d'Estudis de l'Esport Doctor Melcior Colet",
+        "name:en": "Museum and Study Center of Sport Doctor Melcior Colet",
+        "note": "tancat ( 2020 )",
+        "phone": "+34 934 19 22 32",
+        "tourism": "museum",
+        "website": "https://esport.gencat.cat/ca/secretaria_general_de_lesport/museu-i-centre-destudis-de-lesport-melcior-colet/",
+        "wikidata": "Q3064861",
+        "wikimedia_commons": "Category:Casa Pere Company",
+        "wikipedia": "ca:Museu i Centre d'Estudis de l'Esport Doctor Melcior Colet"
+      }
+    },
+    {
+      "id": "node/4908831207",
+      "name": "Rosa dels Vents",
+      "lat": 41.3814588,
+      "lon": 2.1846465,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:postcode": "08039",
+        "addr:street": "Plaça de Pau Vila",
+        "artist_name": "Lothar Baumgarten",
+        "description": "Cercle amb els 32 rumbs possibles que s'utilitza des de fa segles a les cartes de navegació, i alhora també és un diagrama que representa les diferents intensitats i direccions del vent.",
+        "man_made": "geoglyph",
+        "name": "Rosa dels Vents",
+        "name:ca": "Rosa dels Vents",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/4968767419",
+      "name": "a Pere Vila Codina",
+      "lat": 41.3914118,
+      "lon": 2.1813934,
+      "tags": {
+        "historic": "monument",
+        "name": "a Pere Vila Codina",
+        "wikidata": "Q99509343",
+        "wikimedia_commons": "Category:A Pere Vila Codina (Josep Dunyach)"
+      }
+    },
+    {
+      "id": "node/5009538421",
+      "name": "Museu de les Il·lusions",
+      "lat": 41.3828465,
+      "lon": 2.1698409,
+      "tags": {
+        "addr:housenumber": "17",
+        "addr:postcode": "08001",
+        "addr:street": "Carrer del Pintor Fortuny",
+        "alt_name:es": "Museo de las Ilusiones Barcelona",
+        "email": "es@agmo.cat",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Museu de les Il·lusions",
+        "name:ca": "Museu de les Il·lusions",
+        "name:en": "Museum of Illusions Barcelona",
+        "name:es": "Museu de les Il·lusions",
+        "opening_hours": "Mo-Su 11:00-21:00",
+        "phone": "+34 618 55 56 55",
+        "size": "medium",
+        "tourism": "museum",
+        "website": "https://illusions-museum.com"
+      }
+    },
+    {
+      "id": "node/5065076921",
+      "name": "Casa Sayrach",
+      "lat": 41.3946333,
+      "lon": 2.1530982,
+      "tags": {
+        "architect": "Manuel Sayrach i Carreras",
+        "architect:wikidata": "Q9028140",
+        "architect:wikipedia": "ca:Manuel Sayrach i Carreras",
+        "name": "Casa Sayrach",
+        "name:ca": "Casa Sayrach",
+        "start_date": "1917",
+        "tourism": "attraction",
+        "website": "https://www.barcelonaturisme.com/wv3/en/page/1159/casa-sayrach.html",
+        "wikidata": "Q18341688",
+        "wikimedia_commons": "Category:Casa Sayrach",
+        "wikipedia": "ca:Casa Sayrach"
+      }
+    },
+    {
+      "id": "node/5198083737",
+      "name": "Laboratori de Natura",
+      "lat": 41.3881207,
+      "lon": 2.1836707,
+      "tags": {
+        "addr:city": "Barcelona",
+        "addr:housename": "Passeig de Picasso",
+        "addr:postcode": "08003",
+        "addr:street": "Passeig de Picasso",
+        "contact:phone": "+34932566002",
+        "description": "Museum of zoology, part of Museum of Natural Science",
+        "name": "Laboratori de Natura",
+        "name:ca": "Laboratori de Natura",
+        "operator": "Museu de Ciències Naturals de Barcelona",
+        "operator:type": "public",
+        "tourism": "museum",
+        "wikidata": "Q11931058",
+        "wikipedia": "ca:Laboratori de Natura"
+      }
+    },
+    {
+      "id": "node/5531450924",
+      "name": "Street Art SIDA",
+      "lat": 41.3827782,
+      "lon": 2.1660516,
+      "tags": {
+        "name:en": "Street Art SIDA",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/5532252621",
+      "name": "Galería Maxó",
+      "lat": 41.3888034,
+      "lon": 2.180624,
+      "tags": {
+        "name": "Galería Maxó",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "id": "node/5558687722",
+      "name": "Jardín de los gatos",
+      "lat": 41.3808292,
+      "lon": 2.170673,
+      "tags": {
+        "name": "Jardín de los gatos",
+        "name:ca": "El jardí dels gats",
+        "name:de": "Garten der Kätzen",
+        "name:en": "The garden of cats",
+        "name:es": "El jardín de los gatos",
+        "name:ru": "Сад кошек",
+        "tourism": "attraction"
+      }
+    }
+  ]
+}

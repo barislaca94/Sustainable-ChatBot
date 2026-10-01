@@ -1,0 +1,434 @@
+{
+  "city": "Amsterdam",
+  "centre": {
+    "lat": 52.3730796,
+    "lon": 4.8924534
+  },
+  "kind": "transit",
+  "radius_m": 2000,
+  "count": 30,
+  "records": [
+    {
+      "id": "node/46355288",
+      "name": "Amsterdam, Nassaukade",
+      "lat": 52.3646467,
+      "lon": 4.8785741,
+      "tags": {
+        "bus": "yes",
+        "name": "Amsterdam, Nassaukade",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/46369643",
+      "name": "Meester Visserplein",
+      "lat": 52.3679611,
+      "lon": 4.9053602,
+      "tags": {
+        "name": "Meester Visserplein",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "source": "AND",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111397558"
+      }
+    },
+    {
+      "id": "node/46395197",
+      "name": "Amsterdam, Prins Hendrikkade",
+      "lat": 52.373463,
+      "lon": 4.9065518,
+      "tags": {
+        "bus": "yes",
+        "name": "Amsterdam, Prins Hendrikkade",
+        "public_transport": "stop_position",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/46406745",
+      "name": "Amsterdam, Prins Hendrikkade",
+      "lat": 52.3768001,
+      "lon": 4.9023351,
+      "tags": {
+        "bus": "yes",
+        "name": "Amsterdam, Prins Hendrikkade",
+        "note": "uitstaphalte",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/46413721",
+      "name": "Amsterdam, Piet Heinkade",
+      "lat": 52.3773362,
+      "lon": 4.9135819,
+      "tags": {
+        "bus": "yes",
+        "name": "Amsterdam, Piet Heinkade",
+        "public_transport": "stop_position",
+        "ref:IFOPT": "NL:Q:30008004"
+      }
+    },
+    {
+      "id": "node/46432024",
+      "name": "Nassaukade",
+      "lat": 52.3813125,
+      "lon": 4.8792047,
+      "tags": {
+        "name": "Nassaukade",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wikidata": "Q111307092"
+      }
+    },
+    {
+      "id": "node/46434756",
+      "name": "IJplein",
+      "lat": 52.3816386,
+      "lon": 4.9085707,
+      "tags": {
+        "amenity": "ferry_terminal",
+        "check_date": "2023-08-30",
+        "ferry": "yes",
+        "name": "IJplein",
+        "operator": "GVB",
+        "public_transport": "stop_position",
+        "website": "https://www.gvb.nl/en/travel-information/stop/NL:S:30009911",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/46440500",
+      "name": "Valkenweg",
+      "lat": 52.3830657,
+      "lon": 4.9136493,
+      "tags": {
+        "bus": "yes",
+        "name": "Valkenweg",
+        "public_transport": "stop_position"
+      }
+    },
+    {
+      "id": "node/46462976",
+      "name": "Zoutkeetsgracht",
+      "lat": 52.388084,
+      "lon": 4.8851416,
+      "tags": {
+        "name": "Zoutkeetsgracht",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wikidata": "Q127977567"
+      }
+    },
+    {
+      "id": "node/148726445",
+      "name": "Van Limburg Stirumplein",
+      "lat": 52.3844185,
+      "lon": 4.8749198,
+      "tags": {
+        "name": "Van Limburg Stirumplein",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q111307089"
+      }
+    },
+    {
+      "id": "node/237938749",
+      "name": "Dam",
+      "lat": 52.3735332,
+      "lon": 4.8936441,
+      "tags": {
+        "name": "Dam",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "limited",
+        "wikidata": "Q111305178"
+      }
+    },
+    {
+      "id": "node/240316872",
+      "name": "Frederik Hendrikplantsoen",
+      "lat": 52.3784783,
+      "lon": 4.875268,
+      "tags": {
+        "name": "Frederik Hendrikplantsoen",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "website": "https://gvb.nl/reisinformatie/halte/NL:S:30002132",
+        "wheelchair": "limited",
+        "wikidata": "Q111307093"
+      }
+    },
+    {
+      "id": "node/240316873",
+      "name": "Hugo de Grootplein",
+      "lat": 52.3750097,
+      "lon": 4.8729548,
+      "tags": {
+        "name": "Hugo de Grootplein",
+        "panoramax": "d84f7c04-1ea7-433b-a635-393126abee2c",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wikidata": "Q111307094"
+      }
+    },
+    {
+      "id": "node/240316874",
+      "name": "Hugo de Grootplein",
+      "lat": 52.3742987,
+      "lon": 4.872531,
+      "tags": {
+        "name": "Hugo de Grootplein",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111307094"
+      }
+    },
+    {
+      "id": "node/241772055",
+      "name": "Waterlooplein",
+      "lat": 52.3669934,
+      "lon": 4.9019846,
+      "tags": {
+        "name": "Waterlooplein",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wikidata": "Q111397560"
+      }
+    },
+    {
+      "id": "node/241775832",
+      "name": "Rijksmuseum",
+      "lat": 52.3609734,
+      "lon": 4.887104,
+      "tags": {
+        "alt_name": "Spiegelgracht",
+        "name": "Rijksmuseum",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111291263"
+      }
+    },
+    {
+      "id": "node/250229766",
+      "name": "Centraal Station",
+      "lat": 52.3775081,
+      "lon": 4.9010471,
+      "tags": {
+        "name": "Centraal Station",
+        "name:de": "Hauptbahnhof",
+        "network": "Amsterdam Metro",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "subway": "yes",
+        "wheelchair": "yes",
+        "zone": "5700"
+      }
+    },
+    {
+      "id": "node/289818100",
+      "name": "Muziekgebouw",
+      "lat": 52.3772063,
+      "lon": 4.9134308,
+      "tags": {
+        "name": "Muziekgebouw",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref:IFOPT": "NL:Q:30008234",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111458110",
+        "wikimedia_commons": "Category:Tram stop Muziekgebouw Bimhuis"
+      }
+    },
+    {
+      "id": "node/291660551",
+      "name": "Museumplein",
+      "lat": 52.358854,
+      "lon": 4.8812446,
+      "tags": {
+        "name": "Museumplein",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111301509"
+      }
+    },
+    {
+      "id": "node/296020283",
+      "name": "Haarlemmerplein",
+      "lat": 52.384972,
+      "lon": 4.8835037,
+      "tags": {
+        "name": "Haarlemmerplein",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "tram": "yes",
+        "wikidata": "Q127977997"
+      }
+    },
+    {
+      "id": "node/297095283",
+      "name": "Bilderdijkstraat",
+      "lat": 52.3710541,
+      "lon": 4.8708148,
+      "tags": {
+        "name": "Bilderdijkstraat",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111307980"
+      }
+    },
+    {
+      "id": "node/310569749",
+      "name": "Keizersgracht",
+      "lat": 52.3638329,
+      "lon": 4.8983188,
+      "tags": {
+        "name": "Keizersgracht",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111343615"
+      }
+    },
+    {
+      "id": "node/310569756",
+      "name": "Frederiksplein",
+      "lat": 52.3599361,
+      "lon": 4.8990837,
+      "tags": {
+        "name": "Frederiksplein",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111286556"
+      }
+    },
+    {
+      "id": "node/310569757",
+      "name": "Albert Cuypstraat",
+      "lat": 52.3575783,
+      "lon": 4.8994017,
+      "tags": {
+        "name": "Albert Cuypstraat",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/331854558",
+      "name": "Amsterdam, Kadijksplein",
+      "lat": 52.3709246,
+      "lon": 4.913366,
+      "tags": {
+        "bus": "yes",
+        "name": "Amsterdam, Kadijksplein",
+        "public_transport": "stop_position",
+        "ref:IFOPT": "NL:Q:30008028"
+      }
+    },
+    {
+      "id": "node/371265387",
+      "name": "Prinsengracht",
+      "lat": 52.3650035,
+      "lon": 4.8843839,
+      "tags": {
+        "name": "Prinsengracht",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111305181"
+      }
+    },
+    {
+      "id": "node/371265504",
+      "name": "Keizersgracht",
+      "lat": 52.3659309,
+      "lon": 4.8863435,
+      "tags": {
+        "name": "Keizersgracht",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "tram": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q111305180"
+      }
+    },
+    {
+      "id": "node/412959436",
+      "name": "Amsterdam Centraal",
+      "lat": 52.3795172,
+      "lon": 4.8996047,
+      "tags": {
+        "level": "1",
+        "local_ref": "11a",
+        "name": "Amsterdam Centraal",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "railway:ref": "Asd",
+        "railway:ref:DB": "XNAC",
+        "railway:ref:NMBS/SNCB": "XNASD",
+        "ref": "11a",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/412959512",
+      "name": "Amsterdam Centraal",
+      "lat": 52.3790494,
+      "lon": 4.8991803,
+      "tags": {
+        "level": "1",
+        "local_ref": "2a",
+        "name": "Amsterdam Centraal",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "railway:ref": "Asd",
+        "railway:ref:DB": "XNAC",
+        "railway:ref:NMBS/SNCB": "XNASD",
+        "ref": "2a",
+        "train": "yes"
+      }
+    },
+    {
+      "id": "node/412959517",
+      "name": "Amsterdam Centraal",
+      "lat": 52.3785033,
+      "lon": 4.9009082,
+      "tags": {
+        "level": "1",
+        "local_ref": "4b",
+        "name": "Amsterdam Centraal",
+        "public_transport": "stop_position",
+        "railway": "stop",
+        "railway:ref": "Asd",
+        "railway:ref:DB": "XNAC",
+        "railway:ref:NMBS/SNCB": "XNASD",
+        "ref": "4b",
+        "train": "yes"
+      }
+    }
+  ]
+}

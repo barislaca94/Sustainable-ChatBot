@@ -1,0 +1,971 @@
+{
+  "city": "Amsterdam",
+  "centre": {
+    "lat": 52.3730796,
+    "lon": 4.8924534
+  },
+  "kind": "hotels",
+  "radius_m": 3000,
+  "count": 49,
+  "records": [
+    {
+      "id": "node/28836479",
+      "name": "Vondel Park Plaza",
+      "lat": 52.3542481,
+      "lon": 4.8663024,
+      "tags": {
+        "addr:housenumber": "3",
+        "addr:postcode": "1075AA",
+        "addr:street": "Koningslaan",
+        "check_date": "2025-03-17",
+        "contact:facebook": "ParkPlaza",
+        "contact:instagram": "parkplaza",
+        "contact:twitter": "ParkPlazaHotels",
+        "email": "ppvofo@pphe.com",
+        "name": "Vondel Park Plaza",
+        "phone": "+31 20 664 6111",
+        "tourism": "hotel",
+        "website": "https://www.parkplazavondelpark.com/"
+      }
+    },
+    {
+      "id": "node/154798750",
+      "name": "Clayton Hotel Amsterdam American",
+      "lat": 52.3637964,
+      "lon": 4.88117,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "97",
+        "addr:postcode": "1017PN",
+        "addr:street": "Leidsekade",
+        "brand": "Hard Rock Hotel",
+        "brand:wikidata": "Q109275902",
+        "check_date": "2025-03-14",
+        "email": "info.amsterdam@claytonhotels.com",
+        "name": "Clayton Hotel Amsterdam American",
+        "phone": "+31 20 556 3000",
+        "stars": "4s",
+        "toilets:wheelchair": "yes",
+        "tourism": "hotel",
+        "website": "https://claytonhotelamsterdam.com/",
+        "wheelchair": "yes",
+        "wheelchair:description": "entrance at the side!"
+      }
+    },
+    {
+      "id": "node/237892288",
+      "name": "Sint Nicolaas",
+      "lat": 52.3774839,
+      "lon": 4.8951863,
+      "tags": {
+        "check_date": "2024-07-27",
+        "name": "Sint Nicolaas",
+        "tourism": "hotel",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/237898651",
+      "name": "WestCord City Center",
+      "lat": 52.3765293,
+      "lon": 4.8935818,
+      "tags": {
+        "name": "WestCord City Center",
+        "tourism": "hotel",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/237904890",
+      "name": "The Highlander",
+      "lat": 52.3756802,
+      "lon": 4.8923093,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "100",
+        "addr:postcode": "1012SG",
+        "addr:street": "Nieuwezijds Voorburgwal",
+        "name": "The Highlander",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "tourism": "hotel",
+        "website": "https://www.thehighlanderhotel.com/nl/hotel-citadel-is-the-highlander"
+      }
+    },
+    {
+      "id": "node/237904893",
+      "name": "INK Hotel Amsterdam",
+      "lat": 52.3755058,
+      "lon": 4.8929255,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "67",
+        "addr:postcode": "1012RE",
+        "addr:street": "Nieuwezijds Voorburgwal",
+        "check_date": "2025-09-20",
+        "name": "INK Hotel Amsterdam",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "tourism": "hotel",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/237912528",
+      "name": "Park Plaza Victoria Hotel",
+      "lat": 52.3772801,
+      "lon": 4.8976771,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "1-5",
+        "addr:postcode": "1012LG",
+        "addr:street": "Damrak",
+        "brand": "Park Plaza",
+        "brand:wikidata": "Q2052550",
+        "brand:wikipedia": "en:Park Plaza Hotels & Resorts",
+        "name": "Park Plaza Victoria Hotel",
+        "tourism": "hotel",
+        "website": "https://www.parkplazavictoriaamsterdam.nl/",
+        "wikidata": "Q2433903",
+        "wikimedia_commons": "Category:Victoria Hotel Amsterdam",
+        "wikipedia": "nl:Victoria Hotel"
+      }
+    },
+    {
+      "id": "node/237912534",
+      "name": "Kimpton De Witt Hotel",
+      "lat": 52.3771508,
+      "lon": 4.8954929,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "5",
+        "addr:postcode": "1012RC",
+        "addr:street": "Nieuwezijds Voorburgwal",
+        "brand": "Kimpton",
+        "brand:wikidata": "Q6410248",
+        "brand:wikipedia": "en:Kimpton Hotels & Restaurants",
+        "name": "Kimpton De Witt Hotel",
+        "old_name": "Crowne Plaza Amsterdam City Centre",
+        "operator": "InterContinental Hotels Group (IHG)",
+        "phone": "+31 20 620 0500",
+        "tourism": "hotel",
+        "website": "https://www.kimptondewitthotel.com/en/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/237912539",
+      "name": "Avenue Hotel",
+      "lat": 52.3766377,
+      "lon": 4.8946387,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "33",
+        "addr:postcode": "1012RD",
+        "addr:street": "Nieuwezijds Voorburgwal",
+        "check_date": "2024-07-27",
+        "contact:email": "info@avenue-hotel.nl",
+        "contact:fax": "+31 20 530 9599",
+        "contact:phone": "+31 20 530 9530",
+        "name": "Avenue Hotel",
+        "rooms": "82",
+        "source": "http://avenue-hotel.nl/",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://avenue-hotel.nl",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/249628970",
+      "name": "The Arcade Hotel Amsterdam",
+      "lat": 52.3536317,
+      "lon": 4.8976537,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "106",
+        "addr:postcode": "1073EC",
+        "addr:street": "Sarphatipark",
+        "email": "info@arcadehotel.nl",
+        "name": "The Arcade Hotel Amsterdam",
+        "phone": "+31 20 676 0310",
+        "rooms": "42",
+        "tourism": "hotel",
+        "website": "https://www.arcadehotel.nl",
+        "wikidata": "Q111114820"
+      }
+    },
+    {
+      "id": "node/251127911",
+      "name": "NH Collection Amsterdam Barbizon Palace",
+      "lat": 52.3764319,
+      "lon": 4.9003632,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "59-72",
+        "addr:postcode": "1012AD",
+        "addr:street": "Prins Hendrikkade",
+        "brand": "NH Collection Hotels",
+        "brand:wikidata": "Q1604631",
+        "email": "nhbarbizonpalace@nh-hotels.com",
+        "name": "NH Collection Amsterdam Barbizon Palace",
+        "phone": "+31 20 556 4564",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.nh-hotels.com/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/251147173",
+      "name": "De Oranje Tulp",
+      "lat": 52.3760831,
+      "lon": 4.8965471,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "32",
+        "addr:postcode": "1012LK",
+        "addr:street": "Damrak",
+        "name": "De Oranje Tulp",
+        "name:en": "Orange Tulip",
+        "name:nl": "De Oranje Tulp",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/251147174",
+      "name": "Van Gelder",
+      "lat": 52.3760003,
+      "lon": 4.8964629,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "34",
+        "addr:postcode": "1012LK",
+        "addr:street": "Damrak",
+        "name": "Van Gelder",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/251147177",
+      "name": "Hotel Continental",
+      "lat": 52.3758136,
+      "lon": 4.8961439,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "40",
+        "addr:postcode": "1012LK",
+        "addr:street": "Damrak",
+        "internet_access": "wlan",
+        "name": "Hotel Continental",
+        "phone": "+31 20 622 3363",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "tourism": "hotel",
+        "website": "https://hotelcontinentalamsterdam.nl/",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/251147179",
+      "name": "Hotel Manofa",
+      "lat": 52.3754934,
+      "lon": 4.8957562,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "47-48",
+        "addr:postcode": "1012LL",
+        "addr:street": "Damrak",
+        "check_date": "2024-05-10",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Hotel Manofa",
+        "stars": "1",
+        "tourism": "hotel",
+        "website": "https://www.manofa-hotel.com/"
+      }
+    },
+    {
+      "id": "node/251149361",
+      "name": "De Roode Leeuw",
+      "lat": 52.3737184,
+      "lon": 4.8935428,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "93-94",
+        "addr:postcode": "1012LP",
+        "addr:street": "Damrak",
+        "email": "info@hotelamsterdam.nl",
+        "internet_access": "wlan",
+        "name": "De Roode Leeuw",
+        "phone": "+31 20 555 0666",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.hotelamsterdam.nl/",
+        "wheelchair": "no",
+        "wikidata": "Q110061713",
+        "wikimedia_commons": "Category:De Roode Leeuw, Amsterdam",
+        "wikipedia": "nl:De Roode Leeuw (Amsterdam)"
+      }
+    },
+    {
+      "id": "node/251149366",
+      "name": "Swissôtel",
+      "lat": 52.3735795,
+      "lon": 4.8933229,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "96",
+        "addr:postcode": "1012LP",
+        "addr:street": "Damrak",
+        "alt_name": "Swissotel",
+        "brand": "Swissôtel",
+        "brand:wikidata": "Q1635974",
+        "brand:wikipedia": "en:Swissôtel",
+        "email": "amsterdam@swissotel.com",
+        "name": "Swissôtel",
+        "phone": "+31 20 522 3000",
+        "rooms": "111",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.swissotel.com/hotels/amsterdam/",
+        "wheelchair": "limited",
+        "wikidata": "Q18393172",
+        "wikimedia_commons": "Category:Swissôtel Amsterdam",
+        "wikipedia": "en:Swissôtel Amsterdam"
+      }
+    },
+    {
+      "id": "node/251150450",
+      "name": "Anantara Grand Hotel Krasnapolsky",
+      "lat": 52.3727291,
+      "lon": 4.8943846,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "9",
+        "addr:postcode": "1012JS",
+        "addr:street": "Dam",
+        "brand": "Anantara",
+        "brand:wikidata": "Q112671781",
+        "email": "krasnapolsky@anantara.com",
+        "name": "Anantara Grand Hotel Krasnapolsky",
+        "operator": "Anantara Hotels",
+        "phone": "+31 20 554 9111",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.anantara.com/en/grand-hotel-krasnapolsky-amsterdam",
+        "wheelchair": "yes",
+        "wikidata": "Q1213720",
+        "wikimedia_commons": "Category:Hotel Krasnapolsky",
+        "wikipedia": "nl:Grand Hotel Krasnapolsky"
+      }
+    },
+    {
+      "id": "node/251187547",
+      "name": "Torenzicht",
+      "lat": 52.3725261,
+      "lon": 4.8982082,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "93",
+        "addr:postcode": "1012DD",
+        "addr:street": "Oudezijds Achterburgwal",
+        "check_date": "2025-08-16",
+        "email": "info@torenzicht.com",
+        "name": "Torenzicht",
+        "phone": "+31 20 623 2900",
+        "stars": "1",
+        "tourism": "hotel",
+        "website": "https://www.hoteltorenzicht.com/",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/251528271",
+      "name": "Hotel des Arts",
+      "lat": 52.3678828,
+      "lon": 4.8926389,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "156",
+        "addr:postcode": "1012LE",
+        "addr:street": "Rokin",
+        "check_date": "2025-03-16",
+        "name": "Hotel des Arts",
+        "source": "BAG",
+        "source:date": "2021-08-08",
+        "tourism": "hotel",
+        "website": "https://www.hoteldesarts.nl/",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/251528284",
+      "name": "NH Schiller",
+      "lat": 52.3656834,
+      "lon": 4.8967092,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "26",
+        "addr:postcode": "1017CV",
+        "addr:street": "Rembrandtplein",
+        "check_date": "2026-07-12",
+        "check_date:internet_access": "2025-03-15",
+        "email": "nhschiller@nh-hotels.com",
+        "internet_access": "wlan",
+        "name": "NH Schiller",
+        "operator": "NH",
+        "phone": "+31 20 554 0700",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "toilets:wheelchair": "yes",
+        "tourism": "hotel",
+        "website": "https://www.nh-hotels.nl/",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/251528285",
+      "name": "Cordial",
+      "lat": 52.3707199,
+      "lon": 4.8923394,
+      "tags": {
+        "check_date": "2024-08-15",
+        "name": "Cordial",
+        "tourism": "hotel",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/251528289",
+      "name": "Hotel Rokin",
+      "lat": 52.3706637,
+      "lon": 4.8931309,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "73",
+        "addr:postcode": "1012KL",
+        "addr:street": "Rokin",
+        "name": "Hotel Rokin",
+        "source": "BAG",
+        "tourism": "hotel",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/251528295",
+      "name": "City Hotel",
+      "lat": 52.3657224,
+      "lon": 4.8974282,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "2",
+        "addr:postcode": "1017VN",
+        "addr:street": "Utrechtsestraat",
+        "check_date": "2026-04-28",
+        "email": "info@city-hotel.nl",
+        "fax": "+31 20 330 9323",
+        "name": "City Hotel",
+        "phone": "+31 20 627 2323",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "tourism": "hotel",
+        "website": "https://www.city-hotel.nl/",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/251528296",
+      "name": "Atlanta",
+      "lat": 52.3659543,
+      "lon": 4.8954921,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "8-10",
+        "addr:street": "Rembrandtplein",
+        "check_date": "2026-07-12",
+        "email": "info@atlantahotel.nl",
+        "fax": "+31 20 624 9141",
+        "name": "Atlanta",
+        "phone": "+31 20 625 3585",
+        "tourism": "hotel",
+        "website": "http://www.atlantahotel.nl",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/251528300",
+      "name": "Hotel Pagi",
+      "lat": 52.3692848,
+      "lon": 4.8917604,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "104",
+        "addr:postcode": "1012KZ",
+        "addr:street": "Rokin",
+        "email": "info@hotelpagi.com",
+        "image": "https://www.hotelpagi.com/images/speasyimagegallery/albums/2/images/hotel-pagi-nov18-008.jpg",
+        "name": "Hotel Pagi",
+        "phone": "+31 20 7768074",
+        "tourism": "hotel",
+        "website": "https://www.hotelpagi.com/"
+      }
+    },
+    {
+      "id": "node/251530295",
+      "name": "NH Caransa",
+      "lat": 52.3664488,
+      "lon": 4.8970384,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "19",
+        "addr:postcode": "1017CT",
+        "addr:street": "Rembrandtplein",
+        "email": "nhcaransa@nh-hotels.com",
+        "name": "NH Caransa",
+        "operator": "NH",
+        "phone": "+31 20 554 0800",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "toilets:wheelchair": "no",
+        "tourism": "hotel",
+        "website": "https://www.nh-hotels.nl/",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/251823632",
+      "name": "Hotel de l'Europe",
+      "lat": 52.3676444,
+      "lon": 4.8944657,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "2-14",
+        "addr:postcode": "1012CP",
+        "addr:street": "Nieuwe Doelenstraat",
+        "contact:facebook": "https://www.facebook.com/DeLEuropeAms",
+        "contact:instagram": "leuropeams",
+        "email": "hotel@deleurope.com",
+        "name": "Hotel de l'Europe",
+        "phone": "+31 20 531 1777",
+        "stars": "5",
+        "toilets:wheelchair": "yes",
+        "tourism": "hotel",
+        "website": "https://www.deleurope.com",
+        "wheelchair": "yes",
+        "wikidata": "Q2463682",
+        "wikimedia_commons": "Category:Hotel de l'Europe",
+        "wikipedia": "nl:De L'Europe Amsterdam"
+      }
+    },
+    {
+      "id": "node/318453539",
+      "name": "The Grand",
+      "lat": 52.3711233,
+      "lon": 4.8954212,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "197",
+        "addr:postcode": "1012EX",
+        "addr:street": "Oudezijds Voorburgwal",
+        "brand": "Sofitel",
+        "brand:wikidata": "Q749431",
+        "check_date": "2026-07-15",
+        "email": "contact.thegrand@sofitel.com",
+        "internet_access": "yes",
+        "name": "The Grand",
+        "operator": "Sofitel",
+        "phone": "+31 20 555 3111",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.sofitel-legend-thegrand.com",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "id": "node/331630133",
+      "name": "Pulitzer",
+      "lat": 52.3728089,
+      "lon": 4.8834291,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "323",
+        "addr:postcode": "1016GZ",
+        "addr:street": "Prinsengracht",
+        "email": "info@pulitzeramsterdam.com",
+        "name": "Pulitzer",
+        "phone": "+31 20 523 5235",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "stars": "5s",
+        "tourism": "hotel",
+        "website": "https://www.pulitzeramsterdam.com/",
+        "wheelchair": "yes",
+        "wikidata": "Q4500456",
+        "wikimedia_commons": "Category:Hotel Pulitzer",
+        "wikipedia": "nl:Hotel Pulitzer"
+      }
+    },
+    {
+      "id": "node/331837646",
+      "name": "LLoyd Hotel",
+      "lat": 52.3742473,
+      "lon": 4.9347806,
+      "tags": {
+        "addr:housenumber": "34",
+        "addr:postcode": "1019BN",
+        "addr:street": "Oostelijke Handelskade",
+        "alt_name": "The Hoxton Lloyd",
+        "name": "LLoyd Hotel",
+        "tourism": "hotel",
+        "website": "https://thehoxton.com/amsterdam/lloyd/",
+        "wheelchair": "no",
+        "wikidata": "Q2433228",
+        "wikimedia_commons": "Category:Lloyd Hotel",
+        "wikipedia": "nl:Lloyd Hotel (hotel)"
+      }
+    },
+    {
+      "id": "node/358187953",
+      "name": "Avani Museum Quarter",
+      "lat": 52.3558504,
+      "lon": 4.8860287,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "50",
+        "addr:postcode": "1071XL",
+        "addr:street": "Hobbemakade",
+        "name": "Avani Museum Quarter",
+        "operator": "Avani Hotels",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.avanihotels.com/en/museum-quarter-amsterdam"
+      }
+    },
+    {
+      "id": "node/416030643",
+      "name": "Lancaster Hotel Amsterdam",
+      "lat": 52.3658502,
+      "lon": 4.912904,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "48",
+        "addr:postcode": "1018DH",
+        "addr:street": "Plantage Middenlaan",
+        "email": "info.lancaster@edenhotels.nl",
+        "name": "Lancaster Hotel Amsterdam",
+        "phone": "+31 20 535 6888",
+        "tourism": "hotel",
+        "website": "https://www.thelancasterhotelamsterdam.com/nl/"
+      }
+    },
+    {
+      "id": "node/416031707",
+      "name": "The Bridge Hotel",
+      "lat": 52.3626403,
+      "lon": 4.9037722,
+      "tags": {
+        "name": "The Bridge Hotel",
+        "tourism": "hotel",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/416568030",
+      "name": "Tivoli Doelen Amsterdam",
+      "lat": 52.368205,
+      "lon": 4.8957416,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "24",
+        "addr:postcode": "1012CP",
+        "addr:street": "Nieuwe Doelenstraat",
+        "check_date": "2025-08-24",
+        "check_date:internet_access": "2025-08-24",
+        "internet_access": "wlan",
+        "name": "Tivoli Doelen Amsterdam",
+        "source": "BAG",
+        "source:date": "2014-02-11",
+        "tourism": "hotel",
+        "website": "https://www.nh-collection.com/en/hotel/nh-collection-amsterdam-doelen",
+        "wheelchair": "no",
+        "wikidata": "Q2737085",
+        "wikimedia_commons": "Category:Doelen Hotel",
+        "wikipedia": "nl:Doelen Hotel"
+      }
+    },
+    {
+      "id": "node/418586210",
+      "name": "Marriott Hotel",
+      "lat": 52.3624578,
+      "lon": 4.8801835,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "12",
+        "addr:postcode": "1054ES",
+        "addr:street": "Stadhouderskade",
+        "brand": "Marriott",
+        "brand:wikidata": "Q3918608",
+        "brand:wikipedia": "en:Marriott Hotels & Resorts",
+        "check_date": "2025-03-17",
+        "name": "Marriott Hotel",
+        "tourism": "hotel",
+        "website": "https://www.marriott.com/hotels/travel/amsnt-amsterdam-marriott-hotel/",
+        "wheelchair": "yes",
+        "wikidata": "Q21707574",
+        "wikimedia_commons": "Category:Marriott Hotel, Amsterdam"
+      }
+    },
+    {
+      "id": "node/430123000",
+      "name": "Alfred",
+      "lat": 52.3534673,
+      "lon": 4.8720837,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "58-60",
+        "addr:postcode": "1071JL",
+        "addr:street": "Cornelis Schuytstraat",
+        "alt_name": "The Alfred Hotel",
+        "check_date": "2024-10-10",
+        "name": "Alfred",
+        "note": "formerly Memphis hotel",
+        "phone": "+31 20 673 3141",
+        "service:bicycle:rental": "yes",
+        "tourism": "hotel",
+        "website": "https://www.thealfredhotel.com/"
+      }
+    },
+    {
+      "id": "node/431335034",
+      "name": "Hotel Arena",
+      "lat": 52.3612334,
+      "lon": 4.9162951,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "55",
+        "addr:postcode": "1092AA",
+        "addr:street": "'s-Gravesandestraat",
+        "check_date": "2025-07-24",
+        "name": "Hotel Arena",
+        "phone": "+31 20 850 2400",
+        "stars": "4",
+        "tourism": "hotel",
+        "url": "http://www.hotelarena.nl",
+        "website": "https://www.hotelarena.nl",
+        "wheelchair": "yes",
+        "wikidata": "Q111410206"
+      }
+    },
+    {
+      "id": "node/432506872",
+      "name": "Hotel Park Plantage",
+      "lat": 52.3664021,
+      "lon": 4.9112827,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "26",
+        "addr:postcode": "1018DE",
+        "addr:street": "Plantage Middenlaan",
+        "email": "info@hotelparkplantage.com",
+        "name": "Hotel Park Plantage",
+        "phone": "+31 20 623 5783",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://www.hotelparkplantage.com"
+      }
+    },
+    {
+      "id": "node/439170732",
+      "name": "Hotel Rembrandt",
+      "lat": 52.3671026,
+      "lon": 4.91033,
+      "tags": {
+        "name": "Hotel Rembrandt",
+        "tourism": "hotel",
+        "url": "http://www.hotelrembrandt.nl",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/440088177",
+      "name": "NH City Centre Amsterdam",
+      "lat": 52.3698407,
+      "lon": 4.8886879,
+      "tags": {
+        "check_date": "2023-06-27",
+        "contact:email": "nhcitycentre@nh-hotels.com",
+        "contact:phone": "+31 20 420 4545",
+        "contact:website": "http://www.nh-hotels.com/hotel/nh-city-centre-amsterdam",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "NH City Centre Amsterdam",
+        "old_name": "Tulip Inn",
+        "operator": "NH",
+        "rooms": "209",
+        "stars": "3",
+        "tourism": "hotel",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/441674929",
+      "name": "Ibis",
+      "lat": 52.3703348,
+      "lon": 4.9075666,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "68",
+        "addr:postcode": "1011LZ",
+        "addr:street": "Valkenburgerstraat",
+        "branch": "Amsterdam Centre Stopera",
+        "brand": "Ibis",
+        "brand:website": "https://www.ibis.com",
+        "brand:wikidata": "Q920166",
+        "check_date": "2026-03-06",
+        "internet_access": "wlan",
+        "name": "Ibis",
+        "phone": "+31 20 721 9173",
+        "stars": "3",
+        "toilets:wheelchair": "yes",
+        "tourism": "hotel",
+        "website": "https://www.ibis.com/nl/hotel-3044-ibis-amsterdam-centre-stopera/index.shtml#overview",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "id": "node/441682026",
+      "name": "Hotel de Munck",
+      "lat": 52.361375,
+      "lon": 4.9007902,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "1-3",
+        "addr:postcode": "1017WL",
+        "addr:street": "Achtergracht",
+        "email": "info@hoteldemunck.com",
+        "name": "Hotel de Munck",
+        "phone": "+31 20 623 6283",
+        "stars": "2",
+        "tourism": "hotel",
+        "website": "https://www.hoteldemunck.com/",
+        "wheelchair": "no",
+        "wikidata": "Q111875729"
+      }
+    },
+    {
+      "id": "node/441754254",
+      "name": "Hermitage Hotel",
+      "lat": 52.3645431,
+      "lon": 4.9035195,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "16",
+        "addr:postcode": "1018DR",
+        "addr:street": "Nieuwe Keizersgracht",
+        "alt_name": "Hotel Hermitage",
+        "email": "info@hotelhermitageamsterdam.nl",
+        "name": "Hermitage Hotel",
+        "source": "BAG",
+        "source:date": "2014-03-24",
+        "tourism": "hotel",
+        "website": "https://www.hotelhermitage.nl/en/",
+        "wikidata": "Q111114810"
+      }
+    },
+    {
+      "id": "node/441909910",
+      "name": "Kap",
+      "lat": 52.3589917,
+      "lon": 4.893828,
+      "tags": {
+        "internet_access": "wlan",
+        "name": "Kap",
+        "stars": "2",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/441909914",
+      "name": "Asterisk",
+      "lat": 52.3586963,
+      "lon": 4.8941504,
+      "tags": {
+        "name": "Asterisk",
+        "stars": "2",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/447358585",
+      "name": "Hotel Allure",
+      "lat": 52.361897,
+      "lon": 4.9104623,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "117",
+        "addr:postcode": "1018GB",
+        "addr:street": "Sarphatistraat",
+        "check_date": "2024-05-17",
+        "name": "Hotel Allure",
+        "source": "BAG",
+        "source:date": "2014-03-24",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/460478684",
+      "name": "Hotel Flipper",
+      "lat": 52.3488901,
+      "lon": 4.9086498,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:housenumber": "5",
+        "addr:postcode": "1078VA",
+        "addr:street": "Borssenburgstraat",
+        "name": "Hotel Flipper",
+        "source": "BAG",
+        "source:date": "2014-03-24",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/469318264",
+      "name": "Maison Elle",
+      "lat": 52.3607582,
+      "lon": 4.8695022,
+      "tags": {
+        "addr:city": "Amsterdam",
+        "addr:country": "NL",
+        "addr:housenumber": "6",
+        "addr:postcode": "1054GZ",
+        "addr:street": "Anna van den Vondelstraat",
+        "branch": "Amsterdam",
+        "brand": "Maison Elle",
+        "brand:website": "https://maisonelle.fr",
+        "name": "Maison Elle",
+        "phone": "+31 20 722 0646",
+        "tourism": "hotel",
+        "website": "https://maisonelle.fr/nl/etablissement/hotel-amsterdam/",
+        "wheelchair": "no"
+      }
+    }
+  ]
+}

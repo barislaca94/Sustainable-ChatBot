@@ -1,0 +1,532 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey
+    - good morning
+    - good afternoon
+    - howdy
+    - hi there
+    - hello there
+    - hey there
+    - good evening
+    - morning
+    - hiya
+    - how are you
+    - how are you doing?
+    - how's it going
+    - hey, how are you?
+    - what's up
+    - hi, how are things?
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
+    - take care
+    - bye bye
+    - see you
+    - goodbye for now
+    - that's it for today
+    - cheers, bye
+    - I'm off now
+    - later
+    - ok bye
+
+- intent: ask_course_overview
+  examples: |
+    - what is this course about?
+    - tell me about this course
+    - what will I learn?
+    - give me an overview of the course
+    - what does this unit cover?
+    - what subjects does the course go through?
+    - describe the course content
+    - what topics does the module include?
+    - what am I going to study in this unit?
+    - summarise this course for me
+    - what is the syllabus?
+    - what will this module teach me?
+
+- intent: ask_tools
+  examples: |
+    - what tools will we use?
+    - which platforms will we work with?
+    - will we use Rasa?
+    - what software do I need?
+    - what chatbot tools are covered?
+    - which frameworks does the course use?
+    - what technologies are we working with?
+    - what do I need to install for this course?
+    - which libraries will we be using?
+    - list the software packages we install
+    - which chatbot frameworks do we code with?
+    - do we use Docker in this course?
+    - what programming tools are required?
+    - which software is used in the lessons?
+    - what tooling should I set up?
+
+- intent: ask_about_tool
+  examples: |
+    - tell me about [Rasa](tool_name)
+    - what is [Rasa](tool_name)?
+    - explain [Dialogflow](tool_name)
+    - what is [Amazon Lex](tool_name)?
+    - tell me about [Amazon Lex](tool_name)
+    - how does [Dialogflow](tool_name) work?
+    - give me an overview of [Rasa](tool_name)
+    - what does [Rasa](tool_name) do?
+    - why are we using [Rasa](tool_name)?
+    - explain [Amazon Lex](tool_name) to me
+    - tell me about [ChatGPT](tool_name)
+    - what is [ChatGPT](tool_name)?
+    - explain [ChatGPT](tool_name) to me
+    - what is [OpenAI](tool_name)?
+    - tell me about [OpenAI](tool_name)
+    - what is [IBM Watson](tool_name)?
+    - tell me about [IBM Watson](tool_name)
+    - explain [IBM Watson](tool_name)
+    - how does [IBM Watson](tool_name) work?
+    - what is [Microsoft Bot Framework](tool_name)?
+    - tell me about [Microsoft Bot Framework](tool_name)
+    - explain [Microsoft Bot Framework](tool_name)
+    - what is [Wit.ai](tool_name)?
+    - tell me about [Wit.ai](tool_name)
+    - how does [Wit.ai](tool_name) work?
+
+- intent: ask_what_is_nlu
+  examples: |
+    - what is NLU?
+    - what does NLU stand for?
+    - explain natural language understanding
+    - what is natural language understanding?
+    - how does NLU work?
+    - what does natural language understanding mean?
+    - explain NLU to me
+    - how does the bot understand what I type?
+    - what is intent classification?
+    - what does NLU do in Rasa?
+    - why is NLU important for chatbots?
+    - how does a bot work out my meaning?
+
+- intent: ask_assessment
+  examples: |
+    - how will I be assessed?
+    - what coursework is marked?
+    - how is the course graded?
+    - how is the final grade calculated?
+    - tell me about the assessments
+    - how is this module marked?
+    - what is the assessment format?
+    - is there an exam?
+    - what percentage of the marks is coursework?
+    - what percentage is the final project worth?
+    - how do I pass this unit?
+    - what is the marking criteria?
+    - what is the pass mark?
+    - is there a resit if I fail?
+    - how many marks is the report worth?
+    - what does the marking rubric include?
+
+- intent: ask_what_is_chatbot
+  examples: |
+    - what is a chatbot?
+    - define chatbot
+    - how does a chatbot work?
+    - what are chatbots used for?
+    - explain conversational AI
+    - what does a chatbot actually do?
+    - explain what chatbots are
+    - what is a conversational agent?
+    - what counts as a chatbot?
+    - how is a chatbot different from a search engine?
+    - what is a dialogue system?
+    - why do companies use chatbots?
+
+- intent: ask_deadlines
+  examples: |
+    - when is the assignment due?
+    - what are the deadlines?
+    - when do I need to submit?
+    - assignment deadline
+    - when is the next deadline?
+    - when is the coursework due?
+    - what is the submission date?
+    - how long do I have to submit?
+    - is there a due date for the project?
+    - when do assignments have to be handed in?
+    - do we have a deadline this week?
+    - when is the final submission?
+
+- intent: ask_office_hours
+  examples: |
+    - when are office hours?
+    - office hours schedule
+    - what hours is the instructor around?
+    - what time are office hours?
+    - are there office hours?
+    - what time can I drop in to office hours?
+    - what is the office hours timetable?
+    - when is the teacher available?
+    - which hours is the lecturer in?
+    - what time does the support session start?
+    - what days can I see the instructor?
+    - is there a weekly support session time?
+
+- intent: ask_prerequisites
+  examples: |
+    - what do I need to know before this course?
+    - what are the prerequisites?
+    - what programming background do I need?
+    - do I need to know Python?
+    - which Python topics should I learn first?
+    - what knowledge is required to start?
+    - do I need previous chatbot experience?
+    - is any prior programming needed?
+    - what should I already be able to code?
+    - should I know machine learning beforehand?
+    - do I need to understand APIs first?
+    - what skills do I need before starting?
+    - do I need Python experience already?
+    - what preparation do I need before week one?
+    - do I need maths for this unit?
+
+- intent: ask_streamlit
+  examples: |
+    - what is Streamlit?
+    - tell me about Streamlit
+    - explain Streamlit
+    - what does Streamlit do?
+    - why are we using Streamlit?
+    - how does Streamlit work?
+    - what do we use Streamlit for?
+    - is Streamlit a web framework?
+    - why Streamlit and not Flask?
+    - what does Streamlit give us?
+    - how do I run a Streamlit app?
+    - what is the Streamlit UI built with?
+
+- intent: bot_challenge
+  examples: |
+    - who are you?
+    - are you a bot?
+    - am I talking to a human?
+    - what can you do?
+    - what can you help me with?
+    - help
+    - I need help
+    - what are you for?
+    - what do you do?
+    - how can you help me?
+    - what are your features?
+    - what is this bot for?
+    - am I talking to a robot?
+    - are you human or a machine?
+    - is there a person behind this chat?
+
+- intent: thank_you
+  examples: |
+    - thanks
+    - thank you
+    - thanks a lot
+    - thank you so much
+    - cheers
+    - thx
+    - appreciate it
+    - that's helpful, thanks
+    - many thanks
+    - nice one thanks
+    - perfect thanks
+    - great, thank you
+
+- intent: ask_weather
+  examples: |
+    - what is the weather in [Berlin](city_name)?
+    - weather in [London](city_name)
+    - how is the weather in [Karachi](city_name)?
+    - what is the temperature in [Paris](city_name)?
+    - is it raining in [Amsterdam](city_name)?
+    - tell me the weather in [Tokyo](city_name)
+    - what is the weather like in [New York](city_name)?
+    - weather forecast for [Dubai](city_name)
+    - weather in [Istanbul](city_name)
+    - how hot is it in [Cairo](city_name)?
+    - what is the forecast for [Lisbon](city_name)?
+    - will it rain in [Prague](city_name) tomorrow?
+    - how cold is it in [Oslo](city_name)?
+    - temperature in [Porto](city_name) right now
+
+- intent: ask_currency
+  examples: |
+    - what is the exchange rate from [USD](from_currency) to [EUR](to_currency)?
+    - convert [GBP](from_currency) to [JPY](to_currency)
+    - exchange rate [USD](from_currency) to [EUR](to_currency)
+    - how much is [EUR](from_currency) in [TRY](to_currency)?
+    - convert [CAD](from_currency) to [AUD](to_currency)
+    - [USD](from_currency) to [GBP](to_currency) rate
+    - what is [CHF](from_currency) in [EUR](to_currency)?
+    - exchange [JPY](from_currency) to [USD](to_currency)
+    - convert [EUR](from_currency) to [TRY](to_currency)
+    - rate of [GBP](from_currency) to [EUR](to_currency)
+    - how many [TRY](to_currency) is one [EUR](from_currency)?
+    - [SEK](from_currency) to [EUR](to_currency) please
+    - what is [NOK](from_currency) worth in [GBP](to_currency)?
+    - today's rate [EUR](from_currency) to [USD](to_currency)
+
+- intent: plan_trip
+  examples: |
+    - I want to plan a sustainable trip
+    - help me plan an eco-friendly trip
+    - I need to organise a green holiday
+    - plan a trip for me
+    - I would like to plan an eco tour
+    - help me plan a low-carbon vacation
+    - I want to book a sustainable holiday
+    - plan me an environmentally responsible trip
+    - I want to plan a trip to [Barcelona](destination)
+    - help me plan a trip to [Kyoto](destination)
+    - eco trip to [Amsterdam](destination)
+    - sustainable holiday in [Lisbon](destination)
+
+- intent: ask_eco_hotels
+  examples: |
+    - recommend eco-friendly hotels in [Barcelona](destination)
+    - suggest green hotels in [Amsterdam](destination)
+    - eco-certified accommodation in [Kyoto](destination)
+    - sustainable hotels in [Lisbon](destination)
+    - which eco hotels do you know in [Berlin](destination)?
+    - green stays in [Copenhagen](destination)
+    - list eco-friendly accommodations in [Paris](destination)
+    - where can I stay sustainably in [Oslo](destination)?
+    - find me a green place to stay in [Berlin](destination)
+    - what accommodation do you recommend in [Kyoto](destination)?
+    - low impact hotels in [Amsterdam](destination)
+    - show me hotels near transit in [Barcelona](destination)
+    - where should I stay in [Lisbon](destination)?
+    - where do you suggest I stay in [Kyoto](destination)?
+    - somewhere to stay in [Paris](destination)
+
+- intent: ask_green_transport
+  examples: |
+    - how should I travel from [London](origin) to [Paris](destination) sustainably?
+    - low carbon transport from [Berlin](origin) to [Amsterdam](destination)
+    - green way to travel from [Madrid](origin) to [Barcelona](destination)
+    - eco-friendly transport [Istanbul](origin) to [Athens](destination)
+    - sustainable way from [Rome](origin) to [Milan](destination)
+    - what is the greenest transport from [Vienna](origin) to [Prague](destination)?
+    - best low carbon travel from [Copenhagen](origin) to [Stockholm](destination)
+    - eco transport options from [Zurich](origin) to [Munich](destination)
+    - what is the greenest way to get from [Lisbon](origin) to [Porto](destination)?
+    - how do I travel with less carbon from [Berlin](origin) to [Prague](destination)?
+    - most sustainable route from [Paris](origin) to [Lyon](destination)
+    - compare travel options from [Oslo](origin) to [Bergen](destination)
+
+- intent: ask_carbon_footprint
+  examples: |
+    - what is the carbon footprint of flying from [London](origin) to [Paris](destination)?
+    - carbon emissions of [train](transport_mode) from [Berlin](origin) to [Munich](destination)
+    - how much CO2 for a [flight](transport_mode) from [Madrid](origin) to [Rome](destination)?
+    - emissions of [car](transport_mode) from [Istanbul](origin) to [Ankara](destination)
+    - CO2 for [bus](transport_mode) from [Amsterdam](origin) to [Brussels](destination)
+    - carbon impact of a [flight](transport_mode) from [Dubai](origin) to [Cairo](destination)
+    - carbon footprint [train](transport_mode) [Vienna](origin) to [Prague](destination)
+    - emissions for [flight](transport_mode) [Oslo](origin) to [Helsinki](destination)
+    - how much CO2 does the [train](transport_mode) from [Lisbon](origin) to [Porto](destination) produce?
+    - emissions for driving from [Berlin](origin) to [Prague](destination)
+    - what are the emissions of a [bus](transport_mode) from [Paris](origin) to [Lyon](destination)?
+    - footprint of flying from [London](origin) to [Edinburgh](destination)
+
+- intent: ask_local_activities
+  examples: |
+    - suggest local tours and experiences in [Barcelona](destination)
+    - what community-friendly things can I do in [Kyoto](destination)?
+    - local cultural experiences in [Lisbon](destination)
+    - eco tours in [Amsterdam](destination)
+    - things to do sustainably in [Copenhagen](destination)
+    - what tours and workshops can I join in [Berlin](destination)?
+    - support-local experiences in [Oslo](destination)
+    - community activities in [Paris](destination)
+    - things to do that support local people in [Porto](destination)
+    - responsible tourism activities in [Prague](destination)
+    - what can I do in [Lyon](destination) that helps the community?
+    - low impact things to do in [Vienna](destination)
+
+- intent: ask_carbon_offset
+  examples: |
+    - how can I offset my carbon
+    - carbon offset programs
+    - which offset scheme should I use
+    - suggest a carbon offset provider
+    - help me neutralise my emissions
+    - what offset programmes are available
+    - I want to compensate my flight emissions
+    - carbon compensation options
+    - where can I buy carbon credits?
+    - are offsets actually worth it?
+    - recommend a certified offset scheme
+    - how do I balance out my travel emissions?
+
+- intent: request_human_advisor
+  examples: |
+    - I want to talk to a human
+    - can I speak with an advisor?
+    - connect me to a person
+    - transfer me to a human agent
+    - I need a real travel consultant
+    - please escalate to a human
+    - can a specialist help me?
+    - hand over to a travel advisor
+    - I want to speak to someone
+    - I need to talk to a real person
+    - put me through to an agent
+    - I'd rather speak to a person about this
+    - can someone from the team help me?
+    - this needs a human
+
+- intent: ask_place_description
+  examples: |
+    - tell me about [Barcelona](destination)
+    - what is [Kyoto](destination) like?
+    - describe [Amsterdam](destination)
+    - what is [Lisbon](destination) known for?
+    - background on [Berlin](destination)
+    - overview of [Paris](destination)
+    - tell me a bit about [Copenhagen](destination)
+    - what should I know about [Oslo](destination)?
+    - give me an intro to [Istanbul](destination)
+    - background on [Madrid](destination)
+    - what is the city of [Kyoto](destination) like?
+    - tell me about the city of [Lisbon](destination)
+    - what is [Barcelona](destination) famous for?
+    - a short history of [Berlin](destination)
+    - what kind of city is [Amsterdam](destination)?
+    - why do people visit [Oslo](destination)?
+    - what is life like in [Copenhagen](destination)?
+    - I am travelling to [Paris](destination), what is it like?
+    - describe the city of [Vienna](destination)
+    - what should I expect in [Prague](destination)?
+    - tell me something about [Stockholm](destination) before I go
+    - is [Porto](destination) worth visiting?
+    - what makes [Kyoto](destination) special?
+    - give me some background on the city of [Athens](destination)
+
+- intent: off_topic
+  examples: |
+    - who won the world cup in 1998
+    - what is 17 times 34
+    - tell me a joke
+    - what stocks should I buy
+    - can you write me a poem
+    - what time is my dentist appointment
+    - book me a table at a restaurant tonight
+    - order me a pizza
+    - what is the capital of Mars
+    - who is the president
+    - play some music
+    - what is the meaning of life
+    - can you do my homework
+    - send an email to my boss
+    - what is 5 plus 3
+    - calculate 12 divided by 4
+    - what's 100 minus 7
+    - how much is 9 times 9
+    - solve 3 + 5
+
+- intent: out_of_scope
+  examples: |
+    - no not that
+    - not really
+    - nope
+    - none of these
+    - neither
+    - not what I meant
+    - that's not it
+    - no
+    - nah
+    - I meant something else
+    - none of the above
+    - wrong option
+    - not that one
+    - that is not what I asked
+
+- intent: inform
+  examples: |
+    - [Barcelona](destination)
+    - [Kyoto](destination)
+    - [Amsterdam](destination)
+    - [Lisbon](destination)
+    - [Berlin](destination)
+    - [Paris](destination)
+    - [15-20 August](travel_dates)
+    - [next week](travel_dates)
+    - [10 to 17 September](travel_dates)
+    - [first week of October](travel_dates)
+    - my budget is [500](budget) euros
+    - around [1000](budget)
+    - [800](budget) EUR
+    - budget of [1500](budget)
+    - [low](sustainability_level) sustainability
+    - [medium](sustainability_level)
+    - [high](sustainability_level) sustainability level
+    - I want [high](sustainability_level) sustainability
+    - go for [low](sustainability_level)
+    - [train_or_bus](transport_preference)
+    - [any_low_carbon](transport_preference)
+    - train or bus only
+    - only [train_or_bus](transport_preference)
+    - any low carbon option
+    - [any_low_carbon](transport_preference) transport
+    - [weekend](trip_length)
+    - a [weekend](trip_length) trip
+    - [week](trip_length)
+    - one [week](trip_length)
+    - [extended](trip_length) trip
+    - a long [extended](trip_length) holiday
+
+# A lookup table feeds the RegexFeaturizer already in the pipeline: tokens
+# that match get an extra feature, which helps DIET tell "tell me about
+# Kyoto" (a place) from "tell me about Rasa" (a tool).
+- lookup: destination
+  examples: |
+    - Barcelona
+    - Amsterdam
+    - Kyoto
+    - Lisbon
+    - Berlin
+    - Paris
+    - Copenhagen
+    - Oslo
+    - Madrid
+    - Rome
+    - Vienna
+    - Prague
+    - Stockholm
+    - Athens
+    - Istanbul
+    - London
+    - Porto
+    - Munich
+    - Milan
+    - Brussels
+    - Helsinki
+    - Dublin
+    - Zurich
+    - Budapest
+    - Warsaw
+
+- lookup: tool_name
+  examples: |
+    - Rasa
+    - Dialogflow
+    - Amazon Lex
+    - ChatGPT
+    - OpenAI
+    - IBM Watson
+    - Microsoft Bot Framework
+    - Wit.ai
+
+

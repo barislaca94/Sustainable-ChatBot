@@ -1,0 +1,975 @@
+{
+  "city": "Lisbon",
+  "centre": {
+    "lat": 38.7077507,
+    "lon": -9.1365919
+  },
+  "kind": "hotels",
+  "radius_m": 3000,
+  "count": 50,
+  "records": [
+    {
+      "id": "node/298176965",
+      "name": "Hotel Jorge V",
+      "lat": 38.7213092,
+      "lon": -9.1494002,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "3",
+        "addr:postcode": "1250-165",
+        "addr:street": "Rua Mouzinho da Silveira",
+        "fax": "+351 213 150 319",
+        "internet_access": "wlan",
+        "name": "Hotel Jorge V",
+        "operator": "Hotusa Hotels",
+        "phone": "+351 213 562 525",
+        "rooms": "49",
+        "source:pkey": "b945c72b-d064-404e-88fe-97febe43026e",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://www.hoteljorgev.com/"
+      }
+    },
+    {
+      "id": "node/308119709",
+      "name": "Turim Lisboa Hotel",
+      "lat": 38.7322739,
+      "lon": -9.1492361,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "20",
+        "addr:postcode": "1050-113",
+        "addr:street": "Rua Filipe Folque",
+        "fax": "+351 213 139 419",
+        "internet_access": "wlan",
+        "name": "Turim Lisboa Hotel",
+        "phone": "+351 210 330 900",
+        "ref:gds:amadeus": "OILISLIA",
+        "ref:gds:galileo": "OI E0053",
+        "ref:gds:sabre": "OI 285161",
+        "ref:gds:worldspan": "OI LISIA",
+        "rooms": "56",
+        "source:pkey": "3e035947-cf46-4f6e-8047-97969e6340b5",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.turim-hotels.com/hoteis/turim-lisboa-hotel-134",
+        "wikidata": "Q111408432"
+      }
+    },
+    {
+      "id": "node/1155373582",
+      "name": "Hotel Eurostars Lisboa Parque",
+      "lat": 38.7282868,
+      "lon": -9.1476062,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "13 B",
+        "addr:postcode": "1050-121",
+        "addr:street": "Largo do Andaluz",
+        "alt_name": "Eurostars Universal Lisboa; Eurostars Universal Lisbon",
+        "fax": "+351 210 050 931",
+        "internet_access": "yes",
+        "name": "Hotel Eurostars Lisboa Parque",
+        "operator": "Eurostars",
+        "phone": "+351 210 050 930",
+        "source:pkey": "7e848f5b-49cb-4fcc-b6f2-a9a5fa2bd93e",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.eurostarshotels.co.uk/eurostars-lisboa-parque.html?referer_code=ADWORDS_EN",
+        "wikidata": "Q111408445"
+      }
+    },
+    {
+      "id": "node/1586066478",
+      "name": "VIP Executive Saldanha Hotel",
+      "lat": 38.7322353,
+      "lon": -9.1446772,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "25",
+        "addr:postcode": "1000-132",
+        "addr:street": "Rua Fernão Lopes",
+        "email": "hotelsaldanha@viphotels.com",
+        "fax": "+351 213 308 621",
+        "name": "VIP Executive Saldanha Hotel",
+        "operator": "VIP Hotels",
+        "phone": "+351 213 308 620",
+        "ref:gds:amadeus": "LISAHU",
+        "ref:gds:dhisco": "6200075",
+        "ref:gds:galileo": "E4026",
+        "ref:gds:sabre": "285372",
+        "ref:gds:worldspan": "LISAH",
+        "rooms": "54",
+        "source:pkey": "4371f2a6-07f8-4fd6-b75d-786d54768606",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.viphotels.com/pt/Hoteis/VIP-Executive-Saldanha/Sobre-Hotel.aspx",
+        "wikidata": "Q111124445"
+      }
+    },
+    {
+      "id": "node/1586355563",
+      "name": "Legendary Lisboa Suites",
+      "lat": 38.7225454,
+      "lon": -9.1526953,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "44-50",
+        "addr:postcode": "1250-193",
+        "addr:street": "Rua Rodrigo da Fonseca",
+        "fax": "+351 213 863 000",
+        "internet_access": "wlan",
+        "name": "Legendary Lisboa Suites",
+        "phone": "+351 210 046 600",
+        "source:pkey": "0da0b435-9065-4c51-b87e-fd6a7e52907e",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.legendarylisboasuites.com/",
+        "wheelchair": "yes",
+        "wikidata": "Q111408478"
+      }
+    },
+    {
+      "id": "node/1682540584",
+      "name": "Alicante",
+      "lat": 38.7287391,
+      "lon": -9.144544,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:country": "PT",
+        "addr:housenumber": "20",
+        "addr:postcode": "1050-090",
+        "addr:street": "Av Duque De Loule",
+        "alt_name": "Hotel Alicante Lisbon",
+        "check_date": "2025-12-03",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Alicante",
+        "phone": "+351 213 530 514",
+        "source": "survey",
+        "source:pkey": "06f92bcf-0839-45ae-9ee2-17ae744630d5",
+        "stars": "2",
+        "tourism": "hotel",
+        "website": "http://hotel-alicante.pt-hotels.com/en/",
+        "wheelchair": "yes",
+        "wikidata": "Q111124451"
+      }
+    },
+    {
+      "id": "node/1728849102",
+      "name": "Pensão Residencial Portuense",
+      "lat": 38.7173604,
+      "lon": -9.1415906,
+      "tags": {
+        "name": "Pensão Residencial Portuense",
+        "source": "Been there",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/2357964143",
+      "name": "Hotel Borges Chiado",
+      "lat": 38.7107073,
+      "lon": -9.1418705,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "110",
+        "addr:postcode": "1200-205",
+        "addr:street": "Baixa-Chiado",
+        "contact:email": "info@hotelborges.com",
+        "contact:fax": "+351 213 426 617",
+        "contact:phone": "+351 210 456 400",
+        "contact:website": "https://www.hotelborges.com",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Hotel Borges Chiado",
+        "rooms": "96",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://www.hotelborges.com/",
+        "wikidata": "Q111408544"
+      }
+    },
+    {
+      "id": "node/2472105828",
+      "name": "Turim Restauradores Hotel",
+      "lat": 38.7160062,
+      "lon": -9.143164,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "3",
+        "addr:postcode": "1250-114",
+        "addr:street": "Rua da Glória",
+        "check_date": "2025-10-24",
+        "email": "turimrestauradoreshotel@turimhoteis.com",
+        "fax": "+351 213 469 018",
+        "internet_access": "wlan",
+        "name": "Turim Restauradores Hotel",
+        "old_name": "Turim Suiço Atlântico Hotel",
+        "operator": "Grupo Turim Hotels",
+        "phone": "+351 213 400 270",
+        "rooms": "100",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://www.turim-hotels.com/hoteis/-110",
+        "wheelchair": "yes",
+        "wikidata": "Q111408508"
+      }
+    },
+    {
+      "id": "node/2508131094",
+      "name": "Altis Grand Hotel",
+      "lat": 38.720849,
+      "lon": -9.1500487,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "11",
+        "addr:postcode": "1269-072",
+        "addr:street": "Rua Castilho",
+        "name": "Altis Grand Hotel",
+        "old_name": "Hotel Altis",
+        "phone": "+351 213 106 000",
+        "rooms": "300",
+        "source:pkey": "1336a241-1da4-49e2-b8c6-98401fc6ea7f",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.altishotels.com/PT/HotelAltisLisboa/Hotel/"
+      }
+    },
+    {
+      "id": "node/2573439559",
+      "name": "Amazónia Lisboa Hotel",
+      "lat": 38.7229309,
+      "lon": -9.1549267,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "12",
+        "addr:postcode": "1250-106",
+        "addr:street": "Travessa da Fábrica dos Pentes",
+        "contact:email": "reclisboa@amazoniahoteis.com",
+        "contact:fax": "+351 213 879 090",
+        "contact:website": "https://www.amazoniahoteis.com/Lisboa/",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Amazónia Lisboa Hotel",
+        "phone": "+351 21 387 7006",
+        "rooms": "192",
+        "stars": "3",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/2600899063",
+      "name": "Hotel Duas Nações",
+      "lat": 38.7109451,
+      "lon": -9.1375878,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "41",
+        "addr:postcode": "1100-618",
+        "addr:street": "Rua da Vitória",
+        "contact:email": "reservas@duasnacoes.com",
+        "contact:phone": "+351 213 460 710",
+        "contact:website": "https://www.duasnacoes.com",
+        "name": "Hotel Duas Nações",
+        "stars": "2",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/2620368938",
+      "name": "Lisbon Art Stay",
+      "lat": 38.7117398,
+      "lon": -9.1384443,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:country": "PT",
+        "addr:housenumber": "158",
+        "addr:postcode": "1100-580",
+        "addr:street": "Rua Dos Sapateiros",
+        "alt_name": "Lisbon Art Stay Hotel",
+        "name": "Lisbon Art Stay",
+        "old_name": "Lisbon Short Stay",
+        "tourism": "hotel",
+        "website": "https://www.lisbonartstay.com/"
+      }
+    },
+    {
+      "id": "node/2631619373",
+      "name": "Stay Hotel Lisboa",
+      "lat": 38.7263295,
+      "lon": -9.1409422,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "130",
+        "addr:postcode": "1150-180",
+        "addr:street": "Rua Gomes Freire",
+        "contact:email": "info@princesahotel.pt",
+        "contact:phone": "+351 213 193 070",
+        "contact:website": "http://www.princesahotel.pt",
+        "name": "Stay Hotel Lisboa",
+        "outdoor_seating": "no",
+        "source:pkey": "d1577b3c-3708-4b01-8465-39dfb80dc399",
+        "stars": "2",
+        "tourism": "hotel",
+        "website": "https://www.princesahotel.pt/"
+      }
+    },
+    {
+      "id": "node/2933960155",
+      "name": "Tempo FLH Hotels Lisboa",
+      "lat": 38.7122854,
+      "lon": -9.1392595,
+      "tags": {
+        "addr:housenumber": "259",
+        "addr:street": "Rua Áurea",
+        "changing_table": "no",
+        "email": "tempo@flh-hotels.com",
+        "entrance:kerb:height": "5cm",
+        "entrance:ramp": "no",
+        "entrance:step_count": "1",
+        "entrance:width": "140cm",
+        "internet_access": "wlan",
+        "name": "Tempo FLH Hotels Lisboa",
+        "operator": "FLH",
+        "phone": "+351 21 346 1250",
+        "toilets": "no",
+        "toilets:wheelchair": "no",
+        "tourism": "hotel",
+        "website": "https://flh-hotels.com/tempo/contact/",
+        "wheelchair:turning_circle": "no"
+      }
+    },
+    {
+      "id": "node/3003613051",
+      "name": "Lx Rossio Hotel",
+      "lat": 38.7118189,
+      "lon": -9.1378143,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:country": "PT",
+        "addr:housenumber": "52, 2.º",
+        "addr:postcode": "1100-044",
+        "addr:street": "Rua da Assunção",
+        "alt_name": "Albergaria Residencial Insulana",
+        "contact:email": "info@insulana.net",
+        "contact:fax": "+351 213428924",
+        "contact:phone": "+351 213427625",
+        "level": "2",
+        "name": "Lx Rossio Hotel",
+        "tourism": "hotel",
+        "website": "https://www.lxrossiohotel.com/"
+      }
+    },
+    {
+      "id": "node/3217407548",
+      "name": "Residencial Mar dos Açores",
+      "lat": 38.7271781,
+      "lon": -9.1424044,
+      "tags": {
+        "internet_access": "wlan",
+        "internet_access:fee": "yes",
+        "name": "Residencial Mar dos Açores",
+        "smoking": "no",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/3360262569",
+      "name": "Gat Rossio Hotel",
+      "lat": 38.7153832,
+      "lon": -9.1404952,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "27-35",
+        "addr:postcode": "1150-193",
+        "addr:street": "Rua do Jardim do Regedor",
+        "cod_act_econ": "40103",
+        "contact:whatsapp": "+351 925 005 436",
+        "email": "hotelgatrossio@gatrooms.com",
+        "fax": "+351 213 478 301",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Gat Rossio Hotel",
+        "operator": "Clavel Hoteles S.A.",
+        "phone": "+351 213 478 300",
+        "rooms": "71",
+        "stars": "3",
+        "tourism": "hotel",
+        "website": "https://hotelgatrossio.com/",
+        "wikidata": "Q111408504"
+      }
+    },
+    {
+      "id": "node/3360265254",
+      "name": "Valverde Lisboa Hotel",
+      "lat": 38.7197361,
+      "lon": -9.1444859,
+      "tags": {
+        "name": "Valverde Lisboa Hotel",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/3388853793",
+      "name": "Okupa Lisboa",
+      "lat": 38.7208505,
+      "lon": -9.1243968,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "12,123",
+        "addr:street": "Rua Bartolomeu da Costa",
+        "contact:email": "okupa.geral@gmail.com",
+        "contact:website": "http://okupageral.wix.com/okupa",
+        "description": "rooms for rent",
+        "name": "Okupa Lisboa",
+        "payment:litecoin": "yes",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/3392572580",
+      "name": "Browns Boutique Hotel & Apartements",
+      "lat": 38.7109181,
+      "lon": -9.138335,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "88",
+        "addr:postcode": "1100-619",
+        "addr:street": "Rua da Vitória",
+        "name": "Browns Boutique Hotel & Apartements",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/3412943452",
+      "name": "Grande Pensão Alcobia Residencial",
+      "lat": 38.7140244,
+      "lon": -9.1366,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:postcode": "1100-408",
+        "addr:street": "Poço do Borratem",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Grande Pensão Alcobia Residencial",
+        "name:en": "Hotel Grande Pensão Alcobia Residencial",
+        "name:pt": "Grande Pensão Alcobia Residencial",
+        "smoking": "separated",
+        "tourism": "hotel",
+        "website": "https://www.grandepensaoalcobia.pt/",
+        "wheelchair": "limited",
+        "wikidata": "Q111408503"
+      }
+    },
+    {
+      "id": "node/3528424553",
+      "name": "Rossio Garden Hotel",
+      "lat": 38.7156281,
+      "lon": -9.140487,
+      "tags": {
+        "check_date": "2024-05-06",
+        "name": "Rossio Garden Hotel",
+        "tourism": "hotel",
+        "wikidata": "Q111408502"
+      }
+    },
+    {
+      "id": "node/3653360026",
+      "name": "CZAR Lisbon Hotel",
+      "lat": 38.7293464,
+      "lon": -9.1348252,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "103",
+        "addr:postcode": "1150-020",
+        "addr:street": "Avenida Almirante Reis",
+        "air_conditioning": "yes",
+        "internet_access": "yes",
+        "internet_access:fee": "no",
+        "name": "CZAR Lisbon Hotel",
+        "name:zh": "沙皇里斯本酒店",
+        "phone": "+351 211115200",
+        "rooms": "77",
+        "source:pkey": "4ae4a9c5-dfd6-4093-b69d-9d3d9fd196ff",
+        "stars": "4",
+        "toilets:wheelchair": "yes",
+        "tourism": "hotel",
+        "website": "https://www.czarlisbonhotel.com/",
+        "wheelchair": "yes",
+        "wikidata": "Q111408418"
+      }
+    },
+    {
+      "id": "node/3811571946",
+      "name": "Estrela de Arganil",
+      "lat": 38.7294276,
+      "lon": -9.1344231,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "88",
+        "addr:postcode": "1150-020",
+        "addr:street": "Avenida Almirante Reis",
+        "check_date": "2025-12-02",
+        "internet_access": "wlan",
+        "name": "Estrela de Arganil",
+        "phone": "+351 218 123 259",
+        "smoking": "no",
+        "stars": "2",
+        "toilets:wheelchair": "no",
+        "tourism": "hotel",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "node/3812521070",
+      "name": "Pouso dos Anjos",
+      "lat": 38.7236765,
+      "lon": -9.1358861,
+      "tags": {
+        "addr:city": "Lisbõa",
+        "addr:housenumber": "31",
+        "addr:postcode": "1150-034",
+        "addr:street": "Rua dos Anjos",
+        "contact:email": "info@pousodosanjos.com",
+        "contact:phone": "+351213572759",
+        "name": "Pouso dos Anjos",
+        "smoking": "outside",
+        "tourism": "hotel",
+        "website": "https://pousodosanjos.com/frames/anjos/photos-en.html",
+        "wikidata": "Q111870741"
+      }
+    },
+    {
+      "id": "node/3878526629",
+      "name": "York House Hotel",
+      "lat": 38.7062318,
+      "lon": -9.1590408,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "32",
+        "addr:postcode": "1200-691",
+        "addr:street": "Rua das Janelas Verdes",
+        "contact:fax": "+351 213 972 793",
+        "contact:phone": "+351 213 962 435",
+        "contact:website": "https://www.yorkhouselisboa.com",
+        "name": "York House Hotel",
+        "smoking": "outside",
+        "stars": "4",
+        "tourism": "hotel",
+        "wikidata": "Q111870840"
+      }
+    },
+    {
+      "id": "node/3913167701",
+      "name": "Lisbon Arsenal Suites",
+      "lat": 38.70763,
+      "lon": -9.1401752,
+      "tags": {
+        "addr:housenumber": "60",
+        "addr:street": "Rua do Arsenal",
+        "check_date": "2025-11-17",
+        "name": "Lisbon Arsenal Suites",
+        "phone": "+351211328845",
+        "tourism": "hotel",
+        "website": "https://www.lisbonarsenalsuites.com"
+      }
+    },
+    {
+      "id": "node/4107727344",
+      "name": "Casa de São Mamede",
+      "lat": 38.7183528,
+      "lon": -9.1526811,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "159",
+        "addr:postcode": "1250-100",
+        "addr:street": "Rua da Escola Politécnica",
+        "contact:email": "casadesaomamede@hotmail.com",
+        "contact:fax": "+351 213 951 896",
+        "contact:phone": "+351 213 963 166",
+        "contact:website": "https://www.casadesaomamede.pt",
+        "name": "Casa de São Mamede",
+        "rooms": "26",
+        "stars": "3",
+        "tourism": "hotel",
+        "wikidata": "Q111870776"
+      }
+    },
+    {
+      "id": "node/4138904396",
+      "name": "Fontecruz Lisboa",
+      "lat": 38.7191427,
+      "lon": -9.1440108,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "138-142",
+        "addr:postcode": "1250-147",
+        "addr:street": "Avenida da Liberdade",
+        "alt_name": "Fonte Cruz Lisboa",
+        "contact:facebook": "http://www.facebook.com/pages/FONTECRUZ-HOTELES/146535203728",
+        "contact:pinterest": "http://es.pinterest.com/fontecruzhotels/",
+        "contact:twitter": "https://twitter.com/fontecruzhotels",
+        "contact:youtube": "http://www.youtube.com/user/fontecruz",
+        "email": "reception@fontecruzlisboa.com",
+        "fax": "+351 21 041 0001",
+        "name": "Fontecruz Lisboa",
+        "operator": "Fontecruz Inversiones, S.A.",
+        "phone": "+351 21 041 0000",
+        "rooms": "72",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.fontecruzhoteles.com/hotel-fontecruz-lisboa/",
+        "wikidata": "Q111408479"
+      }
+    },
+    {
+      "id": "node/4142881594",
+      "name": "Casa del Limonero",
+      "lat": 38.7179233,
+      "lon": -9.1394856,
+      "tags": {
+        "addr:housenumber": "15",
+        "addr:street": "Travessa do Adro",
+        "name": "Casa del Limonero",
+        "tourism": "hotel",
+        "website": "https://airbnb.com/"
+      }
+    },
+    {
+      "id": "node/4161250689",
+      "name": "InSuites Chiado Apartments II",
+      "lat": 38.7116824,
+      "lon": -9.1427604,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "36",
+        "addr:postcode": "1200-273",
+        "addr:street": "Rua da Misericórdia",
+        "name": "InSuites Chiado Apartments II",
+        "operator": "InSuites by ARCHITECTURE TOTE SER",
+        "phone": "+351 213 240920",
+        "smoking": "yes",
+        "tourism": "hotel",
+        "website": "https://www.insuites.pt/"
+      }
+    },
+    {
+      "id": "node/4161532101",
+      "name": "InSuites Chiado Apartments",
+      "lat": 38.7103762,
+      "lon": -9.1393492,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:country": "PT",
+        "addr:housenumber": "92",
+        "addr:postcode": "1200-290",
+        "addr:street": "Rua Nova do Almada",
+        "name": "InSuites Chiado Apartments",
+        "operator": "InSuites by ARCHITECTURE TOTE SER",
+        "phone": "+351 213 240920",
+        "smoking": "yes",
+        "tourism": "hotel",
+        "website": "https://www.insuites.pt/"
+      }
+    },
+    {
+      "id": "node/4161549840",
+      "name": "InSuites Chiado Apartments 100",
+      "lat": 38.7114368,
+      "lon": -9.1397125,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "27",
+        "addr:postcode": "1200-093",
+        "addr:street": "Rua do Carmo",
+        "name": "InSuites Chiado Apartments 100",
+        "operator": "InSuites by ARCHITECTURE TOTE SER",
+        "phone": "+351 213 240920",
+        "smoking": "yes",
+        "tourism": "hotel",
+        "website": "https://www.insuites.pt/"
+      }
+    },
+    {
+      "id": "node/4187310189",
+      "name": "Hotel Lisboa",
+      "lat": 38.7222411,
+      "lon": -9.1463048,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "5",
+        "addr:postcode": "1169-066",
+        "addr:street": "Rua Barata Salgueiro",
+        "contact:facebook": "https://www.facebook.com/Hotel-Lisboa-130337990922954/",
+        "email": "rsv@hotellisboa.com.pt",
+        "fax": "+351 213 500 001",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Hotel Lisboa",
+        "phone": "+351 213 500 000;+351 213 500 005",
+        "ref:gds:amadeus": "LISLSB",
+        "ref:gds:galileo": "28165",
+        "ref:gds:pegasus": "34413",
+        "ref:gds:sabre": "108461",
+        "ref:gds:worldspan": "LISLB",
+        "rooms": "60",
+        "source:pkey": "f2e23f5d-1531-4f9a-a763-8a8a50c92817",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.hotellisboa.com.pt/",
+        "wheelchair": "yes",
+        "wikidata": "Q111408465"
+      }
+    },
+    {
+      "id": "node/4224061199",
+      "name": "Memmo Alfama",
+      "lat": 38.710276,
+      "lon": -9.1304635,
+      "tags": {
+        "name": "Memmo Alfama",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4239666889",
+      "name": "Airbnb - José",
+      "lat": 38.7156084,
+      "lon": -9.137796,
+      "tags": {
+        "addr:housenumber": "7",
+        "addr:postcode": "1150-049",
+        "addr:street": "Rua do Arco da Graça",
+        "name": "Airbnb - José",
+        "phone": "+3516365765",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4241621089",
+      "name": "Hotel do Príncipe Real",
+      "lat": 38.7173026,
+      "lon": -9.1474133,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "53",
+        "addr:postcode": "1250-006",
+        "addr:street": "Santo António",
+        "email": "reservas@hotelprincipereal.com",
+        "fax": "+351 213 422 104",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Hotel do Príncipe Real",
+        "operator": "Príncipe Real - Empreendimentos Turísticos e Hoteleiros do Algarve, S.A.",
+        "phone": "+351 213 407 350",
+        "ref:vatin": "PT500802807",
+        "rooms": "18",
+        "smoking": "no",
+        "stars": "4",
+        "toilets:wheelchair": "yes",
+        "tourism": "hotel",
+        "website": "https://www.belverhotels.com/hotel-principe-real.html",
+        "wheelchair": "yes",
+        "wikidata": "Q69870243"
+      }
+    },
+    {
+      "id": "node/4241912990",
+      "name": "SANA Rex Hotel",
+      "lat": 38.7274598,
+      "lon": -9.1559097,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "169",
+        "addr:postcode": "1070-051",
+        "addr:street": "Rua Castilho",
+        "contact:email": "sanarex@sanahotels.com",
+        "contact:fax": "+351 213 887 581",
+        "contact:phone": "+351 213 882 161",
+        "contact:website": "www.rex.sanahotels.com",
+        "name": "SANA Rex Hotel",
+        "stars": "3",
+        "tourism": "hotel",
+        "wikidata": "Q111408455"
+      }
+    },
+    {
+      "id": "node/4245894292",
+      "name": "Pensão Nova Goa",
+      "lat": 38.7143723,
+      "lon": -9.1364989,
+      "tags": {
+        "addr:housenumber": "13",
+        "addr:postcode": "1100-034",
+        "addr:street": "Rua do Arco do Marquês de Alegrete",
+        "name": "Pensão Nova Goa",
+        "phone": "+351 218 881 137",
+        "tourism": "hotel",
+        "website": "https://www.pensaonovagoa.pt/pt",
+        "wikidata": "Q111870767"
+      }
+    },
+    {
+      "id": "node/4247663089",
+      "name": "browns central",
+      "lat": 38.7113154,
+      "lon": -9.1382983,
+      "tags": {
+        "name": "browns central",
+        "tourism": "hotel",
+        "wikidata": "Q111408530"
+      }
+    },
+    {
+      "id": "node/4261601889",
+      "name": "Lisbon Serviced Appartments",
+      "lat": 38.7116084,
+      "lon": -9.1385632,
+      "tags": {
+        "name": "Lisbon Serviced Appartments",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4355936777",
+      "name": "Casa Marta (Airbnb)",
+      "lat": 38.7185865,
+      "lon": -9.1304069,
+      "tags": {
+        "addr:housenumber": "16",
+        "addr:street": "Travessa do Monte",
+        "name": "Casa Marta (Airbnb)",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4380615793",
+      "name": "H10 Duque de Loulé",
+      "lat": 38.7263694,
+      "lon": -9.1470521,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "81-83",
+        "addr:postcode": "1050-088",
+        "addr:street": "Avenida Duque de Loulé",
+        "brand": "H10 Hotels",
+        "brand:wikidata": "Q1562646",
+        "fax": "+351 213 182 001",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "H10 Duque de Loulé",
+        "phone": "+351 213 182 000",
+        "ref:gds:amadeus": "WV LISDDL",
+        "ref:gds:apolo": "WV B5088",
+        "ref:gds:galileo": "WV B5088",
+        "ref:gds:sabre": "WV 282965",
+        "ref:gds:worldspan": "WV LISDD",
+        "rooms": "89",
+        "source:pkey": "551e6d41-c696-4305-8e9a-49f876a7723d",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.h10hotels.com/pt/hoteis-lisboa/h10-duque-de-loule",
+        "wikidata": "Q111408451"
+      }
+    },
+    {
+      "id": "node/4396912954",
+      "name": "Residencial Vila Nova",
+      "lat": 38.7257776,
+      "lon": -9.1478435,
+      "tags": {
+        "addr:housenumber": "111",
+        "addr:street": "Avenida Duque de Loulé",
+        "name": "Residencial Vila Nova",
+        "tourism": "hotel",
+        "website": "https://www.residencialvilanova.com"
+      }
+    },
+    {
+      "id": "node/4427845093",
+      "name": "Portas do Teatro apartmentos",
+      "lat": 38.7108619,
+      "lon": -9.1325336,
+      "tags": {
+        "addr:housenumber": "12",
+        "addr:street": "Rua da Saudade",
+        "name": "Portas do Teatro apartmentos",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4488098573",
+      "name": "Neya Lisboa Hotel",
+      "lat": 38.7293791,
+      "lon": -9.1405705,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "71-77",
+        "addr:postcode": "1150-132",
+        "addr:street": "Rua de Dona Estefânia",
+        "alt_name": "Neya Hotel Lisboa",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Neya Lisboa Hotel",
+        "phone": "+351 213 101 800",
+        "source:pkey": "2ba683b2-2d8d-4005-b505-5a4e67b394b3",
+        "stars": "4",
+        "tourism": "hotel",
+        "website": "https://www.neyahotels.com/"
+      }
+    },
+    {
+      "id": "node/4535393093",
+      "name": "Hotel Altis Avenida",
+      "lat": 38.7149445,
+      "lon": -9.1407529,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "120",
+        "addr:postcode": "1200-360",
+        "addr:street": "Rua 1º de Dezembro",
+        "building": "yes",
+        "check_date": "2026-02-07",
+        "email": "reservationsavenida@altishotels.com",
+        "name": "Hotel Altis Avenida",
+        "phone": "+351 210 440 000",
+        "rooms": "70",
+        "stars": "5",
+        "tourism": "hotel",
+        "website": "https://www.altishotels.com/EN/HotelAltisAvenida/"
+      }
+    },
+    {
+      "id": "node/4594067098",
+      "name": "Garden Rooftop",
+      "lat": 38.7139907,
+      "lon": -9.1344944,
+      "tags": {
+        "name": "Garden Rooftop",
+        "tourism": "hotel"
+      }
+    },
+    {
+      "id": "node/4606542565",
+      "name": "Ohmm.",
+      "lat": 38.7101406,
+      "lon": -9.1292882,
+      "tags": {
+        "addr:city": "Lisboa",
+        "addr:housenumber": "20",
+        "addr:street": "Largo do Terreiro de Trigo",
+        "email": "info@ohmm.pt;ana@ohmm.pt",
+        "internet_access": "yes",
+        "internet_access:fee": "yes",
+        "internet_access:ssid": "terreirodotrigo",
+        "name": "Ohmm.",
+        "phone": "+351 918 851 770; +351 918 851 778",
+        "smoking": "no",
+        "tourism": "hotel",
+        "website": "https://www.ohmm.pt/",
+        "wheelchair": "no"
+      }
+    }
+  ]
+}

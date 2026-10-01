@@ -1,0 +1,55 @@
+recipe: default.v1
+
+assistant_id: 20260707-123159-calm-accuracy
+
+language: en
+
+pipeline:
+  # NOTE: EntitySynonymMapper and ResponseSelector were removed 2026-09-15 as
+  # part of Worksheet 9's pipeline critical analysis. Neither had any effect
+  # on this bot:
+  #   - EntitySynonymMapper only fires when nlu.yml declares synonym entities
+  #     with the `synonyms:` key, which this project does not use.
+  #   - ResponseSelector only fires for retrieval intents (chitchat/FAQ with
+  #     multiple example → multiple response variants). This bot uses rule-
+  #     based response selection instead.
+  # Removing them shortens training time and simplifies the pipeline without
+  # any observable change in NLU behaviour.
+  - name: WhitespaceTokenizer
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier
+    epochs: 100
+    constrain_similarities: true
+  # Raised from 0.4 to 0.6 on 2026-09-16 after measuring it with
+  # scripts/threshold_sweep.py: across 56 held-out in-scope messages the
+  # lowest correct prediction scores 0.87, so 0.6 throws none of them away,
+  # while messages the bot has no business answering sit far lower and get
+  # routed to the clarification flow instead of a confident wrong answer.
+  - name: FallbackClassifier
+    threshold: 0.6
+    ambiguity_threshold: 0.1
+
+policies:
+  - name: MemoizationPolicy
+  - name: RulePolicy
+    core_fallback_threshold: 0.3
+    # NOT action_two_stage_fallback. That loop is for the NLU fallback (the
+    # message was not understood). Used here, for "understood but no rule
+    # covers it", it activated, deactivated silently and was re-predicted
+    # forever — "What is 2+2" (inform) froze the server. See
+    # ActionCoreFallback in actions/actions.py.
+    core_fallback_action_name: action_core_fallback
+    enable_fallback_prediction: true
+  - name: UnexpecTEDIntentPolicy
+    max_history: 5
+    epochs: 100
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+    constrain_similarities: true

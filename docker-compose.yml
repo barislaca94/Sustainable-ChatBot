@@ -1,0 +1,72 @@
+# Local orchestration of the three services making up the Eco-Travel Advisor.
+#
+# Usage:
+#   docker compose up --build
+#   # then browse to http://localhost:8501
+#
+# Ports are exposed on the host so you can also point a browser or curl at
+# the individual services directly:
+#   Streamlit UI  -> http://localhost:8501
+#   Rasa API      -> http://localhost:5005
+#   Actions       -> http://localhost:5055/health
+#
+# The `models/` directory is required at build time for the Rasa image.
+# Retrain locally with `rasa train` before rebuilding if you change any
+# yml files.
+
+services:
+
+  rasa:
+    build:
+      context: .
+      dockerfile: Dockerfile.rasa
+    image: eco-travel-rasa
+    ports:
+      - "5005:5005"
+    depends_on:
+      - actions
+    networks:
+      - eco-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5005/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  actions:
+    build:
+      context: .
+      dockerfile: Dockerfile.actions
+    image: eco-travel-actions
+    ports:
+      - "5055:5055"
+    networks:
+      - eco-net
+    restart: unless-stopped
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5055/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    image: eco-travel-streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      RASA_URL: http://rasa:5005/webhooks/rest/webhook
+    depends_on:
+      - rasa
+    networks:
+      - eco-net
+    restart: unless-stopped
+
+networks:
+  eco-net:
+    driver: bridge

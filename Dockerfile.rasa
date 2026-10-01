@@ -1,0 +1,28 @@
+# Rasa NLU + Core (port 5005)
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+# System build deps needed by Rasa's Python dependencies (tensorflow, spaCy).
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential \
+      curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements-rasa.txt .
+RUN pip install --upgrade "pip<25" && pip install -r requirements-rasa.txt
+
+# Rasa project files. Model directory is expected to contain a trained model
+# (`.tar.gz`); if absent, mount a volume or run `rasa train` before start.
+COPY config.yml domain.yml endpoints.docker.yml credentials.yml ./
+COPY data/ data/
+COPY models/ models/
+
+EXPOSE 5005
+
+CMD ["rasa", "run", "--enable-api", "--cors", "*", \
+     "--endpoints", "endpoints.docker.yml", "-i", "0.0.0.0", "-p", "5005"]
