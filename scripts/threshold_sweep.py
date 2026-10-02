@@ -41,6 +41,9 @@ warnings.filterwarnings("ignore")
 logging.disable(logging.CRITICAL)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+# The model's pipeline includes components.safety_gate (config.yml); the `rasa`
+# CLI puts the project root on sys.path, a plain script does not.
+sys.path.insert(0, str(REPO_ROOT))
 REGRESSION_FILE = REPO_ROOT / "tests" / "nlu_regression.yml"
 PROBE_FILE = REPO_ROOT / "tests" / "offtopic_probe.yml"
 COSTLY_INTENT = "request_human_advisor"

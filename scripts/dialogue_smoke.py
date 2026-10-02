@@ -50,6 +50,9 @@ def quiet_rasa_logs() -> None:
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+# The model's pipeline includes components.safety_gate (config.yml); the `rasa`
+# CLI puts the project root on sys.path, a plain script does not.
+sys.path.insert(0, str(REPO_ROOT))
 
 TURN_LIMIT = 3.0     # seconds; the brief: "under three seconds for critical interactions"
 HARD_LIMIT = 30.0    # seconds; beyond this, dump stacks and abort

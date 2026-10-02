@@ -111,7 +111,12 @@ class SafetyGate(GraphComponent, IntentClassifier):
 
     def __init__(self, config: Dict[Text, Any]) -> None:
         self.max_chars = int(config["max_chars"])
-        self.categories = load_categories(Path(config["patterns_file"]))
+        path = Path(config["patterns_file"])
+        if not path.is_absolute() and not path.exists():
+            # Relative paths are meant from the project root; fall back to it
+            # when the process runs from another directory (e.g. a script).
+            path = Path(__file__).resolve().parent.parent / path
+        self.categories = load_categories(path)
 
     @classmethod
     def create(

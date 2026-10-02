@@ -242,7 +242,9 @@ actions:
   - action_default_fallback
   - action_default_ask_affirmation
   - action_core_fallback
-  - action_deactivate_loop
+  # action_deactivate_loop is NOT listed here: listing a default action tells
+  # Rasa a custom one exists on the action server, and the built-in one (which
+  # emits ActiveLoop(None)) is then never run. Found by the smoke test.
   - action_describe_place
   - action_cancel_trip_form
   # Asks the destination question with city buttons (brief: quick-reply
