@@ -981,8 +981,10 @@ def test_regression_set_is_disjoint_from_training():
 # These hashes make any later edit visible: change the file only to remove
 # contamination, never to improve a number, and record why.
 FINAL_TEST_SHA256 = {
-    "final_test.yml": "c73b78d0e5f9a7bd8f8ff2fb0f453e37a4828f591fbdb2fdfd7feecf2812db70",
-    "final_test_style.yml": "fcffd54d05342826aa0a0ab7b07487ed56f8a9b3ad6e31b6ba6d4f77a8a24167",
+    "final_test.yml": "c2894dd0f2e069041759957856e20a755c05d90ca794ef914f2b798345d357ab",
+    "final_test_informal.yml": "fed573edb7d06a7aadf3bf8d94a1c869de8ecde55a7f9017a97d5c1f7a64bcc1",
+    "final_test_negation.yml": "dcf8f89197b2b6c8f196e43132ccf0cf4eb90d1d7950d0d521b49d8e28384424",
+    "final_test_typo.yml": "0cb8f2796a426567a7383e6a787d1d17febe4273c8b90bb2dd6b7d01a481e969",
 }
 
 

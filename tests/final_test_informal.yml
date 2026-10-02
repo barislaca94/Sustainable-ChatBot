@@ -1,0 +1,25 @@
+# FINAL TEST SET - frozen. Written without access to the training data.
+# Run ONCE on the final model (HANDOFF Adim 4). Never add these sentences to data/nlu.yml;
+# never change them to improve a number. Guarded by the disjointness test.
+# STYLE subgroup: informal
+
+version: "3.1"
+nlu:
+- intent: plan_trip
+  examples: |
+    - yo help me sort a trip to rome real quick
+- intent: ask_green_transport
+  examples: |
+    - best way to get to paris w/o flying, im broke n care about the planet lol
+- intent: request_human_advisor
+  examples: |
+    - gimme a human pls
+- intent: greet
+  examples: |
+    - heyyy wassup
+- intent: ask_local_activities
+  examples: |
+    - whats there to do in berlin thats not a tourist trap tbh
+- intent: ask_carbon_offset
+  examples: |
+    - me want pay for trees to fix my flight co2, how

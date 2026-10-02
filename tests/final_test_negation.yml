@@ -1,0 +1,19 @@
+# FINAL TEST SET - frozen. Written without access to the training data.
+# Run ONCE on the final model (HANDOFF Adim 4). Never add these sentences to data/nlu.yml;
+# never change them to improve a number. Guarded by the disjointness test.
+# STYLE subgroup: negation
+
+version: "3.1"
+nlu:
+- intent: ask_green_transport
+  examples: |
+    - I don't want to fly to Barcelona, what else is there?
+- intent: ask_eco_hotels
+  examples: |
+    - Not a big chain hotel please, something sustainable in Paris.
+- intent: request_human_advisor
+  examples: |
+    - I don't want to talk to a bot anymore, get me a person.
+- intent: stop
+  examples: |
+    - No, I don't want to answer any more questions.

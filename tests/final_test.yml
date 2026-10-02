@@ -4,94 +4,75 @@
 
 version: "3.1"
 nlu:
-- intent: ask_carbon_footprint
-  examples: |
-    - How many kilos of CO2 does a return flight from Berlin to Rome produce?
-    - roughly what are the emissions if I drive 600 km in a petrol car
-    - Can you estimate the carbon cost of my trip to Kyoto by plane?
-    - Train vs flight to Barcelona, how much greenhouse gas each?
-- intent: ask_regulated_advice
-  examples: |
-    - Do I need a visa to visit Vietnam with a Turkish passport?
-    - which vaccinations should I get before going to Kenya
-    - Is it safe to travel to Colombia at the moment?
-    - can I bring my prescription medication into Japan
-- intent: ask_currency
-  examples: |
-    - How much is 200 euros in Japanese yen?
-    - whats the exchange rate between pounds and Swiss francs today
-    - Convert 50 dollars to Danish krone please
-- intent: ask_carbon_offset
-  examples: |
-    - Is there a way to make up for the CO2 from my flight?
-    - I'd like to compensate for the emissions of our honeymoon, how does that work
-    - which offset schemes are legit and not just greenwashing?
-- intent: ask_weather
-  examples: |
-    - Is it raining in Paris right now?
-    - how hot does it get in Barcelona at the moment
-    - What's the forecast looking like for Edinburgh this week?
-- intent: thank_you
-  examples: |
-    - Cheers, that helped a lot
-    - thank you very much
-    - Appreciated
-    - You are the best
-    - I really appreciate your help
-    - Thanks for the useful advice
-    - Much obliged
 - intent: ask_booking
   examples: |
     - Book me a room at a hotel in Paris for Friday night.
     - can you reserve two seats on the Eurostar for me
     - How much does a flight to Kyoto cost right now?
     - I want to buy an Interrail pass through you
+- intent: ask_carbon_footprint
+  examples: |
+    - How many kilos of CO2 does a return flight from Berlin to Rome produce?
+    - roughly what are the emissions if I drive 600 km in a petrol car
+    - Can you estimate the carbon cost of my trip to Kyoto by plane?
+    - Train vs flight to Barcelona, how much greenhouse gas each?
+- intent: ask_carbon_offset
+  examples: |
+    - Is there a way to make up for the CO2 from my flight?
+    - I'd like to compensate for the emissions of our honeymoon, how does that work
+    - which offset schemes are legit and not just greenwashing?
+- intent: ask_currency
+  examples: |
+    - How much is 200 euros in Japanese yen?
+    - whats the exchange rate between pounds and Swiss francs today
+    - Convert 50 dollars to Danish krone please
+- intent: ask_eco_hotels
+  examples: |
+    - Are there any hotels in Kyoto that actually take sustainability seriously?
+    - where can I sleep in Barcelona with a low environmental impact
+    - Looking for accommodation in Ljubljana that runs on renewable energy, ideally certified.
+    - any green guesthouses near Berlin?
 - intent: ask_green_transport
   examples: |
     - What's the least polluting way to get from London to Amsterdam?
     - Is the night train to Vienna better for the planet than flying?
     - I want to reach Porto without a plane, options?
     - bus or train from Munich to Paris, which one is cleaner
+- intent: ask_local_activities
+  examples: |
+    - What can I do in Lisbon that supports local people rather than big tour companies?
+    - things to do in Oslo that aren't touristy
+    - Any community-run workshops or markets worth visiting while I'm in Kyoto?
 - intent: ask_place_description
   examples: |
     - Tell me a bit about Amsterdam.
     - what's Tallinn like?
     - I know nothing about Seville, could you give me a quick overview of the city before I decide whether to go
-- intent: inform
+- intent: ask_regulated_advice
   examples: |
-    - Copenhagen
-    - from the 3rd to the 10th of May
-    - around 1500 euros
-    - sustainability is really important to me
-    - about ten days
-    - by train if possible
-- intent: plan_trip
+    - Do I need a visa to visit Vietnam with a Turkish passport?
+    - which vaccinations should I get before going to Kenya
+    - Is it safe to travel to Colombia at the moment?
+    - can I bring my prescription medication into Japan
+- intent: ask_weather
   examples: |
-    - Could you help me put together a week away in Lisbon this spring?
-    - my partner and I want to go somewhere in Scandinavia next summer, where do we even start
-    - Plan me a getaway.
-    - I'm thinking about a long weekend in Krakow but I've never organised a trip on my own, can you walk me through it?
-    - need to sort out a holiday for the family in August
-- intent: stop
-  examples: |
-    - Forget it, I don't want to continue.
-    - cancel this
-    - can we stop the questions please, I've changed my mind
-- intent: off_topic
-  examples: |
-    - What's 17 times 23?
-    - Do you think god exists?
-    - Can you write me a code or a script?
-    - What is your favorite color?
-    - Do you know your parents?
-    - Who won the football World Cup in 2014?
-    - Can you set an alarm for 7am tomorrow
-    - Write me a poem about my cat.
+    - Is it raining in Paris right now?
+    - how hot does it get in Barcelona at the moment
+    - What's the forecast looking like for Edinburgh this week?
 - intent: bot_challenge
   examples: |
     - Am I chatting with a computer?
     - are you a real human or some kind of AI
     - Who built you?
+- intent: goodbye
+  examples: |
+    - Bye for now
+    - ok that's all, see you later
+    - Take yourself a good care
+    - Have a nice day, I'm off
+    - I have to go now, goodbye
+    - See you next time
+    - Catch you later
 - intent: greet
   examples: |
     - Yo my friend
@@ -103,12 +84,36 @@ nlu:
     - Hello, nice to meet you
     - Good morning, how are you?
     - Hey, is anybody there?
-- intent: ask_eco_hotels
+- intent: inform
   examples: |
-    - Are there any hotels in Kyoto that actually take sustainability seriously?
-    - where can I sleep in Barcelona with a low environmental impact
-    - Looking for accommodation in Ljubljana that runs on renewable energy, ideally certified.
-    - any green guesthouses near Berlin?
+    - Copenhagen
+    - from the 3rd to the 10th of May
+    - around 1500 euros
+    - sustainability is really important to me
+    - about ten days
+    - by train if possible
+- intent: insult
+  examples: |
+    - you're useless
+    - What a stupid answer.
+    - honestly this is the dumbest bot I've ever used
+- intent: off_topic
+  examples: |
+    - What's 17 times 23?
+    - Do you think god exists?
+    - Can you write me a code or a script?
+    - What is your favorite color?
+    - Do you know your parents?
+    - Who won the football World Cup in 2014?
+    - Can you set an alarm for 7am tomorrow
+    - Write me a poem about my cat.
+- intent: plan_trip
+  examples: |
+    - Could you help me put together a week away in Lisbon this spring?
+    - my partner and I want to go somewhere in Scandinavia next summer, where do we even start
+    - Plan me a getaway.
+    - I'm thinking about a long weekend in Krakow but I've never organised a trip on my own, can you walk me through it?
+    - need to sort out a holiday for the family in August
 - intent: request_human_advisor
   examples: |
     - Can I speak to a real person please?
@@ -117,22 +122,17 @@ nlu:
     - human please
     - Is there a phone number or someone I can chat with who isn't automated?
     - I need a live agent to look over my itinerary
-- intent: goodbye
+- intent: stop
   examples: |
-    - Bye for now
-    - ok that's all, see you later
-    - Take yourself a good care
-    - Have a nice day, I'm off
-    - I have to go now, goodbye
-    - See you next time
-    - Catch you later
-- intent: ask_local_activities
+    - Forget it, I don't want to continue.
+    - cancel this
+    - can we stop the questions please, I've changed my mind
+- intent: thank_you
   examples: |
-    - What can I do in Lisbon that supports local people rather than big tour companies?
-    - things to do in Oslo that aren't touristy
-    - Any community-run workshops or markets worth visiting while I'm in Kyoto?
-- intent: insult
-  examples: |
-    - you're useless
-    - What a stupid answer.
-    - honestly this is the dumbest bot I've ever used
+    - Cheers, that helped a lot
+    - thank you very much
+    - Appreciated
+    - You are the best
+    - I really appreciate your help
+    - Thanks for the useful advice
+    - Much obliged

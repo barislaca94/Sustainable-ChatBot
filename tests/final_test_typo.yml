@@ -1,0 +1,25 @@
+# FINAL TEST SET - frozen. Written without access to the training data.
+# Run ONCE on the final model (HANDOFF Adim 4). Never add these sentences to data/nlu.yml;
+# never change them to improve a number. Guarded by the disjointness test.
+# STYLE subgroup: typo
+
+version: "3.1"
+nlu:
+- intent: ask_eco_hotels
+  examples: |
+    - ecofriendly hotles in amsterdm?
+- intent: ask_weather
+  examples: |
+    - wats the wether like in lisbon
+- intent: ask_currency
+  examples: |
+    - how much is 100 euro in dollers
+- intent: request_human_advisor
+  examples: |
+    - can i tlak to a real persn
+- intent: ask_carbon_footprint
+  examples: |
+    - how much co2 dose a fligth to berlin make
+- intent: plan_trip
+  examples: |
+    - i wnat to plan a trp to barcleona
