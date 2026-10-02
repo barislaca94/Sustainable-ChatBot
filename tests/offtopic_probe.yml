@@ -76,6 +76,14 @@ nlu:
     - low impact hotels in Cairo
     - sustainable stays in Nairobi
 
+- intent: ask_privacy
+  examples: |
+    - what do you remember about me after we chat?
+    - is this conversation saved somewhere
+    - will my messages be shared with third parties?
+    - how can I get my data deleted
+    - are you GDPR compliant
+
 - intent: nlu_fallback
   examples: |
     - asdkjh qwpoe zzzx

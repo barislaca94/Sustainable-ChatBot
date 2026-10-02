@@ -25,6 +25,7 @@ intents:
   - ask_regulated_advice
   - insult
   - stop
+  - ask_privacy
   - out_of_scope
 
 entities:

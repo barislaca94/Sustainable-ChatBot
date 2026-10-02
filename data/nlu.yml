@@ -346,6 +346,24 @@ nlu:
     - how do I reset my phone password
     - what's a good substitute for butter in baking
 
+- intent: ask_privacy
+  examples: |
+    - Does this chatbot keep a record of what I type?
+    - what personal information do you collect from users
+    - I'd like to know who gets to see my chat history
+    - Is my data safe with you?
+    - please erase everything you have stored about me
+    - Do you comply with European data protection law?
+    - are my answers kept after I close this window
+    - Can you tell me what happens to the details I give you?
+    - how long do you hold on to my information, and where is it stored
+    - Right to be forgotten - how do I use it here?
+    - besides me, is anyone reading these messages
+    - Will you pass my travel plans on to advertisers?
+    - what's your privacy policy
+    - could you wipe my conversation history
+    - Before I continue, I want to understand how my personal data is handled
+
 - intent: out_of_scope
   examples: |
     - no not that
