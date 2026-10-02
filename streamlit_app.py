@@ -47,10 +47,11 @@ def reset_conversation() -> None:
 def render_bot_message(text: str) -> None:
     """Render a bot reply with colour-coded cards or handover banner based on prefix.
 
-    - 🎫 → red error banner (human handover)
+    - 🎫 → amber banner (handover ticket logged)
     - 🟢 → green success card (low emission / strong eco signals)
     - 🟡 → yellow warning card (moderate)
     - 🔴 → red error card (high emission)
+    - ⚪ → blue info card (not enough data to judge)
     - ⚠️ / ℹ️ → blue info box (disclaimers, caveats)
     - anything else → plain text
 
@@ -61,13 +62,15 @@ def render_bot_message(text: str) -> None:
     """
     stripped = text.lstrip()
     if stripped.startswith("🎫"):
-        st.error(text)
+        st.warning(text)
     elif stripped.startswith("🟢"):
         st.success(text)
     elif stripped.startswith("🟡"):
         st.warning(text)
     elif stripped.startswith("🔴"):
         st.error(text)
+    elif stripped.startswith("⚪"):
+        st.info(text)
     elif stripped.startswith("⚠️") or stripped.startswith("ℹ️"):
         st.info(text)
     else:
@@ -89,6 +92,9 @@ def call_rasa(message: str, sender: str) -> list[dict]:
         payload = response.json()
     except requests.RequestException:
         return [{"text": "Could not reach the bot. Is Rasa running?"}]
+    except ValueError:
+        # Rasa answered, but not with JSON (e.g. an HTML error page).
+        return [{"text": "The bot sent an unreadable reply. Please try again."}]
 
     if not payload:
         return [{"text": "I did not understand that."}]
@@ -104,16 +110,16 @@ page = st.sidebar.selectbox("Go to", ["Home", "Chat", "About"])
 if st.sidebar.button("Clear Chat"):
     reset_conversation()
 
-message_count = len(st.session_state.get("messages", []))
+message_count = sum(1 for m in st.session_state.get("messages", []) if m["role"] == "user")
 st.sidebar.write(f"Messages sent: {message_count}")
 st.sidebar.caption(f"Conversation id: `{sender_id()}`")
 
 if st.session_state.get("handover_active"):
-    st.sidebar.error("🎫 Handover active — a human advisor has your context.")
+    st.sidebar.warning("🎫 Handover requested — a ticket with your context was logged.")
 
 st.sidebar.markdown("---")
 st.sidebar.caption(
-    "Privacy: your messages are kept only for this session. No persistent storage. GDPR-compliant."
+    "Privacy: the conversation is kept in memory for this session only; nothing is written to a database."
 )
 
 # ---------- Main area ----------
@@ -149,7 +155,10 @@ elif page == "Chat":
         st.session_state["handover_active"] = False
 
     if st.session_state["handover_active"]:
-        st.error("🎫 A human travel advisor has taken over this conversation. You can still chat with the bot.")
+        st.warning(
+            "🎫 Handover requested: a ticket with this conversation was logged for a human "
+            "travel advisor. This demo has no live agent connected; you can keep chatting with the bot."
+        )
 
     # ---- Display history ----
     for message in st.session_state["messages"]:
@@ -294,4 +303,8 @@ elif page == "About":
         """
     )
 
-    st.markdown("**Data privacy:** No conversation history is persisted server-side. GDPR-compliant.")
+    st.markdown(
+        "**Data privacy:** the conversation is kept in memory for the session only and is not "
+        "written to a database. A handover writes a context summary to the server log. "
+        "This is a student prototype, not a certified service."
+    )

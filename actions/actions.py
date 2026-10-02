@@ -1,7 +1,6 @@
 from typing import Any, Text, Dict, List, Optional, Tuple
 import json
 import os
-import random
 import time
 import urllib.parse
 import uuid
@@ -455,6 +454,12 @@ def signals_score(signals: Dict[str, Any]) -> Tuple[float, str]:
     if signals.get("parking") == "no":
         positives += 1.0
 
+    # No positive signal at all means OpenStreetMap is silent about this hotel,
+    # not that it is a poor choice. Showing it red would turn missing data into
+    # a negative claim (API-README: "Say nothing about sustainability you
+    # cannot evidence"), so it gets a neutral band instead.
+    if positives == 0:
+        return positives, "⚪"
     if positives >= 1.5:
         return positives, "🟢"
     if positives >= 0.8:
@@ -535,6 +540,7 @@ HOTEL_BAND_LABELS = {
     "🟢": "Strong proxy signals",
     "🟡": "Some proxy signals",
     "🔴": "Little evidence in OpenStreetMap",
+    "⚪": "Not enough OpenStreetMap data to judge",
 }
 
 # Nights implied by the trip_length slot, used to turn a total budget into a
@@ -575,7 +581,22 @@ def format_hotel_card(hotel: Dict[str, Any]) -> Text:
     return "\n".join(lines)
 
 
-SUPPORTED_CITIES_HINT = "Barcelona, Amsterdam, Kyoto, Lisbon, Berlin, Paris, Copenhagen, Oslo"
+def supported_cities() -> List[str]:
+    """Cities with pre-fetched hotel data, read from data/eco_data/ so the list
+    the bot offers can never name a city it has no data for."""
+    return sorted(p.name[: -len("_hotels.json")].title()
+                  for p in ECO_DATA_DIR.glob("*_hotels.json"))
+
+
+SUPPORTED_CITIES_HINT = ", ".join(supported_cities())
+
+# LOCAL_ACTIVITIES is a short hand-written list, not a verified directory, so
+# it is presented as examples of what to look for, not as recommendations of
+# specific businesses (API-README greenwashing guidance; DESIGN_RATIONALE D43).
+ACTIVITIES_CAVEAT = (
+    "Illustrative examples of the kind of activity to look for; check that they "
+    "are still running and locally owned before you book."
+)
 
 GREENWASHING_DISCLAIMER = (
     "⚠️ These are proxy signals from OpenStreetMap tags, not verified "
@@ -1151,9 +1172,8 @@ class ActionSuggestEcoHotels(Action):
         if not top:
             dispatcher.utter_message(
                 text=(
-                    f"I don't have pre-fetched OSM data for {destination} yet. "
-                    f"Supported cities: {SUPPORTED_CITIES_HINT}. "
-                    "Ask an admin to run `python scripts/fetch_pois.py` to add it."
+                    f"I don't have hotel data for {destination} yet, so I can't rank places "
+                    f"to stay there. Cities I do have data for: {SUPPORTED_CITIES_HINT}."
                 )
             )
             return []
@@ -1391,8 +1411,8 @@ class ActionSuggestActivities(Action):
         if not acts and not sites:
             dispatcher.utter_message(
                 text=(
-                    f"I don't have community-supported activity ideas for {destination} yet. "
-                    "Try Barcelona, Amsterdam, Kyoto, Lisbon, Berlin, Paris, Copenhagen, or Oslo."
+                    f"I don't have activity ideas for {destination} yet. "
+                    f"Cities I do have them for: {', '.join(sorted(c.title() for c in LOCAL_ACTIVITIES))}."
                 )
             )
             return []
@@ -1400,7 +1420,7 @@ class ActionSuggestActivities(Action):
         if acts:
             lines = [f"🟢 Community-friendly, low-impact activities in {destination.title()}:"]
             lines.extend(f"• {a}" for a in acts)
-            lines.append("These options prioritise local businesses and avoid mass tourism.")
+            lines.append(ACTIVITIES_CAVEAT)
             dispatcher.utter_message(text="\n".join(lines))
 
         if sites:
@@ -1439,19 +1459,32 @@ class ActionCarbonOffsetPrograms(Action):
         return []
 
 
-def _build_transcript(tracker: Tracker, limit: int = 20) -> List[str]:
-    """Build a chronological transcript from tracker events (last N turns)."""
-    transcript: List[str] = []
+def _build_transcript(tracker: Tracker, turns: int = 10) -> List[str]:
+    """The last `turns` user turns, each followed by the bot's replies to it.
+
+    Counted in user turns, not messages: one long trip plan is several bot
+    messages, and a message limit let a single plan push the user's own words
+    out of the advisor's view. The bot's replies to a turn are joined on one
+    line ("BOT : first | second") so each turn stays readable.
+    """
+    pairs: List[List[Text]] = []   # [user text, bot text, bot text, ...]
     for event in tracker.events:
-        event_type = event.get("event")
         text = event.get("text")
         if not text:
             continue
-        if event_type == "user":
-            transcript.append(f"USER: {text}")
-        elif event_type == "bot":
-            transcript.append(f"BOT : {text}")
-    return transcript[-limit:]
+        if event.get("event") == "user":
+            pairs.append([text])
+        elif event.get("event") == "bot":
+            if not pairs:
+                pairs.append([""])   # bot spoke first (session start)
+            pairs[-1].append(text.replace("\n", " / "))
+    transcript: List[str] = []
+    for user_text, *bot_texts in pairs[-turns:]:
+        if user_text:
+            transcript.append(f"USER: {user_text}")
+        if bot_texts:
+            transcript.append("BOT : " + " | ".join(bot_texts))
+    return transcript
 
 
 def _build_handover_package(tracker: Tracker, reason: Text = "user_requested") -> Dict[Text, Any]:
@@ -1461,7 +1494,7 @@ def _build_handover_package(tracker: Tracker, reason: Text = "user_requested") -
     human advisor handover" (Making a Bot Behave §5.3).
     """
     latest_intent = (tracker.latest_message or {}).get("intent", {}) or {}
-    transcript = _build_transcript(tracker, limit=20)
+    transcript = _build_transcript(tracker, turns=10)
     filled_slots = {
         name: value
         for name, value in (tracker.current_slot_values() or {}).items()
@@ -1497,7 +1530,11 @@ class ActionHumanHandover(Action):
 
     The `package` dict below is printed to the actions-server console. A real
     system would forward it to Slack, Zendesk, or an email queue — see the
-    project README for the integration stub.
+    project README for the integration stub. The message to the user says
+    exactly that: it names no advisor and promises no response time, because
+    no human is connected in this build ("Describing an integration you did
+    not build is perfectly legitimate. Implying you built it is not",
+    Making a Bot Behave §5.3; DESIGN_RATIONALE D31).
     """
 
     def name(self) -> Text:
@@ -1507,7 +1544,6 @@ class ActionHumanHandover(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[EventType]:
 
-        advisor = random.choice(["Anna", "Marco", "Priya", "Ling", "Ines"])
         package = _build_handover_package(tracker, reason="user_requested")
 
         # Print the full package for the advisor pipeline (demo stub).
@@ -1517,8 +1553,10 @@ class ActionHumanHandover(Action):
         print("=" * 60, flush=True)
 
         lines = [
-            f"🎫 HANDOVER · Ticket {package['ticket_id']} — connecting you to travel advisor {advisor}.",
-            "Advisor context bundle:",
+            f"🎫 Ticket {package['ticket_id']} has been logged for a human travel advisor, "
+            "with the context below.",
+            "(Demo build: the package is written to the server log; a live deployment would post it to a ticketing system.)",
+            "Context for the advisor:",
         ]
         for k, v in package["collected_slots"].items():
             lines.append(f"  • {k.replace('_', ' ').title()}: {v}")
@@ -1537,7 +1575,6 @@ class ActionHumanHandover(Action):
             conf_str = f"{conf:.2f}" if isinstance(conf, (int, float)) else str(conf)
             lines.append(f"  • Last intent: {package['last_intent']} (confidence {conf_str})")
         lines.append(f"  • Turn count: {package['turn_count']}")
-        lines.append("Response time: usually under 15 minutes during business hours.")
 
         dispatcher.utter_message(text="\n".join(lines))
         return [SlotSet("handover_active", True)]
@@ -1647,6 +1684,7 @@ class ActionSubmitTripForm(Action):
         if acts:
             lines = ["Community-friendly activities:"]
             lines.extend(f"• {a}" for a in acts[:3])
+            lines.append(ACTIVITIES_CAVEAT)
             dispatcher.utter_message(text="\n".join(lines))
 
         top_offset = CARBON_OFFSET_PROGRAMS[0]
@@ -1714,7 +1752,6 @@ class ActionDefaultFallback(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[EventType]:
 
-        advisor = random.choice(["Anna", "Marco", "Priya", "Ling", "Ines"])
         package = _build_handover_package(tracker, reason="two_stage_fallback_exhausted")
 
         print("=" * 60, flush=True)
@@ -1724,9 +1761,9 @@ class ActionDefaultFallback(Action):
 
         dispatcher.utter_message(
             text=(
-                f"🎫 HANDOVER · Ticket {package['ticket_id']} — I'm still not "
-                f"following, so I'm passing you to travel advisor {advisor}. "
-                "They will see the recent conversation and pick up where we left off.\n"
+                f"🎫 Ticket {package['ticket_id']} — I'm still not following, so I've "
+                "logged this conversation for a human travel advisor. "
+                "(Demo build: the package is written to the server log; a live deployment would post it to a ticketing system.)\n"
                 f"For what it's worth: {SCOPE_SUMMARY}"
             )
         )

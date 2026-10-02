@@ -105,7 +105,7 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("asdf qwerty zzz", "not sure what you meant"),
         ("/out_of_scope", "still didn't follow"),
         ("/nlu_fallback", "not sure what you meant"),
-        ("/out_of_scope", "HANDOVER"),
+        ("/out_of_scope", "Ticket"),
     ]),
     ("trip form with adaptive questions", [
         ("I want to plan a sustainable trip", "where would you like to travel"),

@@ -128,8 +128,16 @@ def test_signals_score_grades_rail_distance():
 
 
 def test_signals_score_missing_tags_never_subtract():
+    # No OSM evidence at all is shown as "not enough data" (neutral), never
+    # as a negative judgement on the hotel (A10).
     score, band = actions.signals_score({})
     assert score == 0.0
+    assert band == "⚪"
+
+
+def test_signals_score_weak_but_present_evidence_is_red():
+    score, band = actions.signals_score({"nearest_stop_m": 100})
+    assert 0 < score < 0.8
     assert band == "🔴"
 
 
@@ -658,6 +666,21 @@ def test_handover_package_contains_the_conversation():
     assert package["turn_count"] == 2
     assert package["collected_slots"] == {"destination": "Kyoto"}
     assert package["transcript"][0].startswith("USER: hotels in Kyoto")
+
+
+def test_handover_transcript_keeps_the_last_user_turns_not_messages():
+    # 12 user turns, each answered by three bot messages: a message limit would
+    # keep only bot text; the turn limit keeps the last 10 user turns (A8).
+    events = []
+    for i in range(12):
+        events.append({"event": "user", "text": f"question {i}"})
+        events += [{"event": "bot", "text": f"answer {i} part {k}"} for k in range(3)]
+    transcript = actions._build_transcript(make_tracker(events=events))
+
+    users = [line for line in transcript if line.startswith("USER: ")]
+    assert users[0] == "USER: question 2" and users[-1] == "USER: question 11"
+    assert len(users) == 10
+    assert transcript[-1] == "BOT : answer 11 part 0 | answer 11 part 1 | answer 11 part 2"
 
 
 def test_handover_package_recovers_the_cleared_trip_plan():
