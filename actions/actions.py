@@ -1764,6 +1764,11 @@ INTENT_LABELS = {
     "bot_challenge":         "what this bot can do",
     "thank_you":             "say thanks",
     "off_topic":             "something outside eco-travel",
+    "ask_booking":           "book something or see live prices",
+    "ask_regulated_advice":  "visa, health or safety rules",
+    "insult":                "tell me I got it wrong",
+    "ask_privacy":           "what happens to your data",
+    "stop":                  "stop the current questions",
     "inform":                "answer the question I asked",
 }
 

@@ -1019,3 +1019,96 @@ def test_probe_set_is_disjoint_from_training():
     templates = {tpl for _, _, tpl in training if "<" in tpl}
     assert [t for _, t, _ in probe if t in texts] == []
     assert [t for _, t, tpl in probe if t not in texts and tpl in templates] == []
+
+
+# --------------------------------------------------------------------------
+# SafetyGate (components/safety_gate.py): input validation + regex gate
+# --------------------------------------------------------------------------
+# The unit tests use made-up patterns, so they check the gate's logic, not the
+# keyword list. The real list (data/safety_patterns.yml) is checked below only
+# for structure: every category must point at an intent the domain declares.
+
+def _gate(tmp_path, max_chars=50):
+    from components.safety_gate import SafetyGate
+
+    patterns = tmp_path / "patterns.yml"
+    patterns.write_text(
+        "categories:\n"
+        "  - name: first\n    intent: intent_a\n    patterns: ['\\bzebra\\b']\n"
+        "  - name: second\n    intent: intent_b\n    patterns: ['zebra', 'llama']\n"
+    )
+    return SafetyGate({"patterns_file": str(patterns), "max_chars": max_chars})
+
+
+def _message(text, intent="greet", confidence=0.9):
+    from rasa.shared.nlu.training_data.message import Message
+
+    return Message(data={
+        "text": text,
+        "intent": {"name": intent, "confidence": confidence},
+        "intent_ranking": [{"name": intent, "confidence": confidence},
+                           {"name": "intent_a", "confidence": 0.05}],
+    })
+
+
+@pytest.mark.parametrize("text, reason", [("", "empty_input"), ("   ", "empty_input"),
+                                          ("x" * 51, "too_long")])
+def test_safety_gate_rejects_empty_and_overlong_input(tmp_path, text, reason):
+    [msg] = _gate(tmp_path).process([_message(text)])
+    assert msg.get("intent") == {"name": "invalid_input", "confidence": 1.0}
+    assert msg.get("safety_gate") == reason
+
+
+def test_safety_gate_overrides_the_model_on_a_pattern_match(tmp_path):
+    [msg] = _gate(tmp_path).process([_message("Is a ZEBRA allowed?", intent="nlu_fallback")])
+    assert msg.get("intent") == {"name": "intent_a", "confidence": 1.0}
+    ranking = msg.get("intent_ranking")
+    assert ranking[0] == {"name": "intent_a", "confidence": 1.0}
+    assert [r["name"] for r in ranking].count("intent_a") == 1  # no duplicate entry
+    assert msg.get("safety_gate") == "first"   # first matching category wins
+
+
+def test_safety_gate_leaves_other_messages_to_the_model(tmp_path):
+    [msg] = _gate(tmp_path).process([_message("hotels in Lisbon", intent="ask_eco_hotels")])
+    assert msg.get("intent") == {"name": "ask_eco_hotels", "confidence": 0.9}
+    assert msg.get("safety_gate") is None
+
+
+def test_safety_gate_without_a_patterns_file_still_validates_input(tmp_path):
+    from components.safety_gate import SafetyGate
+
+    gate = SafetyGate({"patterns_file": str(tmp_path / "missing.yml"), "max_chars": 10})
+    [ok, long_msg] = gate.process([_message("zebra"), _message("x" * 11)])
+    assert ok.get("intent")["name"] == "greet"
+    assert long_msg.get("intent")["name"] == "invalid_input"
+
+
+def test_safety_patterns_file_points_at_domain_intents():
+    import re
+    import yaml
+
+    path = REPO_ROOT / "data" / "safety_patterns.yml"
+    if not path.exists():
+        pytest.skip("data/safety_patterns.yml not written yet")
+    domain_intents = set(yaml.safe_load((REPO_ROOT / "domain.yml").read_text())["intents"])
+    for cat in yaml.safe_load(path.read_text())["categories"]:
+        assert cat["intent"] in domain_intents, cat["name"]
+        assert cat["patterns"], cat["name"]
+        for pattern in cat["patterns"]:
+            re.compile(pattern)
+
+
+def test_every_new_safety_intent_has_a_rule_and_response():
+    import yaml
+
+    rules = yaml.safe_load((REPO_ROOT / "data" / "rules.yml").read_text())["rules"]
+    responses = yaml.safe_load((REPO_ROOT / "domain.yml").read_text())["responses"]
+    pairs = {}
+    for rule in rules:
+        steps = rule["steps"]
+        if len(steps) == 2 and "intent" in steps[0] and "action" in steps[1]:
+            pairs[steps[0]["intent"]] = steps[1]["action"]
+    for intent in ("ask_booking", "ask_regulated_advice", "insult",
+                   "ask_privacy", "invalid_input"):
+        assert intent in pairs, intent
+        assert pairs[intent] in responses, pairs[intent]

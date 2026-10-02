@@ -34,6 +34,15 @@ pipeline:
   - name: FallbackClassifier
     threshold: 0.6
     ambiguity_threshold: 0.1
+  # Deterministic gate (docs/DESIGN_RATIONALE.md D32, D33). Runs last, so it
+  # can override both DIET and the fallback: empty or over-long messages go to
+  # `invalid_input`; text matching a pattern in data/safety_patterns.yml goes
+  # to that category's intent (regulated advice, abuse). Mirrors the
+  # lecturer's regex safety gate (NLP-LLM §17); conservative and incomplete
+  # by design, DIET still classifies everything the patterns do not list.
+  - name: components.safety_gate.SafetyGate
+    patterns_file: data/safety_patterns.yml
+    max_chars: 500
 
 policies:
   - name: MemoizationPolicy

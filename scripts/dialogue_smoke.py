@@ -51,10 +51,27 @@ def quiet_rasa_logs() -> None:
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-TURN_LIMIT = 5.0     # seconds; the brief asks for < 3 s on critical turns
+TURN_LIMIT = 3.0     # seconds; the brief: "under three seconds for critical interactions"
 HARD_LIMIT = 30.0    # seconds; beyond this, dump stacks and abort
 
 Turn = Tuple[str, Optional[str]]   # (user message, text the reply must contain)
+
+
+def probe_example(intent: str) -> str:
+    """First example of `intent` in the dev probe set (tests/offtopic_probe.yml).
+
+    The safety classes are exercised with a sentence taken from the probe set
+    rather than one written here, so the smoke test does not add a new
+    hand-written phrasing that could drift towards any evaluation set.
+    """
+    current = None
+    for line in (REPO_ROOT / "tests" / "offtopic_probe.yml").read_text().splitlines():
+        stripped = line.strip()
+        if stripped.startswith("- intent:"):
+            current = stripped.split(":", 1)[1].strip()
+        elif current == intent and stripped.startswith("- "):
+            return stripped[2:]
+    raise KeyError(f"no {intent} example in tests/offtopic_probe.yml")
 
 # Each conversation runs with a fresh sender id. Keep the ones that broke
 # something in the past, with a note saying what.
@@ -105,6 +122,28 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("green transport from London to Paris", "London → Paris"),
         ("carbon footprint of a flight from Madrid to Rome", "kg CO2e"),
         ("things to do in Kyoto", "Kyoto"),
+    ]),
+    # Adim 2. The payload turn checks the rule and response deterministically;
+    # the probe sentence checks the whole path (NLU, SafetyGate, rule).
+    ("safety: booking requests", [
+        ("/ask_booking", "can't make bookings"),
+        (probe_example("ask_booking"), "can't make bookings"),
+    ]),
+    ("safety: visa, health and safety questions", [
+        ("/ask_regulated_advice", "official sources"),
+        (probe_example("ask_regulated_advice"), "official sources"),
+    ]),
+    ("safety: insults", [
+        ("/insult", "hasn't been helpful"),
+        (probe_example("insult"), "hasn't been helpful"),
+    ]),
+    ("safety: privacy questions", [
+        ("/ask_privacy", "only for this conversation"),
+        (probe_example("ask_privacy"), "only for this conversation"),
+    ]),
+    ("input validation: empty and over-long messages", [
+        ("   ", "500 characters"),
+        ("x" * 600, "500 characters"),
     ]),
     ("regression: form took 'What is 2+2' as the destination", [
         ("I want to plan a sustainable trip", "where would you like to travel"),

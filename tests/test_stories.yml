@@ -152,3 +152,38 @@ stories:
   - intent: request_human_advisor
   - action: action_human_handover
 
+
+# Adim 2: requests the bot must handle safely (docs/INTENT_DEFINITIONS.md)
+- story: booking request gets an honest refusal, then planning continues
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_booking
+  - action: utter_booking_not_possible
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+
+- story: visa or health question is referred to official sources
+  steps:
+  - intent: ask_regulated_advice
+  - action: utter_regulated_advice
+  - intent: request_human_advisor
+  - action: action_human_handover
+
+- story: insult gets a calm reply
+  steps:
+  - intent: insult
+  - action: utter_insult_response
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: privacy question is answered
+  steps:
+  - intent: ask_privacy
+  - action: utter_privacy
+
+- story: empty or over-long input asks for a shorter message
+  steps:
+  - intent: invalid_input
+  - action: utter_invalid_input

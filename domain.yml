@@ -26,6 +26,8 @@ intents:
   - insult
   - stop
   - ask_privacy
+  # Set only by components.safety_gate.SafetyGate (empty or over-long text); no training examples.
+  - invalid_input
   - out_of_scope
 
 entities:
@@ -303,6 +305,47 @@ responses:
           payload: "/ask_green_transport"
         - title: "Talk to a human advisor"
           payload: "/request_human_advisor"
+
+  utter_booking_not_possible:
+    - text: |-
+        I can't make bookings or show live prices — I'm an advice assistant, not a booking system, and any price I give is an estimate. I can help you plan the trip, compare low-carbon options and their estimated costs, or pass you to a human travel advisor who can help with bookings.
+      buttons:
+        - title: "Plan a sustainable trip"
+          payload: "/plan_trip"
+        - title: "Low-carbon transport"
+          payload: "/ask_green_transport"
+        - title: "Talk to a human advisor"
+          payload: "/request_human_advisor"
+
+  utter_regulated_advice:
+    - text: |-
+        I can't give visa, entry, health or safety advice: the rules change and depend on your nationality and situation, and a wrong answer could cost you a trip or harm you. Please check official sources — the destination country's embassy or consulate, your government's official travel advice, and a doctor or travel clinic for vaccinations and medication. A human advisor can also help.
+      buttons:
+        - title: "Talk to a human advisor"
+          payload: "/request_human_advisor"
+        - title: "Plan a sustainable trip"
+          payload: "/plan_trip"
+
+  utter_insult_response:
+    - text: |-
+        Sorry this hasn't been helpful. I'm a fairly simple eco-travel assistant, so I may have misunderstood you. Tell me what you're trying to do in a few words, or I can pass you to a human advisor.
+      buttons:
+        - title: "Talk to a human advisor"
+          payload: "/request_human_advisor"
+        - title: "Plan a sustainable trip"
+          payload: "/plan_trip"
+
+  utter_privacy:
+    - text: |-
+        Here is what happens to what you tell me: I keep your answers only for this conversation so I can make recommendations, and nothing is written to a database — it is gone when the bot restarts. If you ask for a human advisor, a summary of the conversation is written to the server log in this demo. I never ask for payment or passport details. This is a student prototype, not a certified service. You can wipe this conversation at any time with "Start over".
+      buttons:
+        - title: "Start over"
+          payload: "/restart"
+        - title: "Plan a sustainable trip"
+          payload: "/plan_trip"
+
+  utter_invalid_input:
+    - text: "That message was empty or longer than I can handle (500 characters). Could you send it again in a shorter form?"
 
   utter_bot_challenge:
     - text: |-

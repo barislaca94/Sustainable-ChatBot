@@ -213,7 +213,9 @@ elif page == "Chat":
             quick_input = "I want to talk to a human"
 
     # ---- Chat input ----
-    typed_input = st.chat_input("Type your message here...")
+    # Same 500-character limit as the bot-side SafetyGate (config.yml), so the
+    # user sees the limit while typing instead of after sending.
+    typed_input = st.chat_input("Type your message here...", max_chars=500)
 
     # Priority: bot-button click > hard-coded shortcut > typed message
     if button_input is not None:

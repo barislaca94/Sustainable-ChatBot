@@ -20,6 +20,9 @@ RUN pip install --upgrade "pip<25" && pip install -r requirements-rasa.txt
 # (`.tar.gz`); if absent, mount a volume or run `rasa train` before start.
 COPY config.yml domain.yml endpoints.docker.yml credentials.yml ./
 COPY data/ data/
+# Custom NLU component referenced in config.yml (SafetyGate); it reads
+# data/safety_patterns.yml, which the line above already copies.
+COPY components/ components/
 COPY models/ models/
 
 EXPOSE 5005

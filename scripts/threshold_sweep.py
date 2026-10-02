@@ -15,8 +15,17 @@ Two things are in tension:
 Usage:
     python scripts/threshold_sweep.py [model.tar.gz]
 
-Reads the in-scope cases from tests/nlu_regression.yml and uses the
-out-of-scope list below, then prints a table per threshold.
+Reads the dev sets tests/nlu_regression.yml and tests/offtopic_probe.yml
+(never the final test set) plus the out-of-scope list below, then prints a
+table per threshold. Columns used for the threshold decision (D58):
+  - request_human_advisor recall: a missed handover request is the costly
+    error (NLP-W345 ticket-routing task; DESIGN_RATIONALE D53);
+  - fallback rate: share of real requests sent to clarification;
+  - macro F1 over all dev labels, where a fallback counts as "not answered
+    as a task" (label off_topic).
+Limits for the first two are fixed BEFORE the sweep is read; among the
+thresholds that meet them, the best macro F1 is chosen (AI-MALL cell 56:
+filter by explicit constraints first, then rank).
 """
 from __future__ import annotations
 
@@ -33,8 +42,10 @@ logging.disable(logging.CRITICAL)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 REGRESSION_FILE = REPO_ROOT / "tests" / "nlu_regression.yml"
+PROBE_FILE = REPO_ROOT / "tests" / "offtopic_probe.yml"
+COSTLY_INTENT = "request_human_advisor"
 
-THRESHOLDS = (0.3, 0.4, 0.5, 0.6, 0.7)
+THRESHOLDS = (0.3, 0.4, 0.5, 0.6, 0.7, 0.8)
 AMBIGUITY_THRESHOLD = 0.1
 
 # Messages this bot should not answer. These are deliberately NOT the phrases
@@ -54,7 +65,7 @@ OUT_OF_SCOPE = [
 ]
 
 
-def load_in_scope() -> List[Tuple[str, str]]:
+def load_cases(path: Path) -> List[Tuple[str, str]]:
     """Read (text, expected_intent) pairs from the regression YAML.
 
     Parsed by hand rather than with the YAML loader because the examples are a
@@ -62,7 +73,7 @@ def load_in_scope() -> List[Tuple[str, str]]:
     """
     cases: List[Tuple[str, str]] = []
     intent = None
-    for line in REGRESSION_FILE.read_text().splitlines():
+    for line in path.read_text().splitlines():
         stripped = line.strip()
         if stripped.startswith("- intent:"):
             intent = stripped.split(":", 1)[1].strip()
@@ -105,10 +116,14 @@ async def main(model: str) -> int:
     # the bot should decline, so they belong with the out-of-scope cases —
     # counted as "real asks", every one handled correctly by the fallback
     # would be misreported as a lost request.
-    regression = load_in_scope()
-    in_scope = [(t, i) for t, i in regression if i != "off_topic"]
+    # The probe set's `nlu_fallback` class (gibberish, other languages,
+    # prompt injection) has no intent to be answered as, so it is
+    # out-of-scope like `off_topic`.
+    dev = load_cases(REGRESSION_FILE) + load_cases(PROBE_FILE)
+    declined = ("off_topic", "nlu_fallback")
+    in_scope = [(t, i) for t, i in dev if i not in declined]
     out_of_scope = list(dict.fromkeys(
-        OUT_OF_SCOPE + [t for t, i in regression if i == "off_topic"]
+        OUT_OF_SCOPE + [t for t, i in dev if i in declined]
     ))
 
     parsed_in: List[Tuple[str, str, List[Dict]]] = []
@@ -124,9 +139,13 @@ async def main(model: str) -> int:
     print(f"model: {model}")
     print(f"in-scope cases: {len(parsed_in)}   out-of-scope cases: {len(parsed_out)}")
     print(f"ambiguity_threshold held at {AMBIGUITY_THRESHOLD}\n")
-    print(f"{'threshold':>9} | {'answered right':>14} | {'answered wrong':>14} | "
-          f"{'real asks sent to fallback':>26} | {'off-topic handled':>19}")
-    print("-" * 100)
+    from sklearn.metrics import f1_score
+
+    n_costly = sum(1 for _, e, _ in parsed_in if e == COSTLY_INTENT)
+    print(f"{'threshold':>9} | {'right':>5} | {'wrong':>5} | {'to fallback':>11} | "
+          f"{'fallback rate':>13} | {COSTLY_INTENT + ' recall':>28} | "
+          f"{'off-topic handled':>17} | {'macro F1':>8}")
+    print("-" * 120)
 
     for threshold in THRESHOLDS:
         right = wrong = lost = 0
@@ -146,8 +165,20 @@ async def main(model: str) -> int:
             1 for _, ranking in parsed_out
             if decide(ranking, threshold) in ("nlu_fallback", "off_topic")
         )
-        print(f"{threshold:>9.2f} | {right:>14} | {wrong:>14} | {lost:>26} | "
-              f"{caught:>13}/{len(parsed_out)}")
+        costly_hit = sum(1 for _, e, r in parsed_in
+                         if e == COSTLY_INTENT and decide(r, threshold) == e)
+        # Macro F1: a fallback or off_topic answer means "declined".
+        def label(decision: str) -> str:
+            return "off_topic" if decision in declined else decision
+        y_true = [e for _, e, _ in parsed_in] + ["off_topic"] * len(parsed_out)
+        y_pred = ([label(decide(r, threshold)) for _, _, r in parsed_in]
+                  + [label(decide(r, threshold)) for _, r in parsed_out])
+        macro = f1_score(y_true, y_pred, labels=sorted(set(y_true)),
+                         average="macro", zero_division=0)
+        print(f"{threshold:>9.2f} | {right:>5} | {wrong:>5} | {lost:>11} | "
+              f"{lost / len(parsed_in):>13.1%} | "
+              f"{costly_hit:>21}/{n_costly:<6} | "
+              f"{caught:>11}/{len(parsed_out):<5} | {macro:>8.3f}")
 
     print("\nOut-of-scope messages and what the model thinks they are:")
     for text, ranking in parsed_out:

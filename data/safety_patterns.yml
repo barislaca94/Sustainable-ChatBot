@@ -1,0 +1,30 @@
+# Deterministic safety-gate patterns (components/safety_gate.py). Matched against the
+# lowercased message with Python re.search. Conservative and incomplete by design:
+# DIET still classifies everything these patterns do not list.
+categories:
+  - name: regulated_advice
+    intent: ask_regulated_advice
+    patterns:
+      - '\bvisas?\b.*\b(need|require[ds]?|requirements?|apply|application)\b|\b(need|require[ds]?|requirements?|apply|application)\b.*\bvisas?\b'
+      - '\bentry (requirements?|rules?|restrictions?)\b'
+      - '\b(vaccines?|vaccinations?|vaccinated|immuni[sz]ations?|jabs?)\b'
+      - '\b(malaria|prophylaxis|yellow fever|typhoid|dengue)\b'
+      - '\b(prescriptions?|medications?|medicines?|antibiotics?)\b'
+      - '\b(travel (health )?(warnings?|advisory|advisories|insurance requirements?)|health risks?)\b'
+      - '\bis (it|[a-z]+) (safe|dangerous|risky) (to|for)\b.*\b(go|travel|visit|solo|women|travellers?|travelers?|tourists?)\b'
+      - '\bis (it|[a-z ]{2,30}) (safe|dangerous|risky) (to (go|travel|visit)|for (solo|female|women|travell?ers?|tourists?))'
+      - '\b(safe|unsafe|dangerous) (destination|country|to travel)\b'
+      - '\b(tap water|drinking water)\b.*\b(safe|drink)\b'
+      - '\bpassport (rules?|requirements?|validity)\b'
+  - name: abuse
+    intent: insult
+    patterns:
+      - '\byou(''re| are| r)? (so |really |such an? |just )?(stupid|idiot|idiotic|moron|moronic|dumb|useless|pathetic|hopeless|rubbish|garbage|trash|worthless|thick)\b'
+      - '\b(this|the|that) (bot|chatbot|thing) (is|was) (stupid|useless|garbage|trash|rubbish|pathetic|dumb|worthless|a joke)\b'
+      - '\b(stupid|dumb|useless|worthless|pathetic) (bot|chatbot|machine|piece of)\b'
+      - '\b(you|u) (idiot|moron|imbecile|clown|loser|fool)\b'
+      - '\b(fuck|screw|damn|shut up|piss off|go away|get lost)\b.{0,20}\b(you|u|bot|chatbot)\b'
+      - '\b(you|u) (suck|stink)\b'
+      - '\b(you''re|you are) (a )?(joke|waste of)\b'
+      - '\bwaste of time (talking|chatting) (to|with) you\b'
+      - '\b(bloody|fucking|goddamn|damn) (bot|chatbot|useless|idiot)\b'
