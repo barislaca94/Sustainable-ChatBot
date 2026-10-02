@@ -145,6 +145,38 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("   ", "500 characters"),
         ("x" * 600, "500 characters"),
     ]),
+    # Adim 3 (HANDOFF §13.5): form exits, slot reset, parsing.
+    ("form: asking for a human mid-form hands over", [
+        ("I want to plan a sustainable trip", "where would you like to travel"),
+        ("I want to talk to a human", "Ticket"),
+    ]),
+    ("form: stop cancels, and the next plan starts from the first question", [
+        ("I want to plan a sustainable trip", "where would you like to travel"),
+        ("Lisbon", "travelling from"),
+        ("stop", "stopped the trip planning"),
+        ("I want to plan a sustainable trip", "where would you like to travel"),
+    ]),
+    # Known limitation (HANDOFF §13.1): small talk inside the form is taken as
+    # an answer. Only "no hang, some reply" is checked.
+    ("form: small talk mid-form does not hang", [
+        ("I want to plan a sustainable trip", "where would you like to travel"),
+        ("hello", None),
+        ("thanks", None),
+    ]),
+    ("form: a second plan asks for the destination again (A4)", [
+        ("I want to plan a sustainable trip", "where would you like to travel"),
+        ("Barcelona", "travelling from"),
+        ("London", "When are you planning"),
+        ("next week", "budget"),
+        ("800 to 1000", "about 900 EUR"),
+        ("high", "how do you want to get around"),
+        ("train or bus only", "Trip plan"),
+        ("no", "I'm here if you want"),
+        ("I want to plan a sustainable trip", "where would you like to travel"),
+    ]),
+    ("carbon: 'driving' is priced as a car (A3)", [
+        ("emissions for driving from Berlin to Prague", "Car"),
+    ]),
     ("regression: form took 'What is 2+2' as the destination", [
         ("I want to plan a sustainable trip", "where would you like to travel"),
         ("What is 2+2", "Where would you like to travel?"),

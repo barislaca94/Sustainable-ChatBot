@@ -1272,3 +1272,52 @@ def test_carbon_for_driving_is_priced_as_a_car(monkeypatch):
     dispatcher = CollectingDispatcher()
     actions.ActionCalculateCarbon().run(dispatcher, tracker, {})
     assert "Car from Berlin to Prague" in texts(dispatcher)[0]
+
+
+# --------------------------------------------------------------------------
+# Remaining action coverage (C8)
+# --------------------------------------------------------------------------
+
+def test_eco_hotels_for_a_city_with_data_show_cards_and_the_disclaimer():
+    dispatcher = CollectingDispatcher()
+    actions.ActionSuggestEcoHotels().run(
+        dispatcher, make_tracker(slots={"destination": "Kyoto"}), {})
+    replies = texts(dispatcher)
+    assert any("Kyoto" in r for r in replies)
+    assert any(r.startswith(("🟢", "🟡", "🔴", "⚪")) for r in replies)
+    assert actions.GREENWASHING_DISCLAIMER in replies
+
+
+def test_eco_hotels_for_a_city_without_data_names_the_supported_ones():
+    dispatcher = CollectingDispatcher()
+    actions.ActionSuggestEcoHotels().run(
+        dispatcher, make_tracker(slots={"destination": "Reykjavik"}), {})
+    reply = texts(dispatcher)[0]
+    assert "don't have hotel data for Reykjavik" in reply
+    assert actions.SUPPORTED_CITIES_HINT in reply
+    assert "fetch_pois" not in reply          # no admin instructions for users
+
+
+def test_handover_logs_a_ticket_without_inventing_an_advisor(capsys):
+    dispatcher = CollectingDispatcher()
+    events = actions.ActionHumanHandover().run(
+        dispatcher,
+        make_tracker(slots={"destination": "Lisbon"},
+                     latest_message={"intent": {"name": "request_human_advisor",
+                                                "confidence": 0.97}}),
+        {})
+    reply = texts(dispatcher)[0]
+    assert reply.startswith("🎫 Ticket TR-")          # Streamlit keys on the 🎫 prefix
+    assert "server log" in reply
+    for invented in ("Anna", "Marco", "Priya", "Ling", "Ines", "15 minutes"):
+        assert invented not in reply
+    assert "HUMAN HANDOVER PACKAGE" in capsys.readouterr().out
+    assert {"event": "slot", "name": "handover_active", "value": True, "timestamp": None} in events
+
+
+def test_fallback_handover_is_honest_and_reverts_the_unknown_message():
+    dispatcher = CollectingDispatcher()
+    events = actions.ActionDefaultFallback().run(dispatcher, make_tracker(), {})
+    reply = texts(dispatcher)[0]
+    assert reply.startswith("🎫 Ticket TR-") and "server log" in reply
+    assert any(e["event"] == "rewind" for e in events)

@@ -23,9 +23,15 @@ pipeline:
     analyzer: char_wb
     min_ngram: 1
     max_ngram: 4
+  # random_seed (D14): DIET, TED and UnexpecTED default to RANDOM_SEED None
+  # (rasa/nlu/classifiers/diet_classifier.py:188-189, core/policies/
+  # ted_policy.py:244), so two trainings on the same data differ and a
+  # before/after comparison mixes the change with noise. Every lecturer
+  # notebook fixes 42.
   - name: DIETClassifier
     epochs: 100
     constrain_similarities: true
+    random_seed: 42
   # Raised from 0.4 to 0.6 on 2026-09-16 after measuring it with
   # scripts/threshold_sweep.py: across 56 held-out in-scope messages the
   # lowest correct prediction scores 0.87, so 0.6 throws none of them away,
@@ -58,7 +64,9 @@ policies:
   - name: UnexpecTEDIntentPolicy
     max_history: 5
     epochs: 100
+    random_seed: 42
   - name: TEDPolicy
     max_history: 5
     epochs: 100
     constrain_similarities: true
+    random_seed: 42
