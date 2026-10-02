@@ -684,8 +684,8 @@ def test_affirmation_buttons_use_readable_labels():
         "intent": {"name": "nlu_fallback"},
         "intent_ranking": [
             {"name": "nlu_fallback", "confidence": 0.4},
-            {"name": "ask_deadlines", "confidence": 0.3},
-            {"name": "ask_office_hours", "confidence": 0.2},
+            {"name": "ask_carbon_offset", "confidence": 0.3},
+            {"name": "ask_weather", "confidence": 0.2},
             {"name": "greet", "confidence": 0.1},
         ],
     })
@@ -694,11 +694,11 @@ def test_affirmation_buttons_use_readable_labels():
     buttons = dispatcher.messages[0]["buttons"]
 
     assert [b["title"] for b in buttons] == [
-        "When assignments are due", "When office hours are",
+        "Carbon offset programmes", "The weather somewhere",
         "Plan a sustainable trip", "None of these",
     ]
     assert [b["payload"] for b in buttons] == [
-        "/ask_deadlines", "/ask_office_hours", "/plan_trip", "/out_of_scope",
+        "/ask_carbon_offset", "/ask_weather", "/plan_trip", "/out_of_scope",
     ]
 
 

@@ -28,6 +28,10 @@
 # add a *different* variant to the training data, not this one.
 # tests/test_actions.py::test_regression_set_is_disjoint_from_training guards it.
 
+# Phase 7, Adım 1 (2026-10-02): the Course Companion intents were removed from the
+# bot (scope = eco-travel only). Their 16 sentences were moved, text unchanged, to
+# off_topic, the behaviour now expected for them. Done before any Phase 7 measurement.
+
 version: "3.1"
 
 nlu:
@@ -66,6 +70,22 @@ nlu:
     - What is 2+2
     - when did the Berlin wall fall
     - who wrote Hamlet
+    - what's Rasa used for?
+    - I've heard of Dialogflow, what is it?
+    - what does the NLU part of a chatbot actually do?
+    - can you define natural language understanding?
+    - what tools will we use in the course?
+    - which software do I need to install?
+    - what do I need to know before starting?
+    - do I need Python?
+    - when do I have to hand the assignment in?
+    - what is the submission deadline?
+    - when can I go and see the lecturer with questions?
+    - what time is the support session?
+    - how am I assessed
+    - what grade do I need to pass?
+    - what's this Streamlit thing?
+    - why do we use Streamlit?
 
 - intent: plan_trip
   examples: |
@@ -118,43 +138,3 @@ nlu:
   examples: |
     - I'd like a real human to take over
     - can an advisor help me?
-
-- intent: ask_about_tool
-  examples: |
-    - what's [Rasa](tool_name) used for?
-    - I've heard of [Dialogflow](tool_name), what is it?
-
-- intent: ask_what_is_nlu
-  examples: |
-    - what does the NLU part of a chatbot actually do?
-    - can you define natural language understanding?
-
-- intent: ask_tools
-  examples: |
-    - what tools will we use in the course?
-    - which software do I need to install?
-
-- intent: ask_prerequisites
-  examples: |
-    - what do I need to know before starting?
-    - do I need Python?
-
-- intent: ask_deadlines
-  examples: |
-    - when do I have to hand the assignment in?
-    - what is the submission deadline?
-
-- intent: ask_office_hours
-  examples: |
-    - when can I go and see the lecturer with questions?
-    - what time is the support session?
-
-- intent: ask_assessment
-  examples: |
-    - how am I assessed
-    - what grade do I need to pass?
-
-- intent: ask_streamlit
-  examples: |
-    - what's this Streamlit thing?
-    - why do we use Streamlit?

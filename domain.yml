@@ -3,16 +3,6 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - ask_course_overview
-  - ask_tools
-  - ask_about_tool
-  - ask_what_is_nlu
-  - ask_assessment
-  - ask_what_is_chatbot
-  - ask_deadlines
-  - ask_office_hours
-  - ask_prerequisites
-  - ask_streamlit
   - ask_weather
   - ask_currency
   - plan_trip
@@ -33,7 +23,6 @@ intents:
   - out_of_scope
 
 entities:
-  - tool_name
   - city_name
   - from_currency
   - to_currency
@@ -47,12 +36,6 @@ entities:
   - trip_length
 
 slots:
-  tool_name:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: tool_name
-
   city_name:
     type: text
     influence_conversation: false
@@ -224,7 +207,6 @@ forms:
       - trip_length
 
 actions:
-  - action_respond_about_tool
   - action_get_weather
   - action_get_currency
   - action_suggest_eco_hotels
@@ -243,37 +225,10 @@ actions:
 
 responses:
   utter_greet:
-    - text: "Hello! I am your Eco-Travel & Course Companion bot. I can help you plan sustainable trips, look up carbon footprints, check the weather, convert currencies, or answer course questions. What would you like to do?"
+    - text: "Hello! I am your Eco-Travel Advisor. I can help you plan a sustainable trip, compare low-carbon transport, estimate carbon footprints, find places to stay, check the weather or convert currencies. What would you like to do?"
 
   utter_goodbye:
     - text: "Goodbye! Travel light on the planet."
-
-  utter_ask_course_overview:
-    - text: "This course covers advanced conversational UI design and chatbot development. You will learn to build sophisticated chatbots using AI, focusing on design principles, NLU, and real-world deployment."
-
-  utter_ask_tools:
-    - text: "We will work with Rasa, Python, Streamlit, FastAPI, and Docker throughout the course."
-
-  utter_ask_what_is_nlu:
-    - text: "NLU stands for Natural Language Understanding. It is the part of the bot that figures out what the user means — identifying intents and extracting entities."
-
-  utter_ask_assessment:
-    - text: "The course is assessed through practical assignments and a final project. You will design, build, and deploy a working chatbot."
-
-  utter_ask_what_is_chatbot:
-    - text: "A chatbot is a software application that simulates human conversation. It understands user input using AI and responds intelligently."
-
-  utter_ask_deadlines:
-    - text: "Assignment deadlines are announced weekly on the course portal. Check the syllabus for major submission dates."
-
-  utter_ask_office_hours:
-    - text: "Office hours are held Tuesdays and Thursdays, 2-4 PM. You can also book a 1-on-1 slot via the course portal."
-
-  utter_ask_prerequisites:
-    - text: "Basic Python knowledge and familiarity with REST APIs are recommended. Prior chatbot experience is not required."
-
-  utter_ask_streamlit:
-    - text: "Streamlit is a Python library for building interactive web apps quickly. We use it as the frontend for our chatbot."
 
   utter_ask_trip_planning_form_destination:
     - text: "Great — where would you like to travel? (e.g. Barcelona, Kyoto, Amsterdam)"
@@ -351,8 +306,8 @@ responses:
         • Estimate the carbon footprint of a specific journey
         • Suggest places to stay, ranked by transit access and scale
         • Suggest community-friendly things to do, and carbon offset programmes
+        • Describe a city, check its weather, and convert currencies
         • Hand you to a human travel advisor with the full conversation when you want one
-        I also answer questions about this Rasa course.
       buttons:
         - title: "Plan a sustainable trip"
           payload: "/plan_trip"
@@ -363,9 +318,6 @@ responses:
 
   utter_you_are_welcome:
     - text: "You're welcome. Anything else I can help you plan?"
-
-  utter_privacy_note:
-    - text: "Note: I only keep your answers for this conversation to give recommendations. No personal data is stored permanently (GDPR-compliant)."
 
 session_config:
   session_expiration_time: 60

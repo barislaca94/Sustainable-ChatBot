@@ -117,14 +117,14 @@ st.sidebar.caption(
 )
 
 # ---------- Main area ----------
-st.title("Eco-Travel & Course Companion Bot")
+st.title("Eco-Travel Advisor")
 st.divider()
 
 if page == "Home":
     st.header("Welcome")
     st.write(
         "This bot helps you plan sustainable trips, look up carbon footprints, "
-        "check the weather, convert currencies, and answer course questions."
+        "check the weather and convert currencies."
     )
     st.markdown(
         """
@@ -176,29 +176,6 @@ elif page == "Chat":
 
     # ---- Hard-coded shortcut buttons ----
     quick_input = None
-
-    st.write("**Course questions:**")
-    row1_col1, row1_col2, row1_col3 = st.columns(3)
-    with row1_col1:
-        if st.button("What is Rasa?"):
-            quick_input = "what is Rasa?"
-    with row1_col2:
-        if st.button("What is NLU?"):
-            quick_input = "what is NLU?"
-    with row1_col3:
-        if st.button("What tools do we use?"):
-            quick_input = "what tools will we use?"
-
-    row2_col1, row2_col2, row2_col3 = st.columns(3)
-    with row2_col1:
-        if st.button("What is Streamlit?"):
-            quick_input = "what is Streamlit?"
-    with row2_col2:
-        if st.button("Office hours?"):
-            quick_input = "when are office hours?"
-    with row2_col3:
-        if st.button("Prerequisites?"):
-            quick_input = "what are the prerequisites?"
 
     st.write("**Weather & currency:**")
     row3_col1, row3_col2, row3_col3 = st.columns(3)
@@ -286,7 +263,7 @@ elif page == "About":
     st.header("About")
     st.write(
         "Eco-Travel Advisor built on Rasa 3.6.21 + Streamlit. "
-        "Combines a sustainable-tourism planning assistant with a course companion."
+        "A sustainable-tourism planning assistant."
     )
     st.markdown(
         """

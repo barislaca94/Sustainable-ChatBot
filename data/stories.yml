@@ -11,13 +11,6 @@ stories:
   - active_loop: null
   - action: action_submit_trip_form
 
-- story: greet and ask course overview
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: ask_course_overview
-  - action: utter_ask_course_overview
-
 - story: ask weather then plan trip
   steps:
   - intent: ask_weather

@@ -164,44 +164,6 @@ def load_eco_data(city: str, kind: str) -> List[Dict[str, Any]]:
 
 
 # =============================================================================
-# Existing action: tool information
-# =============================================================================
-
-class ActionRespondAboutTool(Action):
-
-    def name(self) -> Text:
-        return "action_respond_about_tool"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        tool = tracker.get_slot("tool_name")
-
-        tool_info = {
-            "rasa": "Rasa is an open-source framework for building conversational AI. It runs locally and gives you full control.",
-            "dialogflow": "Dialogflow is Google's cloud-based NLU platform. Easy to set up but your data goes to Google's servers.",
-            "amazon lex": "Amazon Lex is AWS's conversational AI service — the same technology behind Alexa.",
-            "chatgpt": "ChatGPT is OpenAI's large language model chatbot. Excellent at general conversation but not designed as a task-oriented dialogue framework.",
-            "openai": "OpenAI is the AI research company behind ChatGPT and GPT-4. They provide LLM APIs used to build chatbots on top of foundation models.",
-            "ibm watson": "IBM Watson is IBM's enterprise AI platform. Watson Assistant is their conversational AI product, aimed at business use cases.",
-            "microsoft bot framework": "Microsoft Bot Framework is Microsoft's SDK for building bots that integrate with Teams, Skype, and other Microsoft channels.",
-            "wit.ai": "Wit.ai is a free NLU platform from Meta (Facebook). Focused on intent and entity extraction, similar to Dialogflow but free.",
-        }
-
-        if tool:
-            response = tool_info.get(
-                tool.lower(),
-                f"I know about {tool} but don't have detailed notes yet."
-            )
-        else:
-            response = "Which tool would you like to know about?"
-
-        dispatcher.utter_message(text=response)
-        return []
-
-
-# =============================================================================
 # Weather helpers + action
 # =============================================================================
 
@@ -1789,16 +1751,6 @@ SCOPE_SUMMARY = (
 INTENT_LABELS = {
     "greet":                 "say hello",
     "goodbye":               "say goodbye",
-    "ask_course_overview":   "what this course covers",
-    "ask_tools":             "which tools the course uses",
-    "ask_about_tool":        "what a specific tool is",
-    "ask_what_is_nlu":       "what NLU means",
-    "ask_assessment":        "how the course is assessed",
-    "ask_what_is_chatbot":   "what a chatbot is",
-    "ask_deadlines":         "when assignments are due",
-    "ask_office_hours":      "when office hours are",
-    "ask_prerequisites":     "what you need to know beforehand",
-    "ask_streamlit":         "what Streamlit is",
     "ask_weather":           "the weather somewhere",
     "ask_currency":          "an exchange rate",
     "plan_trip":             "plan a sustainable trip",
@@ -1820,7 +1772,7 @@ class ActionDefaultAskAffirmation(Action):
     """Ask "did you mean…?" with readable options instead of intent names.
 
     Rasa's built-in version of this action prints the raw intent name —
-    "Did you mean 'ask_deadlines'?" — which means nothing to a user. The
+    "Did you mean 'ask_carbon_offset'?" — which means nothing to a user. The
     candidates come from DIET's own intent_ranking for the message that
     failed, so the buttons are whatever the classifier thought was close.
 

@@ -152,13 +152,3 @@ stories:
   - intent: request_human_advisor
   - action: action_human_handover
 
-- story: course companion still works alongside eco-travel
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: ask_what_is_nlu
-  - action: utter_ask_what_is_nlu
-  - intent: ask_streamlit
-  - action: utter_ask_streamlit
-  - intent: goodbye
-  - action: utter_goodbye
