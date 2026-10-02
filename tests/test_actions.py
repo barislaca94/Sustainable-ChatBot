@@ -974,3 +974,34 @@ def test_regression_set_is_disjoint_from_training():
                  if text not in training_texts and tpl in training_templates]
     assert copied == [], f"regression sentences also in data/nlu.yml: {copied}"
     assert templated == [], f"regression sentences that only swap an entity: {templated}"
+
+
+# The final test set (tests/final_test*.yml) was written without access to the
+# training data, frozen on 2026-10-02 and is run once, on the final model.
+# These hashes make any later edit visible: change the file only to remove
+# contamination, never to improve a number, and record why.
+FINAL_TEST_SHA256 = {
+    "final_test.yml": "c73b78d0e5f9a7bd8f8ff2fb0f453e37a4828f591fbdb2fdfd7feecf2812db70",
+    "final_test_style.yml": "fcffd54d05342826aa0a0ab7b07487ed56f8a9b3ad6e31b6ba6d4f77a8a24167",
+}
+
+
+@pytest.mark.parametrize("name", sorted(FINAL_TEST_SHA256))
+def test_final_test_set_is_frozen(name):
+    import hashlib
+
+    data = (REPO_ROOT / "tests" / name).read_bytes()
+    assert hashlib.sha256(data).hexdigest() == FINAL_TEST_SHA256[name]
+
+
+@pytest.mark.parametrize("name", sorted(FINAL_TEST_SHA256))
+def test_final_test_set_is_disjoint_from_training_and_dev(name):
+    final = _nlu_examples(REPO_ROOT / "tests" / name)
+    for other in ("data/nlu.yml", "tests/nlu_regression.yml"):
+        seen = _nlu_examples(REPO_ROOT / other)
+        texts = {text for _, text, _ in seen}
+        templates = {tpl for _, _, tpl in seen if "<" in tpl}
+        copied = [t for _, t, _ in final if t in texts]
+        templated = [t for _, t, tpl in final if t not in texts and tpl in templates]
+        assert copied == [], f"{name}: sentences also in {other}: {copied}"
+        assert templated == [], f"{name}: sentences that only swap an entity of {other}: {templated}"

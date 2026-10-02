@@ -62,3 +62,7 @@ weather_test.py
 # Working documents and measurement snapshots; covered in the written report
 docs/
 evaluation/
+
+# Final test draft (converted to tests/final_test*.yml)
+tests/final_test_draft.txt
+tests/final_test_baris.txt
