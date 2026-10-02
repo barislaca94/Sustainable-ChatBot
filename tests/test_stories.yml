@@ -187,3 +187,39 @@ stories:
   steps:
   - intent: invalid_input
   - action: utter_invalid_input
+
+# Adim 3 (A1): leaving or interrupting the trip form
+- story: stop during the trip form cancels it
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: action_cancel_trip_form
+
+- story: asking for a human during the trip form hands over and leaves the form
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - intent: request_human_advisor
+  - action: action_human_handover
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: a visa question during the trip form is answered, then the form resumes
+  steps:
+  - intent: plan_trip
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+  - intent: ask_regulated_advice
+  - action: utter_regulated_advice
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+
+- story: stop with nothing in progress gets a neutral reply
+  steps:
+  - intent: stop
+  - action: utter_acknowledge

@@ -1602,7 +1602,9 @@ class ActionSubmitTripForm(Action):
         travel_options: List[Dict[Text, Any]] = []
         excluded: List[Text] = []
         carbon_source = ""
-        distance = approx_distance_km(origin, destination) if origin else 0.0
+        distance, distance_status = (
+            approx_distance_result(origin, destination) if origin else (0.0, GEOCODE_OK)
+        )
         if distance:
             travel_options, excluded, carbon_source = score_transport_options(
                 distance,
@@ -1651,6 +1653,12 @@ class ActionSubmitTripForm(Action):
                 text="ℹ️ Tell me where you are travelling from and I can compare "
                      "transport options and their carbon cost."
             )
+        elif distance_status == GEOCODE_UNAVAILABLE:
+            # Say why the comparison is missing instead of silently dropping it.
+            dispatcher.utter_message(
+                text="ℹ️ I couldn't reach the map service just now, so I can't compare "
+                     "transport options for this trip. Ask me again in a moment."
+            )
 
         # ---- Hotels: more options when sustainability is the priority ----
         per_night = nightly_budget(tracker)
@@ -1696,7 +1704,10 @@ class ActionSubmitTripForm(Action):
 
         buttons = [
             {"title": f"Green transport to {destination.title()}",
-             "payload": f'/ask_green_transport{{"destination":"{destination}"}}'},
+             # Origin travels in the payload: the form slots are cleared below,
+             # and without it the button would ask for the origin again.
+             "payload": json_payload("ask_green_transport",
+                                     destination=destination, origin=origin)},
             {"title": f"Community activities in {destination.title()}",
              "payload": f'/ask_local_activities{{"destination":"{destination}"}}'},
             {"title": "Talk to a human advisor",
@@ -1723,16 +1734,86 @@ class ActionSubmitTripForm(Action):
             "hotels_shown":         [h["name"] for h in ranked],
         }
 
-        # Keep destination and origin but clear the form-scoped inputs so a new
-        # trip can be planned cleanly.
+        # Clear every form slot, destination and origin included: a filled slot
+        # is skipped by the form, so a second plan would silently reuse the
+        # first trip's cities ("Slots not cleared after the form → second run
+        # skips questions", Making a Bot Behave §6.3). The plan itself survives
+        # in last_trip_summary.
         return [
             SlotSet("last_trip_summary", json.dumps(trip_summary)),
+            SlotSet("destination", None),
+            SlotSet("origin", None),
             SlotSet("travel_dates", None),
             SlotSet("budget", None),
             SlotSet("sustainability_level", None),
             SlotSet("transport_preference", None),
             SlotSet("trip_length", None),
         ]
+
+
+def json_payload(intent: Text, **entities: Any) -> Text:
+    """A button payload that sets entities, e.g. /intent{"destination": "Kyoto"}.
+    Entities with no value are left out."""
+    values = {k: v for k, v in entities.items() if v}
+    return f"/{intent}{json.dumps(values)}" if values else f"/{intent}"
+
+
+TRIP_FORM_SLOTS = ("destination", "origin", "travel_dates", "budget",
+                   "sustainability_level", "transport_preference", "trip_length")
+
+
+class ActionCancelTripForm(Action):
+    """Leave the trip form cleanly when the user says stop (A1).
+
+    The rule deactivates the form first; this action then clears every form
+    slot and `requested_slot`, so a later "plan a trip" starts from the first
+    question instead of resuming a half-filled form.
+    """
+
+    def name(self) -> Text:
+        return "action_cancel_trip_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[EventType]:
+        dispatcher.utter_message(
+            text="Okay, I've stopped the trip planning and cleared your answers. "
+                 "What would you like to do instead?",
+            buttons=[
+                {"title": "Plan a new trip", "payload": "/plan_trip"},
+                {"title": "Low-carbon transport", "payload": "/ask_green_transport"},
+                {"title": "Talk to a human advisor", "payload": "/request_human_advisor"},
+            ],
+        )
+        return [SlotSet(slot, None) for slot in TRIP_FORM_SLOTS] + [
+            SlotSet("requested_slot", None)
+        ]
+
+
+class ActionAskTripPlanningFormDestination(Action):
+    """Ask for the destination with one button per city that has hotel data (N4).
+
+    The brief asks for "quick-reply buttons generated dynamically from custom
+    action responses for destination and preference selection". The cities
+    come from data/eco_data/ (supported_cities), so a button never offers a
+    city the bot cannot plan. The payload is the plain city name: it goes
+    through the form's from_text mapping and validate_destination exactly as
+    a typed answer would.
+    """
+
+    def name(self) -> Text:
+        return "action_ask_trip_planning_form_destination"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[EventType]:
+        cities = supported_cities()
+        dispatcher.utter_message(
+            text="Great — where would you like to travel? Pick a city I have hotel "
+                 "data for, or type any other city.",
+            buttons=[{"title": city, "payload": city} for city in cities],
+        )
+        return []
 
 
 class ActionDefaultFallback(Action):
@@ -2013,6 +2094,13 @@ class ValidateTripPlanningForm(FormValidationAction):
         if len(text) < 2 or text[0].isdigit():
             dispatcher.utter_message(
                 text="Which city are you starting from? A city name works best."
+            )
+            return {"origin": None}
+        destination = str(tracker.get_slot("destination") or "").strip()
+        if destination and text.lower() == destination.lower():
+            dispatcher.utter_message(
+                text=f"That's the same as your destination, {destination}. "
+                     "Where will you be travelling from?"
             )
             return {"origin": None}
         # Geocode now rather than at plan time: a place we cannot find would

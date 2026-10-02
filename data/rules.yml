@@ -47,6 +47,8 @@ rules:
   - action: action_carbon_offset_programs
 
 - rule: Escalate to human advisor
+  condition:
+  - active_loop: null
   steps:
   - intent: request_human_advisor
   - action: action_human_handover
@@ -109,30 +111,112 @@ rules:
   - active_loop: null
   steps:
   - intent: out_of_scope
-  - action: utter_out_of_scope_help
+  - action: utter_acknowledge
 
 # Adim 2: requests the bot must handle safely (docs/INTENT_DEFINITIONS.md)
 - rule: Explain that the bot cannot book or show live prices
+  condition:
+  - active_loop: null
   steps:
   - intent: ask_booking
   - action: utter_booking_not_possible
 
 - rule: Refer visa, health and safety questions to official sources
+  condition:
+  - active_loop: null
   steps:
   - intent: ask_regulated_advice
   - action: utter_regulated_advice
 
 - rule: Respond calmly to an insult
+  condition:
+  - active_loop: null
   steps:
   - intent: insult
   - action: utter_insult_response
 
 - rule: Explain what happens to the user's data
+  condition:
+  - active_loop: null
   steps:
   - intent: ask_privacy
   - action: utter_privacy
 
 - rule: Ask for a shorter message when the input is empty or too long
+  condition:
+  - active_loop: null
   steps:
   - intent: invalid_input
   - action: utter_invalid_input
+
+# Adim 3 (A1): leaving or interrupting the trip form. The form's slot mappings
+# exclude these intents (domain.yml not_intent), so each needs a rule here.
+- rule: Human requested during the trip form
+  condition:
+  - active_loop: trip_planning_form
+  steps:
+  - intent: request_human_advisor
+  - action: action_human_handover
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- rule: Stop requested during the trip form
+  condition:
+  - active_loop: trip_planning_form
+  steps:
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: action_cancel_trip_form
+
+- rule: Stop requested when nothing is in progress
+  condition:
+  - active_loop: null
+  steps:
+  - intent: stop
+  - action: utter_acknowledge
+
+- rule: Answer ask_booking during the trip form, then ask the same question again
+  condition:
+  - active_loop: trip_planning_form
+  steps:
+  - intent: ask_booking
+  - action: utter_booking_not_possible
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+
+- rule: Answer ask_regulated_advice during the trip form, then ask the same question again
+  condition:
+  - active_loop: trip_planning_form
+  steps:
+  - intent: ask_regulated_advice
+  - action: utter_regulated_advice
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+
+- rule: Answer insult during the trip form, then ask the same question again
+  condition:
+  - active_loop: trip_planning_form
+  steps:
+  - intent: insult
+  - action: utter_insult_response
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+
+- rule: Answer ask_privacy during the trip form, then ask the same question again
+  condition:
+  - active_loop: trip_planning_form
+  steps:
+  - intent: ask_privacy
+  - action: utter_privacy
+  - action: trip_planning_form
+  - active_loop: trip_planning_form
+
+- rule: Answer invalid_input during the trip form, then ask the same question again
+  condition:
+  - active_loop: trip_planning_form
+  steps:
+  - intent: invalid_input
+  - action: utter_invalid_input
+  - action: trip_planning_form
+  - active_loop: trip_planning_form

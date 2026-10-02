@@ -79,6 +79,7 @@ slots:
       # take whatever the user typed as-is. This avoids the extractor picking
       # only a partial token from a natural answer.
       - type: from_text
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: destination
@@ -95,6 +96,7 @@ slots:
         conditions:
           - active_loop: null
       - type: from_text
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: origin
@@ -114,6 +116,7 @@ slots:
       # "next week" often clips to a single token ("next"). from_text
       # takes the entire user reply during the form.
       - type: from_text
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: travel_dates
@@ -125,6 +128,7 @@ slots:
       # Only from_text — free-form numeric input is easier to accept as a
       # whole and validate in Python than to entity-annotate.
       - type: from_text
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: budget
@@ -139,10 +143,12 @@ slots:
     mappings:
       - type: from_entity
         entity: sustainability_level
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: sustainability_level
       - type: from_text
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: sustainability_level
@@ -156,10 +162,12 @@ slots:
     mappings:
       - type: from_entity
         entity: transport_preference
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: transport_preference
       - type: from_text
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: transport_preference
@@ -174,10 +182,12 @@ slots:
     mappings:
       - type: from_entity
         entity: trip_length
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: trip_length
       - type: from_text
+        not_intent: [request_human_advisor, stop, ask_regulated_advice, ask_booking, insult, ask_privacy, invalid_input]
         conditions:
           - active_loop: trip_planning_form
             requested_slot: trip_length
@@ -199,6 +209,11 @@ slots:
       - type: custom
 
 forms:
+  # Form exits (A1): every form-scoped slot mapping above carries a not_intent
+  # list. A message with one of those intents is never taken as a slot answer;
+  # data/rules.yml handles it instead (hand over, cancel, or answer and return
+  # to the same question). Rasa needs a rule for each excluded intent, because
+  # the form cannot fill a slot that turn and does not continue by itself.
   trip_planning_form:
     # NOTE: only destination/dates/budget/sustainability_level are asked every
     # time. transport_preference and trip_length are added dynamically by
@@ -229,6 +244,11 @@ actions:
   - action_core_fallback
   - action_deactivate_loop
   - action_describe_place
+  - action_cancel_trip_form
+  # Asks the destination question with city buttons (brief: quick-reply
+  # buttons generated from custom action responses). Rasa looks for
+  # action_ask_<form>_<slot> before utter_ask_<form>_<slot>.
+  - action_ask_trip_planning_form_destination
   - validate_trip_planning_form
 
 responses:
@@ -364,6 +384,9 @@ responses:
           payload: "/ask_eco_hotels"
         - title: "Talk to a human advisor"
           payload: "/request_human_advisor"
+
+  utter_acknowledge:
+    - text: "Okay. I'm here if you want to plan a trip or compare ways to travel."
 
   utter_you_are_welcome:
     - text: "You're welcome. Anything else I can help you plan?"

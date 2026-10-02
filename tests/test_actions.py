@@ -1135,3 +1135,68 @@ def test_every_new_safety_intent_has_a_rule_and_response():
                    "ask_privacy", "invalid_input"):
         assert intent in pairs, intent
         assert pairs[intent] in responses, pairs[intent]
+
+
+# --------------------------------------------------------------------------
+# Trip form: exits, destination buttons, slot reset (Adim 3b)
+# --------------------------------------------------------------------------
+
+def test_cancel_trip_form_clears_every_form_slot():
+    dispatcher = CollectingDispatcher()
+    events = actions.ActionCancelTripForm().run(
+        dispatcher, make_tracker(slots={"destination": "Kyoto", "budget": "900"}), {})
+    cleared = {e["name"] for e in events if e["event"] == "slot" and e["value"] is None}
+    assert set(actions.TRIP_FORM_SLOTS) | {"requested_slot"} <= cleared
+    assert "stopped the trip planning" in texts(dispatcher)[0]
+    assert "/plan_trip" in [b["payload"] for b in dispatcher.messages[0]["buttons"]]
+
+
+def test_destination_question_offers_exactly_the_cities_with_data():
+    dispatcher = CollectingDispatcher()
+    actions.ActionAskTripPlanningFormDestination().run(dispatcher, make_tracker(), {})
+    buttons = dispatcher.messages[0]["buttons"]
+    assert [b["title"] for b in buttons] == actions.supported_cities()
+    # Plain city name, so the button goes through validate_destination
+    # exactly like a typed answer.
+    assert all(b["payload"] == b["title"] for b in buttons)
+    assert "type any other city" in texts(dispatcher)[0]
+
+
+def test_supported_cities_come_from_the_data_folder():
+    cities = actions.supported_cities()
+    files = sorted(p.name for p in actions.ECO_DATA_DIR.glob("*_hotels.json"))
+    assert len(cities) == len(files)
+    assert all(f"{c.lower()}_hotels.json" in files for c in cities)
+
+
+def test_origin_equal_to_destination_is_rejected():
+    form = actions.ValidateTripPlanningForm()
+    dispatcher = CollectingDispatcher()
+    result = form.validate_origin("lisbon", dispatcher,
+                                  make_tracker(slots={"destination": "Lisbon"}), {})
+    assert result == {"origin": None}
+    assert "same as your destination" in texts(dispatcher)[0]
+
+
+def test_json_payload_sets_entities_and_skips_empty_ones():
+    assert actions.json_payload("ask_green_transport", destination="Kyoto", origin=None) \
+        == '/ask_green_transport{"destination": "Kyoto"}'
+    assert actions.json_payload("plan_trip") == "/plan_trip"
+
+
+def test_submit_clears_destination_and_origin_and_explains_a_map_outage(monkeypatch):
+    monkeypatch.setattr(actions, "approx_distance_result",
+                        lambda o, d: (0.0, actions.GEOCODE_UNAVAILABLE))
+    tracker = make_tracker(slots={
+        "destination": "Kyoto", "origin": "Tokyo", "travel_dates": "next week",
+        "budget": "900", "sustainability_level": "high",
+    })
+    dispatcher = CollectingDispatcher()
+    events = actions.ActionSubmitTripForm().run(dispatcher, tracker, {})
+
+    cleared = {e["name"] for e in events if e["event"] == "slot" and e["value"] is None}
+    assert {"destination", "origin"} <= cleared       # A4: second plan asks again
+    assert any("couldn't reach the map service" in t for t in texts(dispatcher))  # A5
+    green = [b for m in dispatcher.messages for b in m.get("buttons") or []
+             if b["title"].startswith("Green transport")]
+    assert green and '"origin": "Tokyo"' in green[0]["payload"]
