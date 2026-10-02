@@ -153,7 +153,7 @@ nlu:
 
 - intent: ask_carbon_footprint
   examples: |
-    - what is the carbon footprint of flying from [London](origin) to [Paris](destination)?
+    - what is the carbon footprint of [flying](transport_mode) from [London](origin) to [Paris](destination)?
     - carbon emissions of [train](transport_mode) from [Berlin](origin) to [Munich](destination)
     - how much CO2 for a [flight](transport_mode) from [Madrid](origin) to [Rome](destination)?
     - emissions of [car](transport_mode) from [Istanbul](origin) to [Ankara](destination)
@@ -162,9 +162,9 @@ nlu:
     - carbon footprint [train](transport_mode) [Vienna](origin) to [Prague](destination)
     - emissions for [flight](transport_mode) [Oslo](origin) to [Helsinki](destination)
     - how much CO2 does the [train](transport_mode) from [Lisbon](origin) to [Porto](destination) produce?
-    - emissions for driving from [Berlin](origin) to [Prague](destination)
+    - emissions for [driving](transport_mode) from [Berlin](origin) to [Prague](destination)
     - what are the emissions of a [bus](transport_mode) from [Paris](origin) to [Lyon](destination)?
-    - footprint of flying from [London](origin) to [Edinburgh](destination)
+    - footprint of [flying](transport_mode) from [London](origin) to [Edinburgh](destination)
 
 - intent: ask_local_activities
   examples: |

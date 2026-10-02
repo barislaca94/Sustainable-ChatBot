@@ -1,6 +1,7 @@
 from typing import Any, Text, Dict, List, Optional, Tuple
 import json
 import os
+import re
 import time
 import urllib.parse
 import uuid
@@ -553,20 +554,47 @@ TRIP_NIGHTS = {"weekend": 2, "week": 7, "extended": 14}
 ACCOMMODATION_BUDGET_SHARE = 0.5
 
 
+_BUDGET_NUMBER = re.compile(r"(\d+(?:[.,]\d+)*)\s*(k)?\b", re.IGNORECASE)
+
+
+def _to_number(raw: Text, thousands: bool) -> float:
+    """'1,500' / '1.500' are thousands separators; '1.5' / '2,5' are decimals."""
+    groups = re.split(r"[.,]", raw)
+    if len(groups) > 1 and all(len(g) == 3 for g in groups[1:]):
+        value = float("".join(groups))
+    else:
+        value = float(raw.replace(",", "."))
+    return value * 1000 if thousands else value
+
+
+def parse_budget(text: Any) -> Tuple[Optional[int], bool]:
+    """Read a budget in EUR from free text.
+
+    Returns (amount, is_range). A range such as "800 to 1000" or "800-1000"
+    gives its midpoint (900) and is_range=True, so the caller can say which
+    figure it used. "2k" means 2000. Only the first two numbers count, which
+    keeps "1500 for 2 people" at 1500. Before this, every caller joined all
+    the digits, so "800 to 1000" became 8001000 (A2).
+    """
+    numbers = [_to_number(num, bool(k)) for num, k in _BUDGET_NUMBER.findall(str(text or ""))]
+    if not numbers:
+        return None, False
+    if len(numbers) >= 2 and re.search(r"\d\s*(?:-|–|to|and)\s*\d", str(text), re.IGNORECASE):
+        return int(round((numbers[0] + numbers[1]) / 2)), True
+    return int(round(numbers[0])), False
+
+
 def nightly_budget(tracker: Tracker) -> Optional[float]:
     """Approximate EUR available per night, or None when unknowable.
 
     Needs both a budget and a trip length; without the second, any per-night
     figure would be invented, so the price proxy is simply not applied.
     """
-    budget_raw = tracker.get_slot("budget")
+    budget, _ = parse_budget(tracker.get_slot("budget"))
     nights = TRIP_NIGHTS.get(tracker.get_slot("trip_length") or "")
-    if not budget_raw or not nights:
+    if not budget or not nights:
         return None
-    digits = "".join(ch for ch in str(budget_raw) if ch.isdigit())
-    if not digits:
-        return None
-    return int(digits) * ACCOMMODATION_BUDGET_SHARE / nights
+    return budget * ACCOMMODATION_BUDGET_SHARE / nights
 
 
 def format_hotel_card(hotel: Dict[str, Any]) -> Text:
@@ -735,6 +763,34 @@ EMISSION_FACTORS = {
 }
 
 LOCAL_SOURCE_LABEL = "local BEIS 2023 / Our World in Data table"
+
+# Words users write for a transport mode -> the mode name the carbon tables use
+# (A3). "Emissions for driving to Prague" used to be priced as a flight,
+# because "driving" was neither annotated nor mapped and the default was flight.
+MODE_ALIASES = {
+    "flight": "flight", "flights": "flight", "fly": "flight", "flying": "flight",
+    "plane": "flight", "airplane": "flight", "aeroplane": "flight",
+    "car": "car", "drive": "car", "driving": "car",
+    "train": "train", "trains": "train", "rail": "train",
+    "bus": "bus", "coach": "bus",
+    "ferry": "ferry", "boat": "ferry",
+    "bike": "bicycle", "bicycle": "bicycle", "cycling": "bicycle", "cycle": "bicycle",
+    "walk": "walk", "walking": "walk",
+}
+_MODE_WORD = re.compile(r"\b(" + "|".join(sorted(MODE_ALIASES, key=len, reverse=True)) + r")\b")
+COMPARED_MODES = ("train", "bus", "car", "flight")
+
+
+def resolve_mode(slot_value: Any, text: Any) -> Optional[Text]:
+    """The transport mode the user meant: the NLU entity first, then any mode
+    word in the message itself, so a missed entity annotation does not fall
+    back to a guess. None when neither names a mode."""
+    if slot_value:
+        mode = MODE_ALIASES.get(str(slot_value).lower().strip())
+        if mode:
+            return mode
+    match = _MODE_WORD.search(str(text or "").lower())
+    return MODE_ALIASES[match.group(1)] if match else None
 
 
 # -----------------------------------------------------------------------------
@@ -1072,10 +1128,7 @@ def score_transport_options(
         (sustainability_level or "medium").lower(), SUSTAINABILITY_WEIGHTS["medium"]
     )
 
-    budget_eur = None
-    if budget:
-        digits = "".join(ch for ch in str(budget) if ch.isdigit())
-        budget_eur = int(digits) if digits else None
+    budget_eur, _ = parse_budget(budget)
 
     options: List[Dict[Text, Any]] = []
     for mode in kept:
@@ -1357,7 +1410,8 @@ class ActionCalculateCarbon(Action):
 
         origin = tracker.get_slot("origin")
         destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
-        transport_mode = tracker.get_slot("transport_mode") or "flight"
+        mode = resolve_mode(tracker.get_slot("transport_mode"),
+                            (tracker.latest_message or {}).get("text"))
 
         if not origin or not destination:
             dispatcher.utter_message(
@@ -1373,12 +1427,28 @@ class ActionCalculateCarbon(Action):
             )
             return []
 
-        mode = transport_mode.lower()
+        # The slot is filled by a global from_entity mapping, so it would leak
+        # into the next question; it is cleared after every answer.
+        clear = [SlotSet("transport_mode", None)]
+
+        if mode is None:
+            # No mode named: compare the usual options instead of guessing one.
+            carbon, source_label = estimate_carbon(list(COMPARED_MODES), distance)
+            lines = [f"{origin.title()} to {destination.title()} ({distance:.0f} km), "
+                     "estimated kg CO2e per passenger:"]
+            for m in sorted(COMPARED_MODES, key=lambda m: carbon[m]):
+                band = intensity_band(carbon[m], distance)
+                lines.append(f"{band} {m.title()}: about {carbon[m]:.1f} kg — "
+                             f"{BAND_LABELS.get(band, '')}")
+            lines.append(source_label)
+            dispatcher.utter_message(text="\n".join(lines))
+            return clear
+
         carbon, source_label = estimate_carbon([mode], distance)
         kg = carbon[mode]
         band = intensity_band(kg, distance)
         reply = (
-            f"{band} {transport_mode.title()} from {origin.title()} to "
+            f"{band} {mode.title()} from {origin.title()} to "
             f"{destination.title()} ({distance:.0f} km): about {kg:.1f} kg CO2e "
             f"per passenger — {BAND_LABELS.get(band, '')}.\n"
             f"That is {kg / distance:.3f} kg per passenger-km; the colour bands "
@@ -1387,7 +1457,7 @@ class ActionCalculateCarbon(Action):
             f"{source_label}"
         )
         dispatcher.utter_message(text=reply)
-        return []
+        return clear
 
 
 class ActionSuggestActivities(Action):
@@ -2017,11 +2087,9 @@ class ValidateTripPlanningForm(FormValidationAction):
 
         # Rule 2: trip_length is only relevant on a tight budget (< 500 EUR).
         # Otherwise assume the user has time flexibility and skip the question.
-        budget_raw = tracker.get_slot("budget")
-        if budget_raw:
-            digits = "".join(ch for ch in str(budget_raw) if ch.isdigit())
-            if digits and int(digits) >= 500 and "trip_length" in slots:
-                slots.remove("trip_length")
+        budget, _ = parse_budget(tracker.get_slot("budget"))
+        if budget is not None and budget >= 500 and "trip_length" in slots:
+            slots.remove("trip_length")
 
         return slots
 
@@ -2136,14 +2204,16 @@ class ValidateTripPlanningForm(FormValidationAction):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> Dict[Text, Any]:
-        digits = "".join(ch for ch in str(slot_value or "") if ch.isdigit())
-        if not digits:
+        budget, is_range = parse_budget(slot_value)
+        if budget is None:
             dispatcher.utter_message(text="I need a number for the budget, e.g. 800.")
             return {"budget": None}
-        if int(digits) == 0:
+        if budget == 0:
             dispatcher.utter_message(text="The budget must be greater than zero.")
             return {"budget": None}
-        return {"budget": digits}
+        if is_range:
+            dispatcher.utter_message(text=f"I'll use about {budget} EUR, the middle of that range.")
+        return {"budget": str(budget)}
 
     def validate_sustainability_level(
         self,

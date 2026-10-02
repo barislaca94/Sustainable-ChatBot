@@ -1200,3 +1200,75 @@ def test_submit_clears_destination_and_origin_and_explains_a_map_outage(monkeypa
     green = [b for m in dispatcher.messages for b in m.get("buttons") or []
              if b["title"].startswith("Green transport")]
     assert green and '"origin": "Tokyo"' in green[0]["payload"]
+
+
+# --------------------------------------------------------------------------
+# Budget parsing (A2)
+# --------------------------------------------------------------------------
+
+@pytest.mark.parametrize("text, expected", [
+    ("800", (800, False)),
+    ("around 1500 euros", (1500, False)),
+    ("€1,500", (1500, False)),
+    ("1.500 EUR", (1500, False)),
+    ("2k", (2000, False)),
+    ("1.5k", (1500, False)),
+    ("800 to 1000", (900, True)),
+    ("800-1000", (900, True)),
+    ("between 600 and 700", (650, True)),
+    ("1500 for 2 people", (1500, False)),
+    ("no idea", (None, False)),
+    (None, (None, False)),
+])
+def test_parse_budget(text, expected):
+    assert actions.parse_budget(text) == expected
+
+
+def test_validate_budget_uses_the_midpoint_of_a_range_and_says_so():
+    form = actions.ValidateTripPlanningForm()
+    dispatcher = CollectingDispatcher()
+    assert form.validate_budget("800 to 1000", dispatcher, make_tracker(), {}) == {"budget": "900"}
+    assert "about 900 EUR" in texts(dispatcher)[0]
+
+
+# --------------------------------------------------------------------------
+# Transport mode words (A3)
+# --------------------------------------------------------------------------
+
+@pytest.mark.parametrize("slot, text, expected", [
+    ("driving", "", "car"),
+    (None, "emissions for driving from Berlin to Prague", "car"),
+    (None, "carbon of flying to Rome", "flight"),
+    ("rail", "", "train"),
+    (None, "co2 of a coach trip to Lyon", "bus"),
+    (None, "carbon footprint from Berlin to Prague", None),
+    ("Train", "flying", "train"),        # the entity wins over the text
+])
+def test_resolve_mode(slot, text, expected):
+    assert actions.resolve_mode(slot, text) == expected
+
+
+def test_carbon_without_a_mode_compares_options_instead_of_assuming_flight(monkeypatch):
+    monkeypatch.setattr(actions, "approx_distance_result", lambda o, d: (300.0, actions.GEOCODE_OK))
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    tracker = make_tracker(
+        slots={"origin": "Berlin", "destination": "Prague"},
+        latest_message={"text": "carbon footprint from Berlin to Prague"})
+    dispatcher = CollectingDispatcher()
+    events = actions.ActionCalculateCarbon().run(dispatcher, tracker, {})
+
+    reply = texts(dispatcher)[0]
+    for mode in ("Train", "Bus", "Car", "Flight"):
+        assert mode in reply
+    assert {"event": "slot", "name": "transport_mode", "value": None, "timestamp": None} in events
+
+
+def test_carbon_for_driving_is_priced_as_a_car(monkeypatch):
+    monkeypatch.setattr(actions, "approx_distance_result", lambda o, d: (300.0, actions.GEOCODE_OK))
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    tracker = make_tracker(
+        slots={"origin": "Berlin", "destination": "Prague"},
+        latest_message={"text": "emissions for driving from Berlin to Prague"})
+    dispatcher = CollectingDispatcher()
+    actions.ActionCalculateCarbon().run(dispatcher, tracker, {})
+    assert "Car from Berlin to Prague" in texts(dispatcher)[0]
