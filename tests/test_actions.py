@@ -999,7 +999,7 @@ def test_final_test_set_is_frozen(name):
 @pytest.mark.parametrize("name", sorted(FINAL_TEST_SHA256))
 def test_final_test_set_is_disjoint_from_training_and_dev(name):
     final = _nlu_examples(REPO_ROOT / "tests" / name)
-    for other in ("data/nlu.yml", "tests/nlu_regression.yml"):
+    for other in ("data/nlu.yml", "tests/nlu_regression.yml", "tests/offtopic_probe.yml"):
         seen = _nlu_examples(REPO_ROOT / other)
         texts = {text for _, text, _ in seen}
         templates = {tpl for _, _, tpl in seen if "<" in tpl}
@@ -1007,3 +1007,15 @@ def test_final_test_set_is_disjoint_from_training_and_dev(name):
         templated = [t for _, t, tpl in final if t not in texts and tpl in templates]
         assert copied == [], f"{name}: sentences also in {other}: {copied}"
         assert templated == [], f"{name}: sentences that only swap an entity of {other}: {templated}"
+
+
+def test_probe_set_is_disjoint_from_training():
+    # tests/offtopic_probe.yml is a dev set for the off-topic and safety
+    # classes (Adim 2). Thresholds are tuned on it, so it must never share a
+    # sentence with the training data.
+    training = _nlu_examples(REPO_ROOT / "data" / "nlu.yml")
+    probe = _nlu_examples(REPO_ROOT / "tests" / "offtopic_probe.yml")
+    texts = {text for _, text, _ in training}
+    templates = {tpl for _, _, tpl in training if "<" in tpl}
+    assert [t for _, t, _ in probe if t in texts] == []
+    assert [t for _, t, tpl in probe if t not in texts and tpl in templates] == []

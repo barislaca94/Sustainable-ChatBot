@@ -20,6 +20,11 @@ intents:
   # Separate from out_of_scope, which Rasa's two-stage fallback reserves for
   # the "None of these" denial inside the clarification loop.
   - off_topic
+  # Phase 7, Adim 2: requests the bot must handle safely (docs/INTENT_DEFINITIONS.md).
+  - ask_booking
+  - ask_regulated_advice
+  - insult
+  - stop
   - out_of_scope
 
 entities:

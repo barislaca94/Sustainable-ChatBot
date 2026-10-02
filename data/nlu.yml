@@ -112,7 +112,6 @@ nlu:
     - plan a trip for me
     - I would like to plan an eco tour
     - help me plan a low-carbon vacation
-    - I want to book a sustainable holiday
     - plan me an environmentally responsible trip
     - I want to plan a trip to [Barcelona](destination)
     - help me plan a trip to [Kyoto](destination)
@@ -213,6 +212,16 @@ nlu:
     - I'd rather speak to a person about this
     - can someone from the team help me?
     - this needs a human
+    - get me a human, now
+    - transfer this chat to a member of staff
+    - I'd like a consultant to call me back
+    - hand me over to a live agent please
+    - can you connect me with someone who can actually decide things?
+    - escalate this to your supervisor
+    - let me talk to a real advisor
+    - put me through to customer service
+    - I want a person on the phone
+    - speak with a human travel expert, please
 
 - intent: ask_place_description
   examples: |
@@ -241,6 +250,70 @@ nlu:
     - what makes [Kyoto](destination) special?
     - give me some background on the city of [Athens](destination)
 
+- intent: ask_booking
+  examples: |
+    - I want to book a sustainable holiday
+    - book me a train ticket to Munich
+    - I need to reserve a hotel room in Amsterdam for next weekend
+    - what does a return flight to Berlin cost today?
+    - buy tickets for the night train
+    - Can you check live prices for hotels in Paris?
+    - reserve a double room for two nights
+    - how much would the Eurostar fare be tomorrow
+    - I'd like to purchase a rail pass
+    - sort out my flights to Barcelona, please
+    - pay for my hotel stay now
+    - any seats left on the 9am bus to Prague?
+    - book it
+    - find me the cheapest plane tickets to Lisbon and book them
+
+- intent: ask_regulated_advice
+  examples: |
+    - Do I need a visa for Thailand?
+    - what vaccinations should I get before going to India
+    - is Istanbul safe for solo travellers?
+    - can I take antibiotics on the plane
+    - entry requirements for the USA
+    - Is the tap water safe to drink in Cairo?
+    - do I need a malaria prophylaxis for Uganda
+    - what are the passport rules for British citizens visiting Spain?
+    - can I travel while pregnant?
+    - are there travel warnings for Mexico at the moment
+    - which medicines are banned in Dubai
+    - is it dangerous to visit Kyoto during typhoon season
+    - covid test needed to enter Portugal?
+
+- intent: insult
+  examples: |
+    - you're rubbish
+    - that was a stupid answer, you idiot
+    - Wow, you really are hopeless
+    - what a waste of time talking to you
+    - dumbest chatbot I've ever used
+    - you're pathetic
+    - are you always this thick?
+    - useless piece of junk
+    - ugh, you are SO bad at this
+    - go away, you moron
+    - you're a joke
+    - this bot is garbage
+
+- intent: stop
+  examples: |
+    - stop
+    - cancel
+    - never mind
+    - I don't want to answer these questions
+    - enough with the questions
+    - please stop the planning
+    - skip this, I'm done planning
+    - Can we stop now?
+    - exit
+    - leave the trip form
+    - I'd rather not continue
+    - scrap that
+    - no more questions please
+
 - intent: off_topic
   examples: |
     - who won the world cup in 1998
@@ -262,6 +335,16 @@ nlu:
     - what's 100 minus 7
     - how much is 9 times 9
     - solve 3 + 5
+    - why did the Roman empire collapse
+    - my laptop won't connect to wifi, any ideas?
+    - best sci-fi movies of the 90s
+    - how do I make a good carbonara
+    - what's the final score of last night's Lakers game?
+    - how many hours of sleep does an adult need
+    - who built the Eiffel Tower and when?
+    - recommend a good podcast
+    - how do I reset my phone password
+    - what's a good substitute for butter in baking
 
 - intent: out_of_scope
   examples: |
