@@ -1,4 +1,4 @@
-# Adim 4 (2026-10-03): human-written first user turns from the Schema-Guided
+# Added 2026-10-03: human-written first user turns from the Schema-Guided
 # Dialogue dataset (train split), relabelled by hand to this bot's intents; the
 # text is unchanged apart from entity markup.
 #

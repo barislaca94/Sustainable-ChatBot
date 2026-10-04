@@ -1,4 +1,4 @@
-# Adim 4 (2026-10-03): human-written user messages from two public datasets.
+# Added 2026-10-03: human-written user messages from two public datasets.
 # The text of each line is unchanged; the only change is entity markup
 # ([City](destination) / [City](city_name)), and each line was relabelled by hand
 # to this bot's intents, which do not match the source labels one to one.
