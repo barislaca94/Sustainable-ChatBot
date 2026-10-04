@@ -90,9 +90,10 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("What is 2+2", "eco-travel assistant"),
     ]),
     # Either "I don't follow" reply is right here: both state the bot's scope,
-    # which is what the turn guards (MBB §4.1: the user must not be left "with
-    # no clue what the bot does understand"). Which one fires depends on the
-    # model's confidence for a bare number (core fallback vs clarification).
+    # which is what the turn guards (Making a Bot Behave, §4.1: the user must
+    # not be left "with no clue what the bot does understand"). Which one fires
+    # depends on the model's confidence for a bare number (core fallback vs
+    # clarification).
     ("regression: bare answer outside the form got the greeting", [
         ("Barcelona", ("not sure what to do with that", "not sure what you meant")),
         ("1500", ("not sure what to do with that", "not sure what you meant")),

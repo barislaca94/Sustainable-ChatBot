@@ -64,8 +64,8 @@ def load(path: Path) -> List[Dict]:
 
 
 def normalise(text: str) -> str:
-    """Same normalisation as tests/test_actions.py::_nlu_examples and the
-    leakage audit: lowercase, punctuation removed, spaces collapsed."""
+    """Same normalisation as tests/test_actions.py::_nlu_examples: lowercase,
+    punctuation removed, spaces collapsed."""
     text = re.sub(r"[^\w\s<>]", "", text.lower())
     return re.sub(r"\s+", " ", text).strip()
 

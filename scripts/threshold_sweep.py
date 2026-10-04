@@ -26,8 +26,8 @@ costly class is request_human_advisor rather than security.
 Columns used for the threshold decision (rule fixed before the sweep):
   - request_human_advisor recall: a missed handover request is the costly
     error. It counts a fallback as a miss. This is the
-    ONLY fixed limit: recall >= 0.85, the brief's own per-intent target,
-    fixed before the sweep is read;
+    ONLY fixed limit: recall >= 0.85, which borrows the number of the brief's
+    per-intent F1 target (F1 >= 0.85), fixed before the sweep is read;
   - accuracy of routed: right / (right + wrong), i.e. how often an answer the
     bot commits to is the correct one;
   - fallback rate: share of real requests sent to clarification. It has NO
@@ -221,7 +221,7 @@ async def main(model: str) -> int:
             print(f"  {text:42s} -> {ranking[0]['name']:22s} {ranking[0]['confidence']:.2f}"
                   f"   (expected {expected})")
 
-    # The single number quoted in the docs: any threshold at or below it
+    # The single number worth quoting: any threshold at or below it
     # loses none of the in-scope requests DIET gets right.
     correct = [(t, diet_ranking(r)[0]["confidence"]) for t, e, r in parsed_in
                if diet_ranking(r) and diet_ranking(r)[0]["name"] == e]

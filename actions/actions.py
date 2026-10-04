@@ -44,21 +44,24 @@ def _load_dotenv(path: Path = REPO_ROOT / ".env") -> None:
 
 _load_dotenv()
 
-# Volunteer-run APIs (Nominatim, Overpass) require an identifying User-Agent
-# with a contact address (the lecturer's Eco-Travel APIs README). A deployed instance should
-# override ECO_USER_AGENT so complaints reach the operator, not the developer.
+# Volunteer-run APIs (Nominatim, Overpass) require a User-Agent that identifies
+# the application ("Provide a valid HTTP Referer or User-Agent identifying the
+# application", https://operations.osmfoundation.org/policies/nominatim/); the
+# lecturer's Eco-Travel APIs README asks for a contact address as well. The
+# default points to the public repository. A deployed instance should override
+# ECO_USER_AGENT so complaints reach its operator.
 USER_AGENT = os.environ.get(
     "ECO_USER_AGENT",
-    "EcoTravelAdvisor/1.0 (barislaca94@gmail.com)",
+    "EcoTravelAdvisor/1.0 (+https://github.com/barislaca94/Sustainable-ChatBot)",
 )
 HTTP_HEADERS = {"User-Agent": USER_AGENT}
 
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 WIKIPEDIA_SUMMARY_URL = "https://en.wikipedia.org/api/rest_v1/page/summary/"
 
-# In-memory cache for geocoded coordinates so we do not re-hit Nominatim for
-# the same city on every user turn. Nominatim allows 1 req/sec — the sleep
-# only applies when we actually call the API.
+# In-memory cache for geocoded coordinates, so Nominatim is not called again
+# for the same city on every user turn. Nominatim allows 1 req/sec — the sleep
+# only applies when the API is actually called.
 _GEOCODE_CACHE: Dict[str, Tuple[float, float]] = {}
 _LAST_NOMINATIM_CALL: List[float] = [0.0]
 
@@ -68,7 +71,7 @@ ECO_DATA_DIR = REPO_ROOT / "data" / "eco_data"
 
 # Outcome of a geocoding attempt. "not_found" and "unavailable" must stay
 # apart: telling a user that Berlin does not exist because Nominatim was rate
-# limiting us is both wrong and, inside a form, a dead end — the slot gets
+# limiting the bot is both wrong and, inside a form, a dead end — the slot gets
 # rejected and the same question is asked forever.
 GEOCODE_OK = "ok"
 GEOCODE_NOT_FOUND = "not_found"
@@ -136,15 +139,6 @@ def geocode_city_result(city: str) -> Tuple[Optional[Tuple[float, float]], Text]
         return (lat, lon), GEOCODE_OK
 
     return None, GEOCODE_UNAVAILABLE
-
-
-def geocode_city(city: str) -> Optional[Tuple[float, float]]:
-    """Return (lat, lon) for a city name, or None if it could not be resolved.
-
-    Thin wrapper for callers that cannot act on the reason for a failure.
-    """
-    coords, _ = geocode_city_result(city)
-    return coords
 
 
 def load_eco_data(city: str, kind: str) -> List[Dict[str, Any]]:
@@ -344,7 +338,7 @@ class ActionGetCurrency(Action):
 
 
 # =============================================================================
-# Eco-travel: mock reference data (used instead of Amadeus/Climatiq keys)
+# Eco-travel: hotel ranking from pre-fetched OSM data, activities and offsets
 # =============================================================================
 
 # NOTE: The old ECO_HOTELS dict fabricated eco-certifications for named
@@ -404,8 +398,9 @@ def compute_proxy_signals(hotel: Dict[str, Any],
         signals["rooms"] = None
 
     # Parking tag (car park = higher car use). Absent = unknown, not counted.
-    # Measured coverage across the cached cities: under 2% of hotels carry it,
-    # so it almost never contributes — kept because when present it is solid.
+    # Measured coverage across the cached cities: 0 of 297 hotels carry it, so
+    # it does not contribute with the current data — kept because when present
+    # it is solid.
     signals["parking"] = tags.get("parking")
 
     # Stars — a price proxy, not an eco signal. Used only for budget fit.
@@ -457,8 +452,8 @@ def signals_score(signals: Dict[str, Any]) -> Tuple[float, str]:
 
     # No positive signal at all means OpenStreetMap is silent about this hotel,
     # not that it is a poor choice. Showing it red would turn missing data into
-    # a negative claim (API-README: "Say nothing about sustainability you
-    # cannot evidence"), so it gets a neutral band instead.
+    # a negative claim (the lecturer's Eco-Travel APIs README: "Say nothing
+    # about sustainability you cannot evidence"), so it gets a neutral band.
     if positives == 0:
         return positives, "⚪"
     if positives >= 1.5:
@@ -817,8 +812,8 @@ OFFSET_CAVEAT = (
 # serves (measured with scripts/climatiq_check.py) so that a fallback answer
 # does not contradict a live one. The earlier table used a domestic-flight
 # figure (0.255) for every flight, which roughly doubled short-haul estimates.
-# Ferry, bicycle and walk are not covered by the activity ids above and keep
-# their Our World in Data values.
+# Ferry, bicycle and walk are not covered by CLIMATIQ_ACTIVITY_IDS below and
+# keep their Our World in Data values.
 EMISSION_FACTORS = {
     "flight":  0.126,
     "plane":   0.126,
@@ -978,7 +973,7 @@ def climatiq_api_key() -> Optional[str]:
 
 
 def local_carbon(mode: Text, distance_km: float) -> float:
-    """Carbon estimate from the built-in DEFRA factor table."""
+    """Carbon estimate from the built-in BEIS 2023 / Our World in Data table."""
     factor = EMISSION_FACTORS.get(mode.lower(), EMISSION_FACTORS["flight"])
     return distance_km * factor
 
@@ -999,7 +994,7 @@ def estimate_carbon(modes: List[Text],
     key = climatiq_api_key()
     wanted = [m for m in modes if climatiq_activity_id(m, distance_km)]
 
-    # Serve whatever we already looked up in this process.
+    # Serve modes already looked up in this process.
     if key:
         for mode in list(wanted):
             cached = _CARBON_CACHE.get((mode.lower(), rounded))
@@ -1076,15 +1071,6 @@ def estimate_carbon(modes: List[Text],
     return results, label
 
 
-def eco_score_to_band(score: float) -> str:
-    """Return a colour-coded emoji band based on eco score (0-100)."""
-    if score >= 85:
-        return "🟢"
-    if score >= 60:
-        return "🟡"
-    return "🔴"
-
-
 def carbon_to_band(kg_co2: float) -> str:
     """Colour code for the absolute size of a trip's footprint (kg CO2e)."""
     if kg_co2 < 50:
@@ -1130,17 +1116,11 @@ def _haversine_km(a_lat: float, a_lon: float, b_lat: float, b_lon: float) -> flo
     return 2 * 6371 * asin(sqrt(a))
 
 
-def approx_distance_km(origin: str, destination: str) -> float:
-    """Rough distance between two named places, or 0.0 if either is unknown."""
-    km, _ = approx_distance_result(origin, destination)
-    return km
-
-
 def approx_distance_result(origin: str, destination: str) -> Tuple[float, Text]:
     """Distance in km plus the geocoding status, so callers can explain a zero.
 
-    Status is GEOCODE_OK, GEOCODE_NOT_FOUND (a place we genuinely cannot find)
-    or GEOCODE_UNAVAILABLE (the map service is down or rate limiting us).
+    Status is GEOCODE_OK, GEOCODE_NOT_FOUND (a place that genuinely cannot be
+    found) or GEOCODE_UNAVAILABLE (the map service is down or rate limiting).
     """
     a, status_a = geocode_city_result(origin)
     b, status_b = geocode_city_result(destination)
@@ -1187,7 +1167,8 @@ EST_COST_FIXED_EUR = {
 
 # (carbon weight, cost weight) per stated sustainability level. A user who
 # says sustainability matters most gets carbon weighted four times as heavily
-# as price; a budget-first user gets the reverse.
+# as price; a budget-first user ("low") gets cost weighted 0.7 against 0.3 for
+# carbon.
 SUSTAINABILITY_WEIGHTS = {
     "high":   (0.8, 0.2),
     "medium": (0.5, 0.5),
@@ -1251,9 +1232,10 @@ def score_transport_options(
     options: List[Dict[Text, Any]] = []
     for mode in kept:
         # Min-max normalise within this comparison, then invert so that 1.0 is
-        # always "best on this axis". A single candidate scores 1.0 by default.
-        c_norm = 1.0 if c_hi == c_lo else (carbon[mode] - c_lo) / (c_hi - c_lo)
-        p_norm = 1.0 if p_hi == p_lo else (costs[mode] - p_lo) / (p_hi - p_lo)
+        # always "best on this axis". When every candidate ties on an axis (or
+        # there is only one), each gets the best value, 1.0, on it.
+        c_norm = 0.0 if c_hi == c_lo else (carbon[mode] - c_lo) / (c_hi - c_lo)
+        p_norm = 0.0 if p_hi == p_lo else (costs[mode] - p_lo) / (p_hi - p_lo)
         score = w_carbon * (1 - c_norm) + w_cost * (1 - p_norm)
 
         warning = None
@@ -1761,8 +1743,8 @@ class ActionHumanHandover(Action):
     """Escalate to a human travel advisor with full conversation context.
 
     The `package` dict below is printed to the actions-server console. A real
-    system would forward it to Slack, Zendesk, or an email queue — see the
-    project README for the integration stub. The message to the user says
+    system would forward it to a ticketing system (for example Zendesk or an
+    e-mail queue); no such integration is built. The message to the user says
     exactly that: it names no advisor and promises no response time, because
     no human is connected in this build ("Describing an integration you did
     not build is perfectly legitimate. Implying you built it is not",
@@ -1851,9 +1833,12 @@ class ActionSubmitTripForm(Action):
         # no origin, or the map service down — the card is a neutral info box,
         # not a green one that would suggest a low-emission result.
         header_band = best["band"] if best else "ℹ️"
+        # The band word goes with the colour (never colour alone); the info
+        # box has no band to name.
+        header_label = f"{BAND_LABELS[header_band]} · " if header_band in BAND_LABELS else ""
 
         summary = [
-            f"{header_band} Trip plan — {destination.title()}"
+            f"{header_band} {header_label}Trip plan — {destination.title()}"
             + (f" from {origin.title()}" if origin else ""),
             f"Dates: {dates}"
             + (f" · {trip_length} ({nights} nights)" if nights else "")
@@ -2140,8 +2125,8 @@ class ActionDefaultFallback(Action):
     Rasa's built-in two-stage fallback (`action_two_stage_fallback`) runs its
     own affirm + rephrase loop. When both stages fail, it fires
     `action_default_fallback` — which by default just says "sorry" and stops.
-    Here we override that to hand the conversation to a human advisor with
-    full context, matching the brief's escalation requirement.
+    This override hands the conversation to a human advisor with full
+    context instead, matching the brief's escalation requirement.
     """
 
     def name(self) -> Text:
@@ -2323,7 +2308,7 @@ class ValidateTripPlanningForm(FormValidationAction):
     ) -> List[Text]:
         # domain_slots includes every slot the form MIGHT ask (declared in
         # domain.yml). This override filters that list down based on earlier
-        # answers so we skip questions that are not relevant.
+        # answers, so questions that are not relevant are skipped.
         # Never modify the given list itself (Making a Bot Behave §2.3 gotcha).
         slots = list(domain_slots)
 
@@ -2419,7 +2404,7 @@ class ValidateTripPlanningForm(FormValidationAction):
                      "Where will you be travelling from?"
             )
             return {"origin": None}
-        # Geocode now rather than at plan time: a place we cannot find would
+        # Geocode now rather than at plan time: a place that cannot be found would
         # silently drop the whole transport comparison later on.
         return self._check_place("origin", text, dispatcher, tracker)
 

@@ -18,7 +18,7 @@ The protocol and the decision rule were written down before this script was run:
     time (transformer fine-tuning notebook, Challenge 1).
 
 Usage (about 45 minutes, 27 DIET trainings):
-    python scripts/cv_epochs.py [out folder]
+    python scripts/cv_epochs.py [out folder]       # default: results/cv_epochs/
 """
 from __future__ import annotations
 
@@ -54,6 +54,7 @@ REFERENCE_EPOCHS = 100
 COSTLY_INTENT = "request_human_advisor"
 NEAR_COPY = 0.80
 RUN = dict(cwd=REPO_ROOT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+DEFAULT_OUT = REPO_ROOT / "results" / "cv_epochs"
 
 
 def write_config(path: Path, epochs: int) -> None:
@@ -209,6 +210,5 @@ def main(out_dir: Path) -> int:
 
 
 if __name__ == "__main__":
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else (
-        REPO_ROOT / "evaluation" / "phase7_2026-10-03" / "cv_epochs_isometric-rower")
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_OUT
     sys.exit(main(out))

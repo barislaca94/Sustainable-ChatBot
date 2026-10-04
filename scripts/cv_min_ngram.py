@@ -9,8 +9,12 @@ Also prints the char_wb vocabulary size at min_ngram 1-4 (Worksheet 9, Part 7), 
 scikit-learn's CountVectorizer with the settings Rasa's CountVectorsFeaturizer
 passes to it (char_wb, lowercase, max_ngram 4) on all training examples.
 
+Run scripts/cv_epochs.py first; this script stops before training if its
+rows are missing.
+
 Usage (about 15 minutes):
-    python scripts/cv_min_ngram.py [out folder]
+    python scripts/cv_min_ngram.py [out folder] [epochs_rows.json]
+    # defaults: results/cv_min_ngram/ and results/cv_epochs/epochs_rows.json
 """
 from __future__ import annotations
 
@@ -32,10 +36,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from cv_compare import load_all, write_fold  # noqa: E402
-from cv_epochs import COSTLY_INTENT, NEAR_COPY, RUN, SEED, macro_f1, predict  # noqa: E402
+from cv_epochs import COSTLY_INTENT, DEFAULT_OUT as EPOCHS_OUT, NEAR_COPY, RUN, SEED, macro_f1, predict  # noqa: E402
 
-EVAL = REPO_ROOT / "evaluation" / "phase7_2026-10-03"
-REFERENCE_ROWS = EVAL / "cv_epochs_isometric-rower" / "epochs_rows.json"
+DEFAULT_OUT = REPO_ROOT / "results" / "cv_min_ngram"
+DEFAULT_REFERENCE_ROWS = EPOCHS_OUT / "epochs_rows.json"
 
 
 def write_config(path: Path, min_ngram: int) -> None:
@@ -51,8 +55,16 @@ def write_config(path: Path, min_ngram: int) -> None:
     path.write_text(yaml.safe_dump(config, sort_keys=False))
 
 
-def main(out_dir: Path) -> int:
+def main(out_dir: Path, reference_rows: Path) -> int:
     from rasa.shared.nlu.training_data.loading import load_data
+
+    # Checked before any training: the min_ngram 1 arm is not retrained here.
+    if not reference_rows.exists():
+        raise SystemExit(
+            f"{reference_rows} not found. Run `python scripts/cv_epochs.py` first; "
+            f"by default it writes {DEFAULT_REFERENCE_ROWS.relative_to(REPO_ROOT)}. "
+            "Or pass the path of its epochs_rows.json as the second argument."
+        )
 
     data = load_all()
     examples = [m for m in data.training_examples if m.get("intent")]
@@ -109,7 +121,7 @@ def main(out_dir: Path) -> int:
             print(f"fold {k}: {seconds:.0f}s", flush=True)
             (out_dir / "min_ngram2_rows.json").write_text(json.dumps(rows, indent=2))
 
-    reference = [dict(r, min_ngram=1) for r in json.loads(REFERENCE_ROWS.read_text())
+    reference = [dict(r, min_ngram=1) for r in json.loads(reference_rows.read_text())
                  if r["epochs"] == 100]
     arms = {1: reference, 2: rows}
 
@@ -150,5 +162,6 @@ def main(out_dir: Path) -> int:
 
 
 if __name__ == "__main__":
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else EVAL / "cv_min_ngram_isometric-rower"
-    sys.exit(main(out))
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_OUT
+    reference = Path(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_REFERENCE_ROWS
+    sys.exit(main(out, reference))

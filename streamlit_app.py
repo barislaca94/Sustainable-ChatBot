@@ -119,7 +119,8 @@ if st.session_state.get("handover_active"):
 
 st.sidebar.markdown("---")
 st.sidebar.caption(
-    "Privacy: the conversation is kept in memory for this session only; nothing is written to a database."
+    "Privacy: the conversation is kept in memory on the bot server while it runs; "
+    "nothing is written to a database."
 )
 
 # ---------- Main area ----------
@@ -317,7 +318,7 @@ elif page == "About":
     )
 
     st.markdown(
-        "**Data privacy:** the conversation is kept in memory for the session only and is not "
-        "written to a database. A handover writes a context summary to the server log. "
+        "**Data privacy:** the conversation is kept in memory on the bot server while it runs "
+        "and is not written to a database. A handover writes a context summary to the server log. "
         "This is a student prototype, not a certified service."
     )

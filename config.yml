@@ -35,7 +35,8 @@ pipeline:
   # 0.7 chosen on 2026-10-03 from
   # scripts/threshold_sweep.py on the development sets only, for the model
   # trained on this data. The one fixed limit, request_human_advisor recall
-  # >= 0.85, holds at every threshold tried (7/8). Against 0.6, 0.7 raises the
+  # >= 0.85 (the number of the brief's per-intent F1 target, applied to the
+  # recall of the costly intent), holds at every threshold tried (7/8). Against 0.6, 0.7 raises the
   # accuracy of the answers the bot commits to from 0.873 to 0.908 and sends
   # 3 more off-topic messages to clarification, at the cost of 6 more real
   # requests (fallback rate 16.5% -> 23.5%); 0.8 loses more automation and

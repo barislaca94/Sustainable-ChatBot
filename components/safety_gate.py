@@ -7,15 +7,15 @@ is phrased in a way it has not seen, and then the bot answers with travel tips
 instead of saying "check an official source". The lecturer's chatbot pipeline
 puts a deterministic check in front of the model for exactly this reason:
 "Safety controls should not depend only on a generator following
-instructions" (NLP-LLM §17), and a small regex gate routes selected high-risk
-categories to a fixed response. Like the lecturer's gate, this one is
+instructions" (the lecturer's LLM components notebook, §17), and a small regex
+gate routes selected high-risk categories to a fixed response. Like the lecturer's gate, this one is
 "intentionally conservative and incomplete": it only adds a guaranteed path
 for the patterns it lists; everything else is still classified by DIET.
 
 It also performs input validation, the first step of the lecturer's pipeline
-table ("Rejects empty or excessively long inputs", NLP-LLM §1): an empty or
-over-long message is mapped to the `invalid_input` intent, which has a fixed
-reply.
+table ("Rejects empty or excessively long inputs", LLM components notebook,
+§1): an empty or over-long message is mapped to the `invalid_input` intent,
+which has a fixed reply.
 
 How it works
 ------------
@@ -26,7 +26,8 @@ It runs after FallbackClassifier. For each message it
      sets that category's intent with confidence 1.0 and puts it at the top
      of the intent ranking.
 The matched category is stored under `message.data["safety_gate"]` so the
-decision is visible in the tracker (an auditable trace, NLP-LLM §1).
+decision is visible in the tracker (an auditable trace, LLM components
+notebook, §1).
 
 The patterns file is read when the model is loaded, not at training time, so
 it must be present next to `config.yml` wherever the bot runs.

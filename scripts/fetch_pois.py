@@ -25,10 +25,13 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 
-# Override with ECO_USER_AGENT when running this from a shared/deployed host.
+# Nominatim's usage policy requires a User-Agent identifying the application
+# (https://operations.osmfoundation.org/policies/nominatim/); the default names
+# the public repository. Override with ECO_USER_AGENT when running this from a
+# shared/deployed host.
 USER_AGENT = os.environ.get(
     "ECO_USER_AGENT",
-    "EcoTravelAdvisor/1.0 (barislaca94@gmail.com)",
+    "EcoTravelAdvisor/1.0 (+https://github.com/barislaca94/Sustainable-ChatBot)",
 )
 HEADERS = {"User-Agent": USER_AGENT}
 

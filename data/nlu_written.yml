@@ -3,7 +3,9 @@
 # Authors: a data-writing agent (Claude), ChatGPT and the student. Every line was
 # checked against the development sets (character n-gram similarity below 0.80, no
 # copies or entity swaps) and, by count only, against the locked final test set.
-# Lines follow the boundary rules of the intent definitions.
+# Each line is labelled by what the user wants the bot to do, not by the words
+# it contains: compensating a flight's emissions is ask_carbon_offset, asking a
+# room's price is ask_booking.
 version: "3.1"
 
 nlu:

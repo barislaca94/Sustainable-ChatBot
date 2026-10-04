@@ -6,8 +6,8 @@
 # `trip_planning_form`; which question that form asks next is decided by
 # ValidateTripPlanningForm.required_slots() on the action server, which
 # `rasa test core` never runs. The four "adaptive branch" stories below
-# therefore look identical to the evaluator — it reports 8 stories from the
-# 11 written here, having collapsed them — and they document the branches
+# therefore look identical to the evaluator — it reports 16 stories from the
+# 19 written here, having collapsed them — and they document the branches
 # rather than testing them.
 #
 # The branching itself is covered by tests/test_actions.py

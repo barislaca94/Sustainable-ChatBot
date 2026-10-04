@@ -69,13 +69,13 @@ slots:
     type: text
     influence_conversation: false
     mappings:
-      # Global from_entity: outside the form (e.g. "hotels in Barcelona") we
-      # still want the destination slot to be filled from NLU entities.
+      # Global from_entity: outside the form (e.g. "hotels in Barcelona") the
+      # destination slot is still filled from NLU entities.
       - type: from_entity
         entity: destination
         conditions:
           - active_loop: null
-      # Inside the trip planning form, when we are asking for destination,
+      # Inside the trip planning form, when the form asks for the destination,
       # take whatever the user typed as-is. This avoids the extractor picking
       # only a partial token from a natural answer.
       - type: from_text
@@ -215,9 +215,9 @@ forms:
   # to the same question). Rasa needs a rule for each excluded intent, because
   # the form cannot fill a slot that turn and does not continue by itself.
   trip_planning_form:
-    # NOTE: only destination/dates/budget/sustainability_level are asked every
-    # time. transport_preference and trip_length are added dynamically by
-    # ValidateTripPlanningForm.required_slots() when the user's earlier
+    # NOTE: destination, origin, travel_dates, budget and sustainability_level
+    # are asked every time. transport_preference and trip_length are kept only
+    # when ValidateTripPlanningForm.required_slots() finds the user's earlier
     # answers make them relevant. They must still be declared here so their
     # slot mappings are recognised.
     required_slots:

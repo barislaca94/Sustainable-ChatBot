@@ -28,7 +28,7 @@ is reused so every model is evaluated on exactly the same tickets."):
     does (the gate runs last and overrides).
 
 Usage (takes roughly 10-20 minutes, 9 DIET trainings):
-    python scripts/cv_compare.py [out folder]
+    python scripts/cv_compare.py [out folder]      # default: results/cv_compare/
 """
 from __future__ import annotations
 
@@ -211,6 +211,5 @@ def main(out_dir: Path) -> int:
 
 
 if __name__ == "__main__":
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else (
-        REPO_ROOT / "evaluation" / "phase7_2026-10-03" / "cv_compare_isometric-rower")
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else REPO_ROOT / "results" / "cv_compare"
     sys.exit(main(out))

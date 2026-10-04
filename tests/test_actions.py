@@ -459,6 +459,26 @@ def test_score_transport_options_puts_the_cheapest_first_for_a_price_first_user(
     assert options[0]["mode"] == cheapest
 
 
+def test_score_transport_options_gives_a_lone_option_full_marks(no_climatiq_key):
+    # One candidate is best on both axes: score = w_carbon + w_cost.
+    options, _, _ = actions.score_transport_options(
+        800, sustainability_level="high", modes=("train",))
+    assert options[0]["score"] == pytest.approx(sum(actions.SUSTAINABILITY_WEIGHTS["high"]))
+
+
+def test_score_transport_options_a_tie_on_carbon_counts_as_best_for_both(monkeypatch):
+    # bus and coach share one emission factor, so the carbon axis is tied and
+    # contributes the full carbon weight to both; only cost separates them.
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    monkeypatch.setitem(actions.EST_COST_EUR_PER_KM, "coach", 0.08)
+    w_carbon, w_cost = actions.SUSTAINABILITY_WEIGHTS["medium"]
+    options, _, _ = actions.score_transport_options(
+        800, sustainability_level="medium", modes=("bus", "coach"))
+    by_mode = {o["mode"]: o["score"] for o in options}
+    assert by_mode["bus"] == pytest.approx(w_carbon + w_cost)   # cheaper
+    assert by_mode["coach"] == pytest.approx(w_carbon)          # dearer, same carbon
+
+
 def test_score_transport_options_honours_train_or_bus(no_climatiq_key):
     options, excluded, _ = actions.score_transport_options(
         800, transport_preference="train_or_bus"
@@ -1003,7 +1023,7 @@ def test_regression_set_is_disjoint_from_training():
     copied = [text for _, text, _ in held_out if text in training_texts]
     templated = [text for _, text, tpl in held_out
                  if text not in training_texts and tpl in training_templates]
-    assert copied == [], f"regression sentences also in data/nlu.yml: {copied}"
+    assert copied == [], f"regression sentences also in data/nlu*.yml: {copied}"
     assert templated == [], f"regression sentences that only swap an entity: {templated}"
 
 
@@ -1464,6 +1484,22 @@ def test_trip_plan_card_is_neutral_without_a_carbon_figure(monkeypatch):
                                         "sustainability_level": "high"}), {})
     header = texts(dispatcher)[0]
     assert header.startswith("ℹ️ Trip plan — Kyoto")
+
+
+def test_trip_plan_header_names_its_colour_band(monkeypatch):
+    # With a carbon figure the header is coloured, so the band word goes with
+    # it: colour is never the only carrier of meaning.
+    monkeypatch.setattr(actions, "approx_distance_result",
+                        lambda o, d: (1800.0, actions.GEOCODE_OK))
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    dispatcher = CollectingDispatcher()
+    actions.ActionSubmitTripForm().run(
+        dispatcher, make_tracker(slots={"destination": "Lisbon", "origin": "London",
+                                        "budget": "900", "sustainability_level": "high"}), {})
+    header = texts(dispatcher)[0]
+    band = header[0]
+    assert band in actions.BAND_LABELS
+    assert header.startswith(f"{band} {actions.BAND_LABELS[band]} · Trip plan — Lisbon")
 
 
 def test_activities_carry_no_colour_band():

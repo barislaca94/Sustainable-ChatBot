@@ -1,9 +1,9 @@
 # Held-out NLU regression set — NOT training data.
 #
-# Phase 4 added training examples that fixed three weak intents but quietly
-# broke small talk: "How are you" started being classified as `goodbye` with
-# 0.91 confidence, because five of the new goodbye examples contained the word
-# "you". Cross-validation did not catch it, because the phrase was not in the
+# An earlier data change added training examples that fixed three weak
+# intents but quietly broke small talk: "How are you" started being classified
+# as `goodbye` with 0.91 confidence, because five of the new goodbye examples
+# contained the word "you". Cross-validation did not catch it, because the phrase was not in the
 # training data at all — cross-validation can only test what you have already
 # written down.
 #
@@ -20,7 +20,7 @@
 # Then read results/regression/intent_report.json. Keep these examples out of
 # data/nlu.yml — a test set the model trained on proves nothing.
 #
-# Phase 6 (2026-09-17): the Phase 5 version of this file was NOT held out —
+# 2026-09-17: an earlier version of this file was NOT held out —
 # 23 of its 59 sentences were already in data/nlu.yml word for word and 7 more
 # only swapped an entity value. Those 30 were replaced with paraphrases written
 # before any measurement, and the file is now frozen: it changes only to remove
@@ -28,9 +28,9 @@
 # add a *different* variant to the training data, not this one.
 # tests/test_actions.py::test_regression_set_is_disjoint_from_training guards it.
 
-# 2026-10-02: the Course Companion intents were removed from the
-# bot (scope = eco-travel only). Their 16 sentences were moved, text unchanged, to
-# off_topic, the behaviour now expected for them. Done before any of the final measurements.
+# 2026-10-02: 16 sentences about the course and its tools, which an earlier
+# version of the bot answered, were moved, text unchanged, to off_topic, the
+# behaviour now expected for them. Done before any of the final measurements.
 
 version: "3.1"
 

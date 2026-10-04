@@ -1,15 +1,20 @@
 # Local virtualenv should never be shipped in an image.
 rasa-env/
 
-# Course reference materials — not for distribution.
+# Local working material, never part of an image. Markdown files other than
+# the README are notes, not code.
+*.md
+!README.md
+docs/
+evaluation/
+Notes/
 Checks/
 
-# Scratch / test outputs regenerated in CI.
+# Test files and test output are not needed in an image.
 results/
 tests/
 
-# Handoff and worksheet PDFs.
-HANDOFF.md
+# Documents.
 *.pdf
 *.docx
 
@@ -32,6 +37,6 @@ __pycache__/
 .env
 .env.local
 
-# The Overpass pre-fetch script is only useful for a maintainer, not the
-# running image (the JSON output under data/eco_data/ IS copied in).
+# Measurement and data-fetching scripts are for maintainers; the JSON output
+# under data/eco_data/ IS copied in.
 scripts/
