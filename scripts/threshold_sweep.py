@@ -17,15 +17,28 @@ Usage:
 
 Reads the dev sets tests/nlu_regression.yml and tests/offtopic_probe.yml
 (never the final test set) plus the out-of-scope list below, then prints a
-table per threshold. Columns used for the threshold decision (D58):
+table per threshold in the shape of the lecturer's ticket-triage task
+(NLP weeks 3-5 notebook, Advanced Task: threshold | automatically routed | human review |
+accuracy of routed | security recall). Here "routed" means answered as an
+intent, "human review" means sent to the clarification flow, and the
+costly class is request_human_advisor rather than security.
+
+Columns used for the threshold decision (rule fixed before the sweep):
   - request_human_advisor recall: a missed handover request is the costly
-    error (NLP-W345 ticket-routing task; DESIGN_RATIONALE D53);
-  - fallback rate: share of real requests sent to clarification;
+    error. It counts a fallback as a miss. This is the
+    ONLY fixed limit: recall >= 0.85, the brief's own per-intent target,
+    fixed before the sweep is read;
+  - accuracy of routed: right / (right + wrong), i.e. how often an answer the
+    bot commits to is the correct one;
+  - fallback rate: share of real requests sent to clarification. It has NO
+    fixed limit; it is reported in its own column;
   - macro F1 over all dev labels, where a fallback counts as "not answered
     as a task" (label off_topic).
-Limits for the first two are fixed BEFORE the sweep is read; among the
-thresholds that meet them, the best macro F1 is chosen (AI-MALL cell 56:
-filter by explicit constraints first, then rank).
+Among the thresholds that meet the recall limit, the choice is recommended
+and justified in a paragraph that weighs these columns together, as the
+triage task asks ("Recommend a confidence threshold and justify your
+decision"). Filtering by an explicit constraint before ranking follows
+the Mall clustering notebook, cell 56.
 """
 from __future__ import annotations
 
@@ -93,7 +106,7 @@ def diet_ranking(ranking: List[Dict]) -> List[Dict]:
     (confidence = the configured threshold) at the top of `intent_ranking`
     (rasa/nlu/classifiers/fallback_classifier.py). Reading that entry as if it
     were DIET's made every threshold below the model's own identical to it —
-    the Phase 5 table's 0.3/0.4/0.5 rows were copies of the 0.6 row.
+    an earlier table's 0.3/0.4/0.5 rows were copies of the 0.6 row.
     """
     return [r for r in ranking if r["name"] != "nlu_fallback"]
 
@@ -145,10 +158,13 @@ async def main(model: str) -> int:
     from sklearn.metrics import f1_score
 
     n_costly = sum(1 for _, e, _ in parsed_in if e == COSTLY_INTENT)
-    print(f"{'threshold':>9} | {'right':>5} | {'wrong':>5} | {'to fallback':>11} | "
-          f"{'fallback rate':>13} | {COSTLY_INTENT + ' recall':>28} | "
-          f"{'off-topic handled':>17} | {'macro F1':>8}")
-    print("-" * 120)
+    # Column order follows the lecturer's triage table (NLP weeks 3-5
+    # notebook, Advanced Task); fallback rate, off-topic handled and macro F1 are added after it.
+    print("In-scope messages only, except 'off-topic handled' and macro F1.")
+    print(f"{'threshold':>9} | {'routed':>6} | {'to fallback':>11} | "
+          f"{'accuracy of routed':>18} | {'RHA recall':>16} | "
+          f"{'fallback rate':>13} | {'off-topic handled':>17} | {'macro F1':>8}")
+    print("-" * 118)
 
     for threshold in THRESHOLDS:
         right = wrong = lost = 0
@@ -178,10 +194,16 @@ async def main(model: str) -> int:
                   + [label(decide(r, threshold)) for _, r in parsed_out])
         macro = f1_score(y_true, y_pred, labels=sorted(set(y_true)),
                          average="macro", zero_division=0)
-        print(f"{threshold:>9.2f} | {right:>5} | {wrong:>5} | {lost:>11} | "
+        routed = right + wrong
+        routed_accuracy = right / routed if routed else 0.0
+        costly_recall = costly_hit / n_costly if n_costly else 0.0
+        print(f"{threshold:>9.2f} | {routed:>6} | {lost:>11} | "
+              f"{routed_accuracy:>8.3f} ({right:>3}/{routed:<3}) | "
+              f"{costly_recall:>5.2f} ({costly_hit:>2}/{n_costly:<2}){'':>3} | "
               f"{lost / len(parsed_in):>13.1%} | "
-              f"{costly_hit:>21}/{n_costly:<6} | "
               f"{caught:>11}/{len(parsed_out):<5} | {macro:>8.3f}")
+    print(f"\nRHA recall = {COSTLY_INTENT} recall; a fallback counts as a miss. "
+          "Fixed limit: >= 0.85.")
 
     print("\nOut-of-scope messages and what the model thinks they are:")
     for text, ranking in parsed_out:

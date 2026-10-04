@@ -15,7 +15,7 @@ from rasa_sdk.forms import FormValidationAction
 
 
 # =============================================================================
-# Phase 2 — external API config (Nominatim / Overpass / Wikipedia)
+# External API config (Nominatim / Overpass / Wikipedia)
 # =============================================================================
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -45,7 +45,7 @@ def _load_dotenv(path: Path = REPO_ROOT / ".env") -> None:
 _load_dotenv()
 
 # Volunteer-run APIs (Nominatim, Overpass) require an identifying User-Agent
-# with a contact address. See Checks/README.md. A deployed instance should
+# with a contact address (the lecturer's Eco-Travel APIs README). A deployed instance should
 # override ECO_USER_AGENT so complaints reach the operator, not the developer.
 USER_AGENT = os.environ.get(
     "ECO_USER_AGENT",
@@ -353,7 +353,7 @@ class ActionGetCurrency(Action):
 # in `data/eco_data/<city>_hotels.json` (pre-fetched by scripts/fetch_pois.py).
 # The bot presents PROXY sustainability signals (transit proximity, room count,
 # parking availability) and explicitly disclaims that these are not
-# certifications. See Checks/README.md § "The gap you will have to think about".
+# certifications. See the lecturer's Eco-Travel APIs README, "The gap you will have to think about".
 
 
 # A `public_transport=stop_position` node is often a single bus stop, which
@@ -567,6 +567,78 @@ def _to_number(raw: Text, thousands: bool) -> float:
     return value * 1000 if thousands else value
 
 
+_UNIT_WORDS = {w: i for i, w in enumerate(
+    "zero one two three four five six seven eight nine ten eleven twelve thirteen "
+    "fourteen fifteen sixteen seventeen eighteen nineteen".split())}
+_TENS_WORDS = {w: 10 * i for i, w in enumerate(
+    "twenty thirty forty fifty sixty seventy eighty ninety".split(), start=2)}
+_THOUSAND_WORDS = {"thousand", "grand"}
+_WORD_TOKEN = re.compile(r"[A-Za-z]+")
+
+
+def _small_value(word: Text) -> Optional[int]:
+    return _UNIT_WORDS.get(word, _TENS_WORDS.get(word))
+
+
+def words_to_digits(text: Text) -> Text:
+    """Replace English number words with digits: "about fifteen hundred
+    euros" -> "about 1500 euros".
+
+    Covers what people type for a budget: "fifteen hundred", "two thousand",
+    "one thousand five hundred", "twelve hundred and fifty", "a thousand",
+    "two grand", "twenty-five hundred". "and" joins a number only when a
+    small number follows ("twelve hundred and fifty"); before another
+    hundred or thousand it separates two numbers, so "between six hundred
+    and seven hundred" stays a range.
+    """
+    tokens = list(_WORD_TOKEN.finditer(text))
+    words = [t.group().lower() for t in tokens]
+    spans: List[Tuple[int, int, int]] = []   # (start char, end char, value)
+    i = 0
+    while i < len(words):
+        w = words[i]
+        nxt = words[i + 1] if i + 1 < len(words) else ""
+        starts = _small_value(w) is not None or w == "hundred" or w in _THOUSAND_WORDS \
+            or (w in ("a", "an") and (nxt == "hundred" or nxt in _THOUSAND_WORDS))
+        if not starts:
+            i += 1
+            continue
+        total = current = 0
+        seen_scale = False
+        start = tokens[i].start()
+        j = i
+        while j < len(words):
+            w = words[j]
+            small = _small_value(w)
+            if w in ("a", "an") and j == i:
+                current = 1
+            elif small is not None:
+                current += small
+            elif w == "hundred":
+                current = (current or 1) * 100
+                seen_scale = True
+            elif w in _THOUSAND_WORDS:
+                total += (current or 1) * 1000
+                current = 0
+                seen_scale = True
+            elif w == "and" and seen_scale and j + 1 < len(words):
+                # Join "twelve hundred and fifty", but not "six hundred and
+                # seven hundred": look at what the next number is made of.
+                k = j + 1
+                while k < len(words) and _small_value(words[k]) is not None:
+                    k += 1
+                if k == j + 1 or (k < len(words) and (words[k] == "hundred" or words[k] in _THOUSAND_WORDS)):
+                    break
+            else:
+                break
+            j += 1
+        spans.append((start, tokens[j - 1].end(), total + current))
+        i = j
+    for start, end, value in reversed(spans):
+        text = text[:start] + str(value) + text[end:]
+    return text
+
+
 def parse_budget(text: Any) -> Tuple[Optional[int], bool]:
     """Read a budget in EUR from free text.
 
@@ -574,9 +646,16 @@ def parse_budget(text: Any) -> Tuple[Optional[int], bool]:
     gives its midpoint (900) and is_range=True, so the caller can say which
     figure it used. "2k" means 2000. Only the first two numbers count, which
     keeps "1500 for 2 people" at 1500. Before this, every caller joined all
-    the digits, so "800 to 1000" became 8001000 (A2).
+    the digits, so "800 to 1000" became 8001000.
+
+    A message with no digits at all is first passed through words_to_digits,
+    so a typed "about fifteen hundred euros" works like "about 1500 euros"
+    instead of the form asking the same question again.
     """
-    numbers = [_to_number(num, bool(k)) for num, k in _BUDGET_NUMBER.findall(str(text or ""))]
+    text = str(text or "")
+    if not re.search(r"\d", text):
+        text = words_to_digits(text)
+    numbers = [_to_number(num, bool(k)) for num, k in _BUDGET_NUMBER.findall(text)]
     if not numbers:
         return None, False
     if len(numbers) >= 2 and re.search(r"\d\s*(?:-|–|to|and)\s*\d", str(text), re.IGNORECASE):
@@ -620,7 +699,7 @@ SUPPORTED_CITIES_HINT = ", ".join(supported_cities())
 
 # LOCAL_ACTIVITIES is a short hand-written list, not a verified directory, so
 # it is presented as examples of what to look for, not as recommendations of
-# specific businesses (API-README greenwashing guidance; DESIGN_RATIONALE D43).
+# specific businesses (the lecturer's Eco-Travel APIs README on greenwashing).
 ACTIVITIES_CAVEAT = (
     "Illustrative examples of the kind of activity to look for; check that they "
     "are still running and locally owned before you book."
@@ -765,7 +844,7 @@ EMISSION_FACTORS = {
 LOCAL_SOURCE_LABEL = "local BEIS 2023 / Our World in Data table"
 
 # Words users write for a transport mode -> the mode name the carbon tables use
-# (A3). "Emissions for driving to Prague" used to be priced as a flight,
+# "Emissions for driving to Prague" used to be priced as a flight,
 # because "driving" was neither annotated nor mapped and the default was flight.
 MODE_ALIASES = {
     "flight": "flight", "flights": "flight", "fly": "flight", "flying": "flight",
@@ -791,6 +870,55 @@ def resolve_mode(slot_value: Any, text: Any) -> Optional[Text]:
             return mode
     match = _MODE_WORD.search(str(text or "").lower())
     return MODE_ALIASES[match.group(1)] if match else None
+
+
+# Words that end a place name inside "from X to Y" ("... to Paris next week").
+_ROUTE_STOP = (
+    r"by|on|in|for|next|this|tomorrow|today|tonight|via|with|and|please|"
+    r"leaving|departing|around|at|during|or|is|would|which|what"
+)
+_PLACE = rf"((?:(?!(?:{_ROUTE_STOP})\b)[A-Za-zÀ-ÿ'.\-]+\s*){{1,3}})"
+_ROUTE_PATTERNS = (
+    re.compile(rf"\bfrom\s+{_PLACE}\s*\bto\s+{_PLACE}", re.IGNORECASE),
+    re.compile(rf"\bbetween\s+{_PLACE}\s*\band\s+{_PLACE}", re.IGNORECASE),
+)
+
+
+def route_from_text(text: Any,
+                    entities: Optional[List[Dict[Text, Any]]] = None
+                    ) -> Optional[Tuple[Text, Text]]:
+    """(origin, destination) when the message itself says "from X to Y" or
+    "between X and Y", else None.
+
+    The NLU entities can mislabel a city ("green transport from London to
+    Paris" once came back with Paris as a second origin), and a destination
+    left in a slot by an earlier turn would then be used silently. When the
+    user names the route in this very message, its word order decides which
+    place is the origin and which the destination, the same idea as
+    resolve_mode() for the transport mode.
+
+    The place names themselves come from the NLU entities when one lies
+    inside each part of the route ("to Paris sustainably" -> "Paris"); the
+    raw words are used only when no entity was found there.
+    """
+    raw = str(text or "")
+    if raw.startswith("/"):
+        return None   # a button payload sets the slots itself
+    places = [str(e.get("value")) for e in (entities or [])
+              if e.get("entity") in ("origin", "destination", "city_name") and e.get("value")]
+    for pattern in _ROUTE_PATTERNS:
+        match = pattern.search(raw)
+        if not match:
+            continue
+        found = []
+        for part in match.groups():
+            part = part.strip(" .,'-")
+            inside = [p for p in places if p.lower() in part.lower()]
+            found.append(max(inside, key=len) if inside else part)
+        origin, destination = found
+        if origin and destination and origin.lower() != destination.lower():
+            return origin, destination
+    return None
 
 
 # -----------------------------------------------------------------------------
@@ -1201,7 +1329,7 @@ COST_DISCLAIMER = (
 class ActionSuggestEcoHotels(Action):
     """List hotels in the requested city, ranked by proxy sustainability
     signals from OpenStreetMap. Never claims a hotel is 'eco-certified' —
-    OSM has no reliable certification tags (see Checks/README.md).
+    OSM has no reliable certification tags (the lecturer's Eco-Travel APIs README).
     """
 
     def name(self) -> Text:
@@ -1326,12 +1454,19 @@ class ActionSuggestTransport(Action):
 
         origin = tracker.get_slot("origin")
         destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
+        latest = tracker.latest_message or {}
+        route = route_from_text(latest.get("text"), latest.get("entities"))
+        if route:
+            origin, destination = route
 
         if not origin or not destination:
             dispatcher.utter_message(
                 text="Please tell me both the origin and destination. Example: 'green transport from London to Paris'."
             )
             return []
+        # Keep the slots in step with the route actually used, so a follow-up
+        # ("and the carbon footprint?") does not fall back to stale values.
+        route_events = [SlotSet("origin", origin), SlotSet("destination", destination)] if route else []
 
         distance, geo_status = approx_distance_result(origin, destination)
         if distance == 0.0:
@@ -1396,7 +1531,7 @@ class ActionSuggestTransport(Action):
             text=f"ℹ️ {source_label} {COST_DISCLAIMER}",
             buttons=buttons,
         )
-        return []
+        return route_events
 
 
 class ActionCalculateCarbon(Action):
@@ -1410,8 +1545,11 @@ class ActionCalculateCarbon(Action):
 
         origin = tracker.get_slot("origin")
         destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
-        mode = resolve_mode(tracker.get_slot("transport_mode"),
-                            (tracker.latest_message or {}).get("text"))
+        latest = tracker.latest_message or {}
+        mode = resolve_mode(tracker.get_slot("transport_mode"), latest.get("text"))
+        route = route_from_text(latest.get("text"), latest.get("entities"))
+        if route:
+            origin, destination = route
 
         if not origin or not destination:
             dispatcher.utter_message(
@@ -1430,6 +1568,8 @@ class ActionCalculateCarbon(Action):
         # The slot is filled by a global from_entity mapping, so it would leak
         # into the next question; it is cleared after every answer.
         clear = [SlotSet("transport_mode", None)]
+        if route:
+            clear += [SlotSet("origin", origin), SlotSet("destination", destination)]
 
         if mode is None:
             # No mode named: compare the usual options instead of guessing one.
@@ -1604,7 +1744,7 @@ class ActionHumanHandover(Action):
     exactly that: it names no advisor and promises no response time, because
     no human is connected in this build ("Describing an integration you did
     not build is perfectly legitimate. Implying you built it is not",
-    Making a Bot Behave §5.3; DESIGN_RATIONALE D31).
+    Making a Bot Behave §5.3).
     """
 
     def name(self) -> Text:
@@ -1833,7 +1973,7 @@ TRIP_FORM_SLOTS = ("destination", "origin", "travel_dates", "budget",
 
 
 class ActionCancelTripForm(Action):
-    """Leave the trip form cleanly when the user says stop (A1).
+    """Leave the trip form cleanly when the user says stop.
 
     The rule deactivates the form first; this action then clears every form
     slot and `requested_slot`, so a later "plan a trip" starts from the first
@@ -1861,7 +2001,7 @@ class ActionCancelTripForm(Action):
 
 
 class ActionAskTripPlanningFormDestination(Action):
-    """Ask for the destination with one button per city that has hotel data (N4).
+    """Ask for the destination with one button per city that has hotel data.
 
     The brief asks for "quick-reply buttons generated dynamically from custom
     action responses for destination and preference selection". The cities

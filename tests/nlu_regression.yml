@@ -28,9 +28,9 @@
 # add a *different* variant to the training data, not this one.
 # tests/test_actions.py::test_regression_set_is_disjoint_from_training guards it.
 
-# Phase 7, Adım 1 (2026-10-02): the Course Companion intents were removed from the
+# 2026-10-02: the Course Companion intents were removed from the
 # bot (scope = eco-travel only). Their 16 sentences were moved, text unchanged, to
-# off_topic, the behaviour now expected for them. Done before any Phase 7 measurement.
+# off_topic, the behaviour now expected for them. Done before any of the final measurements.
 
 version: "3.1"
 

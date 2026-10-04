@@ -153,7 +153,7 @@ stories:
   - action: action_human_handover
 
 
-# Adim 2: requests the bot must handle safely (docs/INTENT_DEFINITIONS.md)
+# Requests the bot must handle safely (booking, regulated advice, insults, privacy, invalid input)
 - story: booking request gets an honest refusal, then planning continues
   steps:
   - intent: greet
@@ -188,7 +188,7 @@ stories:
   - intent: invalid_input
   - action: utter_invalid_input
 
-# Adim 3 (A1): leaving or interrupting the trip form
+# Leaving or interrupting the trip form
 - story: stop during the trip form cancels it
   steps:
   - intent: plan_trip

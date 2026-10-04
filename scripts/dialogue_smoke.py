@@ -30,7 +30,7 @@ import sys
 import time
 import warnings
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Union
 
 warnings.filterwarnings("ignore")
 logging.disable(logging.CRITICAL)
@@ -57,7 +57,8 @@ sys.path.insert(0, str(REPO_ROOT))
 TURN_LIMIT = 3.0     # seconds; the brief: "under three seconds for critical interactions"
 HARD_LIMIT = 30.0    # seconds; beyond this, dump stacks and abort
 
-Turn = Tuple[str, Optional[str]]   # (user message, text the reply must contain)
+# (user message, text the reply must contain, or a tuple of acceptable texts)
+Turn = Tuple[str, Union[None, str, Tuple[str, ...]]]
 
 
 def probe_example(intent: str) -> str:
@@ -88,9 +89,13 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("How are you", "Hello!"),
         ("What is 2+2", "eco-travel assistant"),
     ]),
+    # Either "I don't follow" reply is right here: both state the bot's scope,
+    # which is what the turn guards (MBB §4.1: the user must not be left "with
+    # no clue what the bot does understand"). Which one fires depends on the
+    # model's confidence for a bare number (core fallback vs clarification).
     ("regression: bare answer outside the form got the greeting", [
-        ("Barcelona", "not sure what to do with that"),
-        ("1500", "not sure what to do with that"),
+        ("Barcelona", ("not sure what to do with that", "not sure what you meant")),
+        ("1500", ("not sure what to do with that", "not sure what you meant")),
     ]),
     ("off-topic", [
         ("tell me a joke", "eco-travel assistant"),
@@ -126,7 +131,7 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("carbon footprint of a flight from Madrid to Rome", "kg CO2e"),
         ("things to do in Kyoto", "Kyoto"),
     ]),
-    # Adim 2. The payload turn checks the rule and response deterministically;
+    # Safety intents. The payload turn checks the rule and response deterministically;
     # the probe sentence checks the whole path (NLU, SafetyGate, rule).
     ("safety: booking requests", [
         ("/ask_booking", "can't make bookings"),
@@ -148,7 +153,7 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("   ", "500 characters"),
         ("x" * 600, "500 characters"),
     ]),
-    # Adim 3 (HANDOFF §13.5): form exits, slot reset, parsing.
+    # Form exits, slot reset, parsing.
     ("form: asking for a human mid-form hands over", [
         ("I want to plan a sustainable trip", "where would you like to travel"),
         ("I want to talk to a human", "Ticket"),
@@ -159,14 +164,14 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("stop", "stopped the trip planning"),
         ("I want to plan a sustainable trip", "where would you like to travel"),
     ]),
-    # Known limitation (HANDOFF §13.1): small talk inside the form is taken as
+    # Known limitation: small talk inside the form is taken as
     # an answer. Only "no hang, some reply" is checked.
     ("form: small talk mid-form does not hang", [
         ("I want to plan a sustainable trip", "where would you like to travel"),
         ("hello", None),
         ("thanks", None),
     ]),
-    ("form: a second plan asks for the destination again (A4)", [
+    ("form: a second plan asks for the destination again", [
         ("I want to plan a sustainable trip", "where would you like to travel"),
         ("Barcelona", "travelling from"),
         ("London", "When are you planning"),
@@ -177,7 +182,14 @@ CONVERSATIONS: List[Tuple[str, List[Turn]]] = [
         ("no", "I'm here if you want"),
         ("I want to plan a sustainable trip", "where would you like to travel"),
     ]),
-    ("carbon: 'driving' is priced as a car (A3)", [
+    ("form: a budget typed in words is accepted", [
+        ("I want to plan a sustainable trip", "where would you like to travel"),
+        ("Barcelona", "travelling from"),
+        ("London", "When are you planning"),
+        ("next week", "budget"),
+        ("about fifteen hundred euros", "How important is sustainability"),
+    ]),
+    ("carbon: 'driving' is priced as a car", [
         ("emissions for driving from Berlin to Prague", "Car"),
     ]),
     ("regression: form took 'What is 2+2' as the destination", [
@@ -215,7 +227,8 @@ async def run(model: str) -> int:
                 problems.append(f"slow: {elapsed:.1f}s")
             if not replies:
                 problems.append("no reply")
-            elif expected and expected.lower() not in everything.lower():
+            elif expected and not any(e.lower() in everything.lower()
+                                      for e in ((expected,) if isinstance(expected, str) else expected)):
                 problems.append(f"expected {expected!r}")
             status = "FAIL" if problems else " ok "
             if problems:

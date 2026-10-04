@@ -23,7 +23,7 @@ pipeline:
     analyzer: char_wb
     min_ngram: 1
     max_ngram: 4
-  # random_seed (D14): DIET, TED and UnexpecTED default to RANDOM_SEED None
+  # random_seed: DIET, TED and UnexpecTED default to RANDOM_SEED None
   # (rasa/nlu/classifiers/diet_classifier.py:188-189, core/policies/
   # ted_policy.py:244), so two trainings on the same data differ and a
   # before/after comparison mixes the change with noise. Every lecturer
@@ -32,19 +32,22 @@ pipeline:
     epochs: 100
     constrain_similarities: true
     random_seed: 42
-  # Raised from 0.4 to 0.6 on 2026-09-16 after measuring it with
-  # scripts/threshold_sweep.py: across 56 held-out in-scope messages the
-  # lowest correct prediction scores 0.87, so 0.6 throws none of them away,
-  # while messages the bot has no business answering sit far lower and get
-  # routed to the clarification flow instead of a confident wrong answer.
+  # 0.7 chosen on 2026-10-03 from
+  # scripts/threshold_sweep.py on the development sets only, for the model
+  # trained on this data. The one fixed limit, request_human_advisor recall
+  # >= 0.85, holds at every threshold tried (7/8). Against 0.6, 0.7 raises the
+  # accuracy of the answers the bot commits to from 0.873 to 0.908 and sends
+  # 3 more off-topic messages to clarification, at the cost of 6 more real
+  # requests (fallback rate 16.5% -> 23.5%); 0.8 loses more automation and
+  # macro F1 (0.724). A wrong answer costs more than a clarification question.
   - name: FallbackClassifier
-    threshold: 0.6
+    threshold: 0.7
     ambiguity_threshold: 0.1
-  # Deterministic gate (docs/DESIGN_RATIONALE.md D32, D33). Runs last, so it
+  # Deterministic gate. Runs last, so it
   # can override both DIET and the fallback: empty or over-long messages go to
   # `invalid_input`; text matching a pattern in data/safety_patterns.yml goes
   # to that category's intent (regulated advice, abuse). Mirrors the
-  # lecturer's regex safety gate (NLP-LLM §17); conservative and incomplete
+  # lecturer's regex safety gate (LLM components notebook, §17); conservative and incomplete
   # by design, DIET still classifies everything the patterns do not list.
   - name: components.safety_gate.SafetyGate
     patterns_file: data/safety_patterns.yml

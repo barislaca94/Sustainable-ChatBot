@@ -129,7 +129,7 @@ def test_signals_score_grades_rail_distance():
 
 def test_signals_score_missing_tags_never_subtract():
     # No OSM evidence at all is shown as "not enough data" (neutral), never
-    # as a negative judgement on the hotel (A10).
+    # as a negative judgement on the hotel.
     score, band = actions.signals_score({})
     assert score == 0.0
     assert band == "⚪"
@@ -670,7 +670,7 @@ def test_handover_package_contains_the_conversation():
 
 def test_handover_transcript_keeps_the_last_user_turns_not_messages():
     # 12 user turns, each answered by three bot messages: a message limit would
-    # keep only bot text; the turn limit keeps the last 10 user turns (A8).
+    # keep only bot text; the turn limit keeps the last 10 user turns.
     events = []
     for i in range(12):
         events.append({"event": "user", "text": f"question {i}"})
@@ -982,11 +982,19 @@ def _nlu_examples(path: Path) -> List[tuple]:
     return out
 
 
+TRAINING_FILES = sorted((REPO_ROOT / "data").glob("nlu*.yml"))
+
+
+def _training_examples() -> List[tuple]:
+    """Examples from every NLU training file: Rasa reads all of data/."""
+    return [ex for path in TRAINING_FILES for ex in _nlu_examples(path)]
+
+
 def test_regression_set_is_disjoint_from_training():
-    # The Phase 5 "held-out" set had 23 of 59 sentences copied from the
+    # An earlier "held-out" set had 23 of 59 sentences copied from the
     # training data and 7 more that only swapped an entity value, which made
     # its 0.949 meaningless. This keeps that from happening again.
-    training = _nlu_examples(REPO_ROOT / "data" / "nlu.yml")
+    training = _training_examples()
     held_out = _nlu_examples(REPO_ROOT / "tests" / "nlu_regression.yml")
 
     training_texts = {text for _, text, _ in training}
@@ -1022,7 +1030,9 @@ def test_final_test_set_is_frozen(name):
 @pytest.mark.parametrize("name", sorted(FINAL_TEST_SHA256))
 def test_final_test_set_is_disjoint_from_training_and_dev(name):
     final = _nlu_examples(REPO_ROOT / "tests" / name)
-    for other in ("data/nlu.yml", "tests/nlu_regression.yml", "tests/offtopic_probe.yml"):
+    others = [p.relative_to(REPO_ROOT) for p in TRAINING_FILES] + [
+        Path("tests/nlu_regression.yml"), Path("tests/offtopic_probe.yml")]
+    for other in others:
         seen = _nlu_examples(REPO_ROOT / other)
         texts = {text for _, text, _ in seen}
         templates = {tpl for _, _, tpl in seen if "<" in tpl}
@@ -1034,9 +1044,9 @@ def test_final_test_set_is_disjoint_from_training_and_dev(name):
 
 def test_probe_set_is_disjoint_from_training():
     # tests/offtopic_probe.yml is a dev set for the off-topic and safety
-    # classes (Adim 2). Thresholds are tuned on it, so it must never share a
+    # classes. Thresholds are tuned on it, so it must never share a
     # sentence with the training data.
-    training = _nlu_examples(REPO_ROOT / "data" / "nlu.yml")
+    training = _training_examples()
     probe = _nlu_examples(REPO_ROOT / "tests" / "offtopic_probe.yml")
     texts = {text for _, text, _ in training}
     templates = {tpl for _, _, tpl in training if "<" in tpl}
@@ -1138,7 +1148,7 @@ def test_every_new_safety_intent_has_a_rule_and_response():
 
 
 # --------------------------------------------------------------------------
-# Trip form: exits, destination buttons, slot reset (Adim 3b)
+# Trip form: exits, destination buttons, slot reset
 # --------------------------------------------------------------------------
 
 def test_cancel_trip_form_clears_every_form_slot():
@@ -1195,15 +1205,15 @@ def test_submit_clears_destination_and_origin_and_explains_a_map_outage(monkeypa
     events = actions.ActionSubmitTripForm().run(dispatcher, tracker, {})
 
     cleared = {e["name"] for e in events if e["event"] == "slot" and e["value"] is None}
-    assert {"destination", "origin"} <= cleared       # A4: second plan asks again
-    assert any("couldn't reach the map service" in t for t in texts(dispatcher))  # A5
+    assert {"destination", "origin"} <= cleared       # a second plan asks again
+    assert any("couldn't reach the map service" in t for t in texts(dispatcher))  # says why the comparison is missing
     green = [b for m in dispatcher.messages for b in m.get("buttons") or []
              if b["title"].startswith("Green transport")]
     assert green and '"origin": "Tokyo"' in green[0]["payload"]
 
 
 # --------------------------------------------------------------------------
-# Budget parsing (A2)
+# Budget parsing
 # --------------------------------------------------------------------------
 
 @pytest.mark.parametrize("text, expected", [
@@ -1219,9 +1229,74 @@ def test_submit_clears_destination_and_origin_and_explains_a_map_outage(monkeypa
     ("1500 for 2 people", (1500, False)),
     ("no idea", (None, False)),
     (None, (None, False)),
+    # amounts typed in words
+    ("about fifteen hundred euros", (1500, False)),
+    ("two thousand", (2000, False)),
+    ("one thousand five hundred", (1500, False)),
+    ("twelve hundred and fifty", (1250, False)),
+    ("a thousand euros", (1000, False)),
+    ("two grand", (2000, False)),
+    ("twenty-five hundred", (2500, False)),
+    ("between six hundred and seven hundred", (650, True)),
+    ("eight hundred to a thousand", (900, True)),
+    ("fifteen hundred for two people", (1500, False)),
 ])
 def test_parse_budget(text, expected):
     assert actions.parse_budget(text) == expected
+
+
+def test_validate_budget_accepts_an_amount_in_words():
+    form = actions.ValidateTripPlanningForm()
+    assert form.validate_budget("About fifteen hundred euros", CollectingDispatcher(),
+                                make_tracker(), {}) == {"budget": "1500"}
+
+
+# --------------------------------------------------------------------------
+# Route named in the message
+# --------------------------------------------------------------------------
+
+@pytest.mark.parametrize("text, entities, expected", [
+    ("green transport from London to Paris", None, ("London", "Paris")),
+    ("Between Oslo and Bergen, is rail or flying better?", None, ("Oslo", "Bergen")),
+    ("green transport from london to paris next week", None, ("london", "paris")),
+    # a trailing word is dropped when an entity marks the place
+    ("how should I travel from London to Paris sustainably?",
+     [{"entity": "origin", "value": "London"}, {"entity": "destination", "value": "Paris"}],
+     ("London", "Paris")),
+    # the word order decides, not the entity label
+    ("green transport from London to Paris",
+     [{"entity": "origin", "value": "London"}, {"entity": "origin", "value": "Paris"}],
+     ("London", "Paris")),
+    ("eco hotels in Berlin", None, None),
+    ('/ask_green_transport{"destination": "Kyoto", "origin": "Tokyo"}', None, None),
+    ("I am going from Rome to Rome", None, None),
+])
+def test_route_from_text(text, entities, expected):
+    assert actions.route_from_text(text, entities) == expected
+
+
+def test_transport_uses_the_route_in_the_message_over_stale_slots(monkeypatch):
+    # The bug this guards: the model tagged Paris as a second origin, and the
+    # destination slot still held Berlin from the previous turn, so the bot
+    # answered "Paris → Berlin".
+    seen = {}
+
+    def distance(o, d):
+        seen["route"] = (o, d)
+        return 344.0, actions.GEOCODE_OK
+
+    monkeypatch.setattr(actions, "approx_distance_result", distance)
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    tracker = make_tracker(
+        slots={"origin": "Paris", "destination": "Berlin"},
+        latest_message={"text": "green transport from London to Paris",
+                         "entities": [{"entity": "origin", "value": "London"},
+                                      {"entity": "origin", "value": "Paris"}]})
+    dispatcher = CollectingDispatcher()
+    events = actions.ActionSuggestTransport().run(dispatcher, tracker, {})
+    assert seen["route"] == ("London", "Paris")
+    assert texts(dispatcher)[0].startswith("London → Paris")
+    assert {"event": "slot", "name": "destination", "value": "Paris", "timestamp": None} in events
 
 
 def test_validate_budget_uses_the_midpoint_of_a_range_and_says_so():
@@ -1232,7 +1307,7 @@ def test_validate_budget_uses_the_midpoint_of_a_range_and_says_so():
 
 
 # --------------------------------------------------------------------------
-# Transport mode words (A3)
+# Transport mode words
 # --------------------------------------------------------------------------
 
 @pytest.mark.parametrize("slot, text, expected", [
@@ -1275,7 +1350,7 @@ def test_carbon_for_driving_is_priced_as_a_car(monkeypatch):
 
 
 # --------------------------------------------------------------------------
-# Remaining action coverage (C8)
+# Remaining action coverage
 # --------------------------------------------------------------------------
 
 def test_eco_hotels_for_a_city_with_data_show_cards_and_the_disclaimer():

@@ -20,7 +20,7 @@ intents:
   # Separate from out_of_scope, which Rasa's two-stage fallback reserves for
   # the "None of these" denial inside the clarification loop.
   - off_topic
-  # Phase 7, Adim 2: requests the bot must handle safely (docs/INTENT_DEFINITIONS.md).
+  # Requests the bot must handle safely: it cannot book, give regulated advice, etc.
   - ask_booking
   - ask_regulated_advice
   - insult
@@ -209,7 +209,7 @@ slots:
       - type: custom
 
 forms:
-  # Form exits (A1): every form-scoped slot mapping above carries a not_intent
+  # Form exits: every form-scoped slot mapping above carries a not_intent
   # list. A message with one of those intents is never taken as a slot answer;
   # data/rules.yml handles it instead (hand over, cancel, or answer and return
   # to the same question). Rasa needs a rule for each excluded intent, because

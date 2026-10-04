@@ -1,0 +1,199 @@
+# Training examples written for this project (2026-10-03), added after an error
+# analysis of an earlier model (see the report).
+# Authors: a data-writing agent (Claude), ChatGPT and the student. Every line was
+# checked against the development sets (character n-gram similarity below 0.80, no
+# copies or entity swaps) and, by count only, against the locked final test set.
+# Lines follow the boundary rules of the intent definitions.
+version: "3.1"
+
+nlu:
+- intent: request_human_advisor
+  examples: |
+    - a specialist should really look at my case
+    - honestly I think a human needs to handle this one
+    - could an expert go over my itinerary with me?
+    - a consultant needs to sort this out properly
+    - pls get someone from your team to look into my situation
+    - my problem is too complicated, I want a supervisor on it
+    - ok this is beyond you, loop in a human advisor
+    - A human advisor should handle my situation.
+
+- intent: bot_challenge
+  examples: |
+    - which company made this assistant
+    - quick rundown of your capabilities?
+    - what sorts of questions are you able to answer
+    - Tell me what kind of assistant you are.
+    - How can this chatbot help travelers?
+
+- intent: ask_privacy
+  examples: |
+    - will you store the stuff I tell you about my trip?
+    - does anyone at your end read these chats?
+    - delete all my data please
+    - What information do you store from chats?
+    - Does this bot retain my travel preferences?
+    - Can staff read conversations with this assistant?
+    - Please delete all my account data.
+    - Are your data practices legally compliant?
+
+- intent: ask_carbon_offset
+  examples: |
+    - any way to make up for the CO2 from my long-haul flight?
+    - can I compensate for the return flight I'm taking next month?
+    - balancing out the carbon of a road trip, how does that work
+    - which scheme would best counter my holiday flight emissions
+    - offsetting a business trip, is it legit or just greenwashing?
+    - do tree planting projects really cancel out travel emissions
+    - where do I start if I want my whole journey to be carbon neutral
+    - Gold Standard or VCS credits, which is more trustworthy?
+    - I'd like to balance emissions from my journey between Toronto and Montreal; where should I start?
+    - Any reliable projects to compensate for a long-haul trip from Sydney to Singapore?
+    - Can you suggest trustworthy climate schemes for covering emissions from my trip to Cape Town?
+    - After driving from Denver to Salt Lake City, how can I make amends for the carbon?
+    - Which verified initiative could help counterbalance the emissions from traveling to Bogotá?
+
+- intent: ask_place_description
+  examples: |
+    - how come everyone raves about [Lisbon](destination)?
+    - curious about the history of [Prague](destination)
+    - I'd love an introduction to [Budapest](destination)
+    - [Dublin](destination) in a nutshell?
+    - quick summary of what [Madrid](destination) is all about
+    - Explain [Zurich](destination) to me like I've never heard of it
+    - Some background on the culture and people of [Athens](destination)?
+    - Give me an overview of [Dubrovnik](destination).
+
+- intent: off_topic
+  examples: |
+    - what is photosynthesis
+    - give me a short bio of Albert Einstein
+    - What's a derivative in calculus
+    - explain how a Python for-loop works
+    - who's the best striker in the Premier League right now
+    - tell me about the French Revolution
+
+- intent: ask_booking
+  examples: |
+    - are there any rooms free at that hotel in Porto on the 12th?
+    - I want to pay for two nights at the eco lodge
+    - Could you book a train ticket for me?
+    - I need to reserve a room in Rome.
+    - Where can I pay for these tickets?
+    - What's the price of a hostel tonight?
+
+- intent: stop
+  examples: |
+    - get me out of these questions
+    - let's ditch the trip form
+    - ok park that, I don't want to fill this in anymore
+    - abandon this plan please
+    - Please end this planning process.
+    - I want to skip these prompts.
+
+- intent: ask_regulated_advice
+  examples: |
+    - bringing my insulin into Singapore, is that allowed?
+    - Do I need a visa for Canada?
+    - How long may tourists stay in Thailand?
+    - Are any vaccinations required before visiting Peru?
+    - Can I bring prescription medicine into Australia?
+    - Is tap water safe in Mexico City?
+
+- intent: insult
+  examples: |
+    - you have the brains of a toaster
+    - honestly a calculator would be more helpful than you
+    - clueless excuse for an assistant, aren't you
+    - my cat could give better answers than you
+
+- intent: ask_eco_hotels
+  examples: |
+    - any nice eco lodges around [Copenhagen](destination)?
+    - looking for a low-impact guesthouse in [Ljubljana](destination)
+    - I need a place to sleep in [Kyoto](destination) that's not terrible for the planet
+    - sustainable B&B recommendations for [Porto](destination)?
+    - Find sustainable hotels in [Copenhagen](destination).
+
+- intent: ask_local_activities
+  examples: |
+    - what's fun to do in [Lisbon](destination) without harming the environment
+    - hiking or cycling tours near [Oslo](destination)?
+    - got a free day in [Vienna](destination), suggestions?
+    - I'd like to try a local cooking class in [Barcelona](destination)
+    - activities in [Berlin](destination) run by locals
+
+- intent: ask_weather
+  examples: |
+    - gonna be chilly in [Edinburgh](city_name) tomorrow?
+    - rain gear for [Bergen](city_name) or not?
+    - packing shorts for [Madrid](city_name), is it warm enough?
+    - Would sandals work for [Prague](city_name) this weekend?
+    - Should I pack layers for [Vancouver](city_name) tomorrow?
+
+- intent: plan_trip
+  examples: |
+    - Could you map out my holiday
+    - Help me put together a getaway
+    - I want help planning my vacation
+    - Can you sketch out my holiday
+    - can you organise a week away for me, something low impact
+    - I'm thinking about a green getaway, help me put it together
+    - let's map out a full itinerary for my summer holiday
+    - need help sorting out an entire trip from start to finish
+    - Plan my eco holiday to [Copenhagen](destination) please
+    - Help me map out a week in [Tbilisi](destination) with local food and nature walks.
+    - I'm visiting [Cebu](destination) for five days; could you sketch a relaxed itinerary?
+    - Need ideas for a family holiday around [Marrakech](destination), including transit and places to stay.
+    - Would you help shape a low-waste getaway through [Ljubljana](destination) and Lake Bled?
+    - Let's put together a two-week [Ecuador](destination) route, starting in Quito.
+
+- intent: ask_green_transport
+  examples: |
+    - is the train or the plane greener from [Paris](origin) to [Barcelona](destination)?
+    - lowest emission way to reach [Munich](destination) from [Zurich](origin)
+    - getting from [Brussels](origin) to [Amsterdam](destination) in the most eco way, options?
+    - [Milan](origin) to [Rome](destination) by bus, train or car, which harms the planet least?
+    - I'm going [Dublin](origin) to [London](destination), what's the cleanest way to do it
+    - Between [Oslo](origin) and [Bergen](destination), is rail or flying better for the environment?
+    - Which option has lower emissions from [Accra](origin) to [Kumasi](destination), coach or car?
+    - Trying to get from [Lima](origin) to [Arequipa](destination) with less impact; train or bus?
+    - Is cycling plus a ferry a sensible low-impact route from [Helsinki](origin) to [Tallinn](destination)?
+    - Hey, for [Hanoi](origin) to [Hue](destination), would the bus be greener than taking a flight?
+
+- intent: ask_carbon_footprint
+  examples: |
+    - roughly how many kg of CO2 is a [flight](transport_mode) from [Berlin](origin) to [Lisbon](destination)?
+    - carbon cost of taking the [train](transport_mode) [Madrid](origin) to [Barcelona](destination)
+    - if I take the [car](transport_mode) from [Munich](origin) to [Vienna](destination), what emissions are we talking
+    - CO2 numbers for a [bus](transport_mode) ride [Prague](origin) to [Budapest](destination)
+    - how polluting is a [flight](transport_mode) from [Rome](origin) to [Athens](destination) in tonnes?
+    - Could you estimate emissions for a [train](transport_mode) from [Oslo](origin) to [Stockholm](destination)?
+    - What's the CO2 output for [flying](transport_mode) from [Accra](origin) to [Nairobi](destination)?
+    - Roughly how many kilos of carbon come from [driving](transport_mode) [Lima](origin) to [Cusco](destination)?
+    - Tell me the emissions total for a [bus](transport_mode) ride between [Hanoi](origin) and [Da Nang](destination).
+    - Does a [ferry](transport_mode) from [Auckland](origin) to [Wellington](destination) release a lot of CO2, and how much?
+
+- intent: goodbye
+  examples: |
+    - peace out
+    - gotta go, ttyl
+    - See ya, thanks.
+
+- intent: thank_you
+  examples: |
+    - ta very much
+    - legend, thanks mate
+    - cheers for that, really useful
+    - Cheers, that helps!
+
+- intent: inform
+  examples: |
+    - [Rome](destination) sounds lovely
+    - Maybe [Vienna](destination) would be nice
+    - I'm travelling from [Toronto](origin)
+    - Sometime around [June](travel_dates)
+    - Probably in [mid October](travel_dates)
+    - About [fifteen hundred](budget) euros
+    - I'd say fairly important
+    - A [week](trip_length) sounds perfect

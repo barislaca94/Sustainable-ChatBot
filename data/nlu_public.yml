@@ -1,0 +1,120 @@
+# Adim 4 (2026-10-03): human-written user messages from two public datasets.
+# The text of each line is unchanged; the only change is entity markup
+# ([City](destination) / [City](city_name)), and each line was relabelled by hand
+# to this bot's intents, which do not match the source labels one to one.
+#
+# CLINC150: S. Larson, A. Mahendran, J.J. Peper, C. Clarke, A. Lee, P. Hill,
+#   J.K. Kummerfeld, K. Leach, M.A. Laurenzano, L. Tang and J. Mars (2019).
+#   "An Evaluation Dataset for Intent Classification and Out-of-Scope Prediction."
+#   EMNLP-IJCNLP 2019, pp. 1311-1316. doi:10.18653/v1/D19-1131.
+#   https://github.com/clinc/oos-eval. Licence: CC BY 3.0
+#   (https://creativecommons.org/licenses/by/3.0/). Changes: selection, entity markup.
+# MultiWOZ 2.2: P. Budzianowski, T.-H. Wen, B.-H. Tseng, I. Casanueva, S. Ultes,
+#   O. Ramadan and M. Gasic (2018). "MultiWOZ - A Large-Scale Multi-Domain
+#   Wizard-of-Oz Dataset for Task-Oriented Dialogue Modelling." EMNLP 2018,
+#   pp. 5016-5026. doi:10.18653/v1/D18-1547.
+#   Data version used: MultiWOZ 2.2, X. Zang, A. Rastogi, S. Sunkara, R. Gupta, J. Zhang
+#   and J. Chen (2020). "MultiWOZ 2.2: A Dialogue Dataset with Additional Annotation
+#   Corrections and State Tracking Baselines." NLP4ConvAI 2020, pp. 109-117.
+#   doi:10.18653/v1/2020.nlp4convai-1.13.
+#   https://github.com/budzianowski/multiwoz. Copyright (c) 2019 Paweł Budzianowski.
+#   Used under the MIT licence; full licence text:
+#   https://github.com/budzianowski/multiwoz/blob/master/LICENSE
+version: "3.1"
+
+nlu:
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: ask_eco_hotels
+  examples: |
+    - help me find a good reviews hotel in [la](destination)
+    - need a place to crash in [elizabeth](destination) near the refinery from june 4th until the 9th
+    - what is the best rated hotel in [evans](destination)
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: ask_booking
+  examples: |
+    - book me a hotel in chicago near the water tower shopping from april 2nd to 4th
+    - march 20th through the 22nd, please book me a hotel room in manhattan big enough for 10 people
+    - purchase a flight from slc to columbus on tuesday that returns on friday
+    - madison to atlanta delta ticket
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: ask_local_activities
+  examples: |
+    - what is there to do in [evans](destination)
+    - name the five star attractions in [gatlinburg](destination)
+    - what is there to do besides drink in [germany](destination)
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: ask_weather
+  examples: |
+    - what are the conditions like in [sarasota](city_name)
+    - what is the high temperature for tomorrow
+    - weather
+    - what is the weather outlook for [seattle](city_name)
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: ask_regulated_advice
+  examples: |
+    - is a visa needed to go to mexico
+    - to visit cambodia, do i need an international visa
+    - does jamaica require a visa
+    - is it recommended to get any specific shots before i travel to canada
+    - will i need immunization for a trip to turkey
+    - do i need vaccinations to travel overseas
+    - does russia have any travel alerts i should be aware of
+    - list of countries with travel alerts
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: bot_challenge
+  examples: |
+    - do you consider yourself a bot
+    - do you know if you are a robot
+    - you sound like a bot
+    - tell me what company programmed you
+    - how was this ai created
+    - what are the subject areas you are knowledgable in
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: greet
+  examples: |
+    - howdy, what's new
+    - hey there fellow
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: goodbye
+  examples: |
+    - take it easy!
+    - i enjoyed talking to you
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: thank_you
+  examples: |
+    - i appreciate that answer
+    - thanks for the info
+    - good looking out
+
+# CLINC150 train split (Larson et al., 2019), CC BY 3.0
+- intent: off_topic
+  examples: |
+    - what's the most dominant scale in bluegrass
+    - what city is the super bowl
+    - who's toledo's starting point guard for the next game
+    - when was toyota created
+    - how can i get involved in restaurant marketing
+    - when did camus die
+
+# MultiWOZ 2.2 train, first user turns (Budzianowski et al., 2018), MIT
+- intent: ask_eco_hotels
+  examples: |
+    - I'm looking for a place to stay that includes free parking, my price range is on the expensive end.
+    - I am traveling to [Cambridge](destination) soon. I can't wait to try some local restaurants. Can you help me with a place to stay?
+    - I'm looking for a guesthouse in the cheap price range
+
+# MultiWOZ 2.2 train, first user turns (Budzianowski et al., 2018), MIT
+- intent: ask_local_activities
+  examples: |
+    - I am looking to go to a museum.
+    - I will be visiting family in the south part of [cambridge](destination) and we would liek to get one last boating excursion in. Any boating places in the south area?
+    - Hey, are there any cinemas in the city centre? I want to catch a flick.
+

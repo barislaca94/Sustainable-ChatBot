@@ -113,7 +113,7 @@ rules:
   - intent: out_of_scope
   - action: utter_acknowledge
 
-# Adim 2: requests the bot must handle safely (docs/INTENT_DEFINITIONS.md)
+# Requests the bot must handle safely (booking, regulated advice, insults, privacy, invalid input)
 - rule: Explain that the bot cannot book or show live prices
   condition:
   - active_loop: null
@@ -149,7 +149,7 @@ rules:
   - intent: invalid_input
   - action: utter_invalid_input
 
-# Adim 3 (A1): leaving or interrupting the trip form. The form's slot mappings
+# Leaving or interrupting the trip form. The form's slot mappings
 # exclude these intents (domain.yml not_intent), so each needs a rule here.
 - rule: Human requested during the trip form
   condition:

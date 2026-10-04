@@ -1,7 +1,7 @@
-# Frozen dev probe set for the Adim 2 safety intents. It is used to tune the bot
+# Frozen dev probe set for the safety intents (booking, regulated advice, insult, stop, privacy). It is used to tune the bot
 # (thresholds, fallback behaviour) and is NOT training data: never copy any line
 # of this file into data/nlu.yml. It is separate from the locked final test set.
-# Plain text only, no entity markup. Written before the Adim 2 training data.
+# Plain text only, no entity markup. Written before the training data for those intents.
 
 version: "3.1"
 

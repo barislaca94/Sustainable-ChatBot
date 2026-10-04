@@ -1,0 +1,41 @@
+# Adim 4 (2026-10-03): human-written first user turns from the Schema-Guided
+# Dialogue dataset (train split), relabelled by hand to this bot's intents; the
+# text is unchanged apart from entity markup.
+#
+# A. Rastogi, X. Zang, S. Sunkara, R. Gupta and P. Khaitan (2020). "Towards Scalable
+#   Multi-Domain Conversational Agents: The Schema-Guided Dialogue Dataset."
+#   AAAI 2020, 34(05), pp. 8689-8696. doi:10.1609/aaai.v34i05.6394.
+#   https://github.com/google-research-datasets/dstc8-schema-guided-dialogue
+# Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
+# Changes: selection, relabelling, entity markup. This file is distributed under
+# CC BY-SA 4.0.
+version: "3.1"
+
+nlu:
+- intent: ask_eco_hotels
+  examples: |
+    - Would you look for hotels around [London](destination)?
+    - Find me a 1 star hotel in [New York](destination).
+    - Can you help me find a house to stay in that would suit 1 person?
+
+- intent: ask_booking
+  examples: |
+    - I want to make a hotel reservation.
+    - Hey, can you book me a room at The Queens Park London from the 2nd?
+    - I want to rent a house for five people.
+    - I would like to travel soon. Please buy me a oneway flight to Phoenix, AZ.
+
+- intent: ask_local_activities
+  examples: |
+    - Find me some attractions that kids would like that are free.
+    - I would like to visit a religious spot.
+    - I need help looking up some free, kid friendly, attractions in [Seattle](destination), WA.
+    - Hi, can you help me find an interesting blues music event in [NY](destination)?
+
+- intent: ask_weather
+  examples: |
+    - I need to see what the weather is in [Portland](city_name), OR on the 12th of this month.
+    - Find out what the weather is like in [Toronto](city_name), Ontario.
+    - What is the weather like in [San Diego](city_name)?
+    - Tell me what the weather will be on March 6th.
+
