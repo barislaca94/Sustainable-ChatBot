@@ -201,7 +201,7 @@ def main(out_dir: Path) -> int:
                 and summary[e]["rha"] >= reference_rha]
     lines += ["", f"pre-registered rule: best macro F1 {best:.3f}; eligible (within 0.01 and RHA recall "
               f">= {reference_rha:.3f} at {REFERENCE_EPOCHS} epochs): {eligible}; "
-              f"smallest: {min(eligible) if eligible else 'none - goes to Baris'}"]
+              f"smallest: {min(eligible) if eligible else 'none - review the decision'}"]
     text = "\n".join(lines)
     (out_dir / "epochs_summary.txt").write_text(text + "\n")
     print(text)
