@@ -1172,6 +1172,60 @@ def test_destination_question_offers_exactly_the_cities_with_data():
     assert "type any other city" in texts(dispatcher)[0]
 
 
+# The payloads these questions sent when they were utter_ask_* responses in
+# domain.yml; moving them into actions must not change what a click does.
+PREFERENCE_QUESTIONS = [
+    (actions.ActionAskTripPlanningFormSustainabilityLevel, "sustainability_level",
+     ["low", "medium", "high"], "Low, medium or high?"),
+    (actions.ActionAskTripPlanningFormTransportPreference, "transport_preference",
+     ["train_or_bus", "any_low_carbon"], "Train or bus only, or any low-carbon option"),
+    (actions.ActionAskTripPlanningFormTripLength, "trip_length",
+     ["weekend", "week", "extended"], "A weekend, one week, or longer?"),
+]
+
+
+@pytest.mark.parametrize("action, slot, values, options", PREFERENCE_QUESTIONS)
+def test_preference_question_sends_its_buttons_from_the_action(action, slot, values, options):
+    dispatcher = CollectingDispatcher()
+    action().run(dispatcher, make_tracker(slots={"destination": "lisbon"}), {})
+    [message] = dispatcher.messages
+    assert [b["payload"] for b in message["buttons"]] == [
+        f'/inform{{"{slot}":"{v}"}}' for v in values]
+    # The options are in the text too, for users who type instead of clicking.
+    assert options in message["text"]
+
+
+@pytest.mark.parametrize("action", [q[0] for q in PREFERENCE_QUESTIONS])
+def test_preference_question_names_the_destination_only_when_known(action):
+    with_city, without = CollectingDispatcher(), CollectingDispatcher()
+    action().run(with_city, make_tracker(slots={"destination": "lisbon"}), {})
+    action().run(without, make_tracker(), {})
+    if action is not actions.ActionAskTripPlanningFormTransportPreference:
+        assert " to Lisbon" in texts(with_city)[0]
+    assert "Lisbon" not in texts(without)[0] and "None" not in texts(without)[0]
+
+
+@pytest.mark.parametrize("slot, typed, expected", [
+    ("sustainability_level", "medium", "medium"),
+    ("transport_preference", "any low-carbon option", "any_low_carbon"),
+    ("trip_length", "longer", "extended"),
+    ("trip_length", "a weekend", "weekend"),
+])
+def test_typed_answers_to_the_named_options_are_accepted(slot, typed, expected):
+    assert validate(slot, typed)[0][slot] == expected
+
+
+def test_every_form_question_with_buttons_is_asked_by_an_action():
+    import yaml
+
+    domain = yaml.safe_load((REPO_ROOT / "domain.yml").read_text())
+    for slot in ("destination", "sustainability_level", "transport_preference", "trip_length"):
+        assert f"action_ask_trip_planning_form_{slot}" in domain["actions"], slot
+    # A leftover utter_ask_* would be silently shadowed by the action.
+    for slot in ("destination", "sustainability_level", "transport_preference", "trip_length"):
+        assert f"utter_ask_trip_planning_form_{slot}" not in domain["responses"], slot
+
+
 def test_supported_cities_come_from_the_data_folder():
     cities = actions.supported_cities()
     files = sorted(p.name for p in actions.ECO_DATA_DIR.glob("*_hotels.json"))

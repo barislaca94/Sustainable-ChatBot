@@ -251,6 +251,12 @@ actions:
   # buttons generated from custom action responses). Rasa looks for
   # action_ask_<form>_<slot> before utter_ask_<form>_<slot>.
   - action_ask_trip_planning_form_destination
+  # The preference questions are asked the same way, so their buttons also
+  # come from custom action responses (brief: "for destination and
+  # preference selection").
+  - action_ask_trip_planning_form_sustainability_level
+  - action_ask_trip_planning_form_transport_preference
+  - action_ask_trip_planning_form_trip_length
   - validate_trip_planning_form
 
 responses:
@@ -260,9 +266,6 @@ responses:
   utter_goodbye:
     - text: "Goodbye! Travel light on the planet."
 
-  utter_ask_trip_planning_form_destination:
-    - text: "Great — where would you like to travel? (e.g. Barcelona, Kyoto, Amsterdam)"
-
   utter_ask_trip_planning_form_origin:
     - text: "And where will you be travelling from? (I use this to compare transport options and their carbon cost)"
 
@@ -271,34 +274,6 @@ responses:
 
   utter_ask_trip_planning_form_budget:
     - text: "What is your approximate budget in EUR? (e.g. 800)"
-
-  utter_ask_trip_planning_form_sustainability_level:
-    - text: "How important is sustainability for this trip?"
-      buttons:
-        - title: "Low"
-          payload: '/inform{"sustainability_level":"low"}'
-        - title: "Medium"
-          payload: '/inform{"sustainability_level":"medium"}'
-        - title: "High"
-          payload: '/inform{"sustainability_level":"high"}'
-
-  utter_ask_trip_planning_form_transport_preference:
-    - text: "You picked high sustainability — how do you want to get around?"
-      buttons:
-        - title: "Train or bus only"
-          payload: '/inform{"transport_preference":"train_or_bus"}'
-        - title: "Any low-carbon option"
-          payload: '/inform{"transport_preference":"any_low_carbon"}'
-
-  utter_ask_trip_planning_form_trip_length:
-    - text: "With that budget, how long a trip do you have in mind?"
-      buttons:
-        - title: "Weekend"
-          payload: '/inform{"trip_length":"weekend"}'
-        - title: "One week"
-          payload: '/inform{"trip_length":"week"}'
-        - title: "Extended"
-          payload: '/inform{"trip_length":"extended"}'
 
   # Stage 2 of the built-in two-stage fallback. Saying only "I didn't follow"
   # leaves the user guessing what this bot is even for, so the second attempt

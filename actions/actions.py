@@ -2026,6 +2026,87 @@ class ActionAskTripPlanningFormDestination(Action):
         return []
 
 
+def _trip_to(tracker: Tracker) -> Text:
+    """' to Lisbon' when the destination is known, else '' — so a question can
+    refer back to the answer the user has already given."""
+    destination = str(tracker.get_slot("destination") or "").strip()
+    return f" to {destination.title()}" if destination else ""
+
+
+class ActionAskTripPlanningFormSustainabilityLevel(Action):
+    """Ask how much sustainability matters, with one button per level.
+
+    The preference questions are asked from Python for the same reason as the
+    destination question: the brief asks for buttons "generated dynamically
+    from custom action responses for destination and preference selection",
+    and Making a Bot Behave §3.2 says the Python version "is what the brief
+    actually asks for". The text names the options as well, because "people
+    type instead of clicking" (§3.3); validate_sustainability_level reads the
+    typed words.
+    """
+
+    def name(self) -> Text:
+        return "action_ask_trip_planning_form_sustainability_level"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[EventType]:
+        dispatcher.utter_message(
+            text=f"How important is sustainability for your trip{_trip_to(tracker)}? "
+                 "Low, medium or high?",
+            buttons=[
+                {"title": "Low", "payload": '/inform{"sustainability_level":"low"}'},
+                {"title": "Medium", "payload": '/inform{"sustainability_level":"medium"}'},
+                {"title": "High", "payload": '/inform{"sustainability_level":"high"}'},
+            ],
+        )
+        return []
+
+
+class ActionAskTripPlanningFormTransportPreference(Action):
+    """Asked only after "high" sustainability (required_slots, rule 1)."""
+
+    def name(self) -> Text:
+        return "action_ask_trip_planning_form_transport_preference"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[EventType]:
+        # "No flights" is what any_low_carbon does in _filter_modes.
+        dispatcher.utter_message(
+            text="You picked high sustainability — how do you want to get around? "
+                 "Train or bus only, or any low-carbon option (no flights)?",
+            buttons=[
+                {"title": "Train or bus only",
+                 "payload": '/inform{"transport_preference":"train_or_bus"}'},
+                {"title": "Any low-carbon option",
+                 "payload": '/inform{"transport_preference":"any_low_carbon"}'},
+            ],
+        )
+        return []
+
+
+class ActionAskTripPlanningFormTripLength(Action):
+    """Asked only on a budget under 500 EUR (required_slots, rule 2)."""
+
+    def name(self) -> Text:
+        return "action_ask_trip_planning_form_trip_length"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[EventType]:
+        dispatcher.utter_message(
+            text=f"With that budget, how long a trip{_trip_to(tracker)} do you have "
+                 "in mind? A weekend, one week, or longer?",
+            buttons=[
+                {"title": "Weekend", "payload": '/inform{"trip_length":"weekend"}'},
+                {"title": "One week", "payload": '/inform{"trip_length":"week"}'},
+                {"title": "Extended", "payload": '/inform{"trip_length":"extended"}'},
+            ],
+        )
+        return []
+
+
 class ActionDefaultFallback(Action):
     """Override Rasa's built-in `action_default_fallback`.
 
