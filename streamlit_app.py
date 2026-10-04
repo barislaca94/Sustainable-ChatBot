@@ -170,10 +170,13 @@ elif page == "Chat":
 
     # ---- Bot-sent buttons: only render for the LAST assistant reply ----
     button_input = None
+    # In a placeholder, so they can be cleared once a new message is sent:
+    # otherwise the previous question's buttons stay next to the new ones.
+    bot_buttons_area = st.empty()
     assistant_msgs = [m for m in st.session_state["messages"] if m.get("role") == "assistant"]
     if assistant_msgs and assistant_msgs[-1].get("buttons"):
         last_buttons = assistant_msgs[-1]["buttons"]
-        cols = st.columns(min(len(last_buttons), 3))
+        cols = bot_buttons_area.container().columns(min(len(last_buttons), 3))
         for i, b in enumerate(last_buttons):
             with cols[i % 3]:
                 # Include the message count in the key so re-shown buttons stay unique.
@@ -242,6 +245,7 @@ elif page == "Chat":
         display_text = None
 
     if user_input:
+        bot_buttons_area.empty()
         # Render + store user turn
         st.session_state["messages"].append({"role": "user", "content": display_text})
         with st.chat_message("user"):
@@ -266,9 +270,18 @@ elif page == "Chat":
                     if text.lstrip().startswith("🎫"):
                         st.session_state["handover_active"] = True
 
-        # A button click already triggered a rerun via Streamlit; typed input
-        # also triggers one implicitly. No manual st.rerun() needed here — that
-        # avoids the recursion problem we hit earlier.
+            # The bot-button block above ran before this reply existed, so
+            # the buttons the bot has just sent are drawn here, under the
+            # reply. Their keys are the ones the block above will compute on
+            # the next run (same message count), so a click is picked up there.
+            # st.rerun() is not used: it re-delivered the chat input and looped.
+            last = st.session_state["messages"][-1]
+            if last.get("role") == "assistant" and last.get("buttons"):
+                count = len(st.session_state["messages"])
+                cols = st.columns(min(len(last["buttons"]), 3))
+                for i, b in enumerate(last["buttons"]):
+                    with cols[i % 3]:
+                        st.button(b["title"], key=f"botbtn_{count}_{i}")
 
 elif page == "About":
     st.header("About")
@@ -298,7 +311,7 @@ elif page == "About":
           sustainability level; extra questions appear based on prior answers)
         - Bot-sent quick-reply buttons (form questions and follow-ups)
         - Community-supported local activity suggestions
-        - Verified carbon offset programs (Gold Standard, Atmosfair, Klima, myclimate)
+        - Carbon offset schemes listed as starting points, not endorsements
         - Two-stage clarification fallback + human handover with full context
         """
     )

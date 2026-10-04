@@ -1450,3 +1450,75 @@ def test_fallback_handover_is_honest_and_reverts_the_unknown_message():
     reply = texts(dispatcher)[0]
     assert reply.startswith("🎫 Ticket TR-") and "server log" in reply
     assert any(e["event"] == "rewind" for e in events)
+
+
+# --------------------------------------------------------------------------
+# Claims and colours the bot can back up; the last plan as context
+# --------------------------------------------------------------------------
+
+def test_trip_plan_card_is_neutral_without_a_carbon_figure(monkeypatch):
+    # No origin, so no transport comparison: the header must not be green.
+    dispatcher = CollectingDispatcher()
+    actions.ActionSubmitTripForm().run(
+        dispatcher, make_tracker(slots={"destination": "Kyoto", "budget": "900",
+                                        "sustainability_level": "high"}), {})
+    header = texts(dispatcher)[0]
+    assert header.startswith("ℹ️ Trip plan — Kyoto")
+
+
+def test_activities_carry_no_colour_band():
+    dispatcher = CollectingDispatcher()
+    actions.ActionSuggestActivities().run(
+        dispatcher, make_tracker(slots={"destination": "Kyoto"}), {})
+    assert not any(t.startswith(("🟢", "🟡", "🔴")) for t in texts(dispatcher))
+
+
+def test_offset_answer_lists_schemes_without_unsourced_claims():
+    dispatcher = CollectingDispatcher()
+    actions.ActionCarbonOffsetPrograms().run(dispatcher, make_tracker(), {})
+    reply = texts(dispatcher)[0]
+    for p in actions.CARBON_OFFSET_PROGRAMS:
+        assert p["name"] in reply and p["url"] in reply
+    assert actions.OFFSET_CAVEAT in reply
+    for claim in ("Verified", "WWF", "CDM", "strictest"):
+        assert claim not in reply
+
+
+LAST_TRIP = json.dumps({"destination": "Lisbon", "origin": "London"})
+
+
+def test_a_follow_up_without_a_city_uses_the_last_plan_and_says_so():
+    dispatcher = CollectingDispatcher()
+    actions.ActionSuggestEcoHotels().run(
+        dispatcher, make_tracker(slots={"last_trip_summary": LAST_TRIP}), {})
+    replies = texts(dispatcher)
+    assert replies[0] == "ℹ️ Using Lisbon from your trip plan."
+    assert any("Lisbon" in r for r in replies[1:])
+
+
+def test_a_city_in_a_slot_wins_over_the_last_plan():
+    dispatcher = CollectingDispatcher()
+    origin, destination = actions.place_in_context(
+        make_tracker(slots={"destination": "Kyoto", "last_trip_summary": LAST_TRIP}),
+        dispatcher)
+    assert (origin, destination) == (None, "Kyoto")   # the plan's origin is not borrowed
+    assert dispatcher.messages == []
+
+
+def test_the_last_plan_gives_the_origin_only_for_its_own_destination():
+    dispatcher = CollectingDispatcher()
+    assert actions.place_in_context(
+        make_tracker(slots={"last_trip_summary": LAST_TRIP}), dispatcher) == ("London", "Lisbon")
+    assert actions.place_in_context(
+        make_tracker(slots={"last_trip_summary": "not json"}), CollectingDispatcher()) == (None, None)
+
+
+def test_a_route_in_the_message_is_used_without_mentioning_the_last_plan(monkeypatch):
+    monkeypatch.setattr(actions, "approx_distance_result", lambda o, d: (344.0, actions.GEOCODE_OK))
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    dispatcher = CollectingDispatcher()
+    actions.ActionSuggestTransport().run(dispatcher, make_tracker(
+        slots={"last_trip_summary": LAST_TRIP},
+        latest_message={"text": "green transport from Berlin to Paris"}), {})
+    assert texts(dispatcher)[0].startswith("Berlin → Paris")
+    assert not any("trip plan" in t for t in texts(dispatcher))

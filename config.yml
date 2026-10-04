@@ -13,8 +13,8 @@ pipeline:
   #   - ResponseSelector only fires for retrieval intents (chitchat/FAQ with
   #     multiple example → multiple response variants). This bot uses rule-
   #     based response selection instead.
-  # Removing them shortens training time and simplifies the pipeline without
-  # any observable change in NLU behaviour.
+  # Removing them simplifies the pipeline without any observable change in NLU
+  # behaviour; training time did not change measurably (44.75 s vs 44.95 s).
   - name: WhitespaceTokenizer
   - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
@@ -26,8 +26,8 @@ pipeline:
   # random_seed: DIET, TED and UnexpecTED default to RANDOM_SEED None
   # (rasa/nlu/classifiers/diet_classifier.py:188-189, core/policies/
   # ted_policy.py:244), so two trainings on the same data differ and a
-  # before/after comparison mixes the change with noise. Every lecturer
-  # notebook fixes 42.
+  # before/after comparison mixes the change with noise. The lecturer
+  # notebooks fix a seed, 42 in most of them.
   - name: DIETClassifier
     epochs: 100
     constrain_similarities: true

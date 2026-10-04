@@ -212,7 +212,7 @@ class ActionGetWeather(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        city = tracker.get_slot("city_name") or tracker.get_slot("destination")
+        city = tracker.get_slot("city_name") or place_in_context(tracker, dispatcher)[1]
 
         if not city:
             dispatcher.utter_message(text="Which city would you like the weather for?")
@@ -793,32 +793,22 @@ def nearby_cultural_sites(city: str, limit: int = 4) -> List[Dict[str, Any]]:
     return sites
 
 
+# Offset schemes listed as starting points only. Names and addresses, no
+# ratings: the earlier "verified", "backed by WWF" and "CDM-certified" notes
+# had no source in this project, and the lecturer's Eco-Travel APIs README
+# says to say nothing about sustainability that cannot be evidenced.
 CARBON_OFFSET_PROGRAMS = [
-    {
-        "name": "Gold Standard",
-        "type": "Verified carbon credits (renewable energy, cookstoves, forestry)",
-        "url": "https://www.goldstandard.org",
-        "note": "One of the strictest offset standards, backed by WWF.",
-    },
-    {
-        "name": "Atmosfair",
-        "type": "Flight-focused offset via CDM-certified projects",
-        "url": "https://www.atmosfair.de",
-        "note": "German non-profit, strong on additionality reporting.",
-    },
-    {
-        "name": "Klima",
-        "type": "Consumer app for monthly carbon subscriptions",
-        "url": "https://klima.com",
-        "note": "Easy for individuals; portfolio of Gold Standard and VCS projects.",
-    },
-    {
-        "name": "myclimate",
-        "type": "Project-based offset (Swiss foundation)",
-        "url": "https://www.myclimate.org",
-        "note": "Transparent project catalogue, per-flight calculator.",
-    },
+    {"name": "Gold Standard", "url": "https://www.goldstandard.org"},
+    {"name": "Atmosfair", "url": "https://www.atmosfair.de"},
+    {"name": "Klima", "url": "https://klima.com"},
+    {"name": "myclimate", "url": "https://www.myclimate.org"},
 ]
+
+OFFSET_CAVEAT = (
+    "Listed as starting points, not endorsements: this assistant has not "
+    "checked their projects. Compare how each one certifies and reports its "
+    "projects on its own site before you pay."
+)
 
 
 # kg CO2e per passenger-km, used whenever Climatiq is unavailable.
@@ -1316,10 +1306,44 @@ def format_transport_option(option: Dict[Text, Any], recommended: bool = False) 
 
 
 COST_DISCLAIMER = (
-    "Costs are indicative averages per kilometre, not live fares — no free "
-    "fare API is available since Amadeus was decommissioned. Treat them as an "
-    "order of magnitude and check a booking site before deciding."
+    "Costs are indicative averages per kilometre, not live fares — no fare "
+    "source is connected (Amadeus, the planned one, was decommissioned). Treat "
+    "them as an order of magnitude and check a booking site before deciding."
 )
+
+
+def _last_trip(tracker: Tracker) -> Dict[Text, Any]:
+    """The last completed trip plan (last_trip_summary), or {}."""
+    raw = tracker.get_slot("last_trip_summary")
+    try:
+        trip = json.loads(raw) if isinstance(raw, str) else (raw or {})
+    except json.JSONDecodeError:
+        return {}
+    return trip if isinstance(trip, dict) else {}
+
+
+def place_in_context(tracker: Tracker,
+                     dispatcher: CollectingDispatcher) -> Tuple[Optional[Text], Optional[Text]]:
+    """(origin, destination) for a request that may not name the place.
+
+    The trip form clears its slots on submit, so that a second plan asks every
+    question again (Making a Bot Behave §6.3). The brief also asks for the
+    destination to persist across turns, so a follow-up such as "and hotels?"
+    falls back to the last completed plan, and the bot says so, which lets
+    the user correct it. A place named in the message or still in a slot
+    always wins. The origin is taken from the plan only when the destination
+    is the plan's own.
+    """
+    origin = tracker.get_slot("origin")
+    destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
+    trip = _last_trip(tracker)
+    planned = trip.get("destination")
+    if not destination and planned:
+        destination = planned
+        dispatcher.utter_message(text=f"ℹ️ Using {planned.title()} from your trip plan.")
+    if not origin and planned and destination and destination.lower() == planned.lower():
+        origin = trip.get("origin")
+    return origin, destination
 
 
 # =============================================================================
@@ -1339,7 +1363,7 @@ class ActionSuggestEcoHotels(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
+        _, destination = place_in_context(tracker, dispatcher)
 
         if not destination:
             dispatcher.utter_message(text="Which city are you looking for hotels in?")
@@ -1392,7 +1416,7 @@ class ActionDescribePlace(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
+        _, destination = place_in_context(tracker, dispatcher)
         if not destination:
             dispatcher.utter_message(text="Which place should I describe?")
             return []
@@ -1452,12 +1476,11 @@ class ActionSuggestTransport(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        origin = tracker.get_slot("origin")
-        destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
         latest = tracker.latest_message or {}
         route = route_from_text(latest.get("text"), latest.get("entities"))
-        if route:
-            origin, destination = route
+        # A route named in the message wins; only without one is the context
+        # (slots, then the last trip plan) consulted.
+        origin, destination = route or place_in_context(tracker, dispatcher)
 
         if not origin or not destination:
             dispatcher.utter_message(
@@ -1543,13 +1566,10 @@ class ActionCalculateCarbon(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        origin = tracker.get_slot("origin")
-        destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
         latest = tracker.latest_message or {}
         mode = resolve_mode(tracker.get_slot("transport_mode"), latest.get("text"))
         route = route_from_text(latest.get("text"), latest.get("entities"))
-        if route:
-            origin, destination = route
+        origin, destination = route or place_in_context(tracker, dispatcher)
 
         if not origin or not destination:
             dispatcher.utter_message(
@@ -1609,7 +1629,7 @@ class ActionSuggestActivities(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        destination = tracker.get_slot("destination") or tracker.get_slot("city_name")
+        _, destination = place_in_context(tracker, dispatcher)
 
         if not destination:
             dispatcher.utter_message(text="Which city are you interested in?")
@@ -1628,7 +1648,8 @@ class ActionSuggestActivities(Action):
             return []
 
         if acts:
-            lines = [f"🟢 Community-friendly, low-impact activities in {destination.title()}:"]
+            # No colour band: there is no carbon figure behind this list.
+            lines = [f"Community-friendly, low-impact activities in {destination.title()}:"]
             lines.extend(f"• {a}" for a in acts)
             lines.append(ACTIVITIES_CAVEAT)
             dispatcher.utter_message(text="\n".join(lines))
@@ -1659,9 +1680,10 @@ class ActionCarbonOffsetPrograms(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        lines = ["Verified carbon offset programs:"]
+        lines = ["Carbon offset schemes you could look at:"]
         for p in CARBON_OFFSET_PROGRAMS:
-            lines.append(f"🟢 {p['name']} — {p['type']} ({p['url']}). {p['note']}")
+            lines.append(f"• {p['name']} ({p['url']})")
+        lines.append(OFFSET_CAVEAT)
         lines.append(
             "Ethical caveat: offsets should complement, not replace, choosing low-emission travel in the first place."
         )
@@ -1824,7 +1846,11 @@ class ActionSubmitTripForm(Action):
             )
 
         best = travel_options[0] if travel_options else None
-        header_band = best["band"] if best else "🟢"
+        # The card colour comes from the carbon figure of the recommended mode
+        # (brief: the card is "driven by the carbon score"). With no figure —
+        # no origin, or the map service down — the card is a neutral info box,
+        # not a green one that would suggest a low-emission result.
+        header_band = best["band"] if best else "ℹ️"
 
         summary = [
             f"{header_band} Trip plan — {destination.title()}"
@@ -1906,7 +1932,8 @@ class ActionSubmitTripForm(Action):
             dispatcher.utter_message(text="\n".join(lines))
 
         top_offset = CARBON_OFFSET_PROGRAMS[0]
-        offset_line = f"Suggested offset: {top_offset['name']} ({top_offset['url']})."
+        offset_line = (f"If you offset, compare schemes first, for example "
+                       f"{top_offset['name']} ({top_offset['url']}) — not an endorsement.")
         if best:
             offset_line += (
                 " Offsetting is a last step, though — the mode you pick matters more."
