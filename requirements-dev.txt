@@ -1,4 +1,4 @@
 # Development-only dependencies. Not installed in any Docker image.
 #   pip install -r requirements-dev.txt
 #   pytest tests/test_actions.py -v
-pytest>=7.0,<9.0
+pytest==8.4.2

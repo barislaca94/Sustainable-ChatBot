@@ -1,426 +1,265 @@
 # Eco-Travel Advisor
 
-A conversational sustainable-tourism planner built on **Rasa 3.6** and
-**Streamlit**. The bot elicits trip details through an adaptive multi-turn
-form, ranks accommodation by proxy sustainability signals from
-OpenStreetMap, computes per-transport-mode carbon footprints, and escalates
-to a human advisor with full conversation context when it cannot help.
+A conversational sustainable-travel planner built with **Rasa Open Source 3.6** and
+**Streamlit**. The bot gathers trip details through an adaptive multi-turn form,
+compares transport modes by carbon and estimated cost, ranks places to stay by
+proxy sustainability signals from OpenStreetMap, and hands the conversation to a
+human advisor, with its full context, when it cannot help.
 
-Built as the assessment for the MSc AI module *Advanced Conversational UI
-Design & Chatbot Development* (BSBI Berlin / University for the Creative
-Arts, cohort G1).
+Built for the MSc AI module *Advanced Conversational UI Design & Chatbot
+Development* (BSBI Berlin). The report that accompanies this repository describes
+the design, the evaluation and its limitations in full.
 
 ---
 
-## Quick start (local development)
+## Quick start (local, no Docker)
 
-Prerequisites:
-- macOS or Linux (Windows works but examples below use bash / zsh syntax)
-- Python 3.10
-- `pip`
-- Optional: Docker Desktop 24+
+Requirements: Python 3.10 and `pip` (macOS or Linux shown; Windows works with the
+usual path changes). A trained model is included in `models/`, so no training is
+needed to run the bot.
 
 ```bash
-# 1. Create and activate the virtual environment
+# 1. Virtual environment and dependencies (exact versions are pinned)
 python3.10 -m venv rasa-env
 source rasa-env/bin/activate
+pip install -r requirements-rasa.txt -r requirements-actions.txt -r requirements-streamlit.txt
 
-# 2. Install everything (three requirement files split by service concern)
-pip install -r requirements-rasa.txt
-pip install -r requirements-actions.txt
-pip install -r requirements-streamlit.txt
+# 2. Optional: a Climatiq key for live carbon figures (see below)
+cp .env.example .env
 
-# 3. Train the model
-rasa train
+# 3. Start the three processes, each in its own terminal
+rasa run --endpoints endpoints.yml --model models/20261004-141855-sparse-octagon.tar.gz   # 5005
+rasa run actions                                                                          # 5055
+streamlit run streamlit_app.py                                                            # 8501
 
-# 4. Pre-fetch OpenStreetMap POI data (optional, one-off)
-python scripts/fetch_pois.py
-
-# 5. Start the three processes — each in a separate terminal
-rasa run --enable-api --cors "*" --endpoints endpoints.yml   # 5005
-rasa run actions                                             # 5055
-streamlit run streamlit_app.py                               # 8501
-
-# 6. Open http://localhost:8501
+# 4. Open http://localhost:8501 and choose "Chat" in the sidebar
 ```
 
----
+Retrain only if you change `config.yml`, `domain.yml` or anything in `data/`:
+`rasa data validate && rasa train`, then pass the new model to `--model`.
 
-## Quick start (Docker)
+## Quick start (Docker Compose)
 
 ```bash
-cp .env.example .env      # optional; only needed for Climatiq
+cp .env.example .env      # required: docker-compose.yml reads it (the key inside is optional)
 docker compose up --build
-# → http://localhost:8501
+# then open http://localhost:8501
 ```
 
-Three services come up together on an internal bridge network:
+| Service     | Port | Published on the host | What it does |
+|-------------|-----:|:---:|---|
+| `streamlit` | 8501 | yes | Chat UI: bot-sent buttons, colour-coded cards, handover banner |
+| `rasa`      | 5005 | no  | NLU + dialogue management, REST channel `/webhooks/rest/webhook` |
+| `actions`   | 5055 | no  | Custom actions and external API calls |
 
-| Service     | Port | What it does                                       |
-|-------------|-----:|----------------------------------------------------|
-| `streamlit` | 8501 | Chat UI, renders bot-sent buttons, colour cards    |
-| `rasa`      | 5005 | NLU + Core + REST webhook (`/webhooks/rest/webhook`) |
-| `actions`   | 5055 | Custom Python actions, external API calls          |
+Only the UI is reachable from outside; Rasa and the action server talk on the
+internal compose network. Rasa runs **without** `--enable-api`: the chat webhook
+works without it, while the HTTP API has no authentication by default and would let
+anyone read a conversation or replace the model. No `--cors` is set because only the
+Streamlit server, never a browser, calls Rasa.
 
-Retrain the model on the host before rebuilding if you change any `*.yml`.
+> The Docker files were written and reviewed but not run on the development
+> machine, which has no Docker installation. The action server's start command and
+> pinned requirements were checked in a clean virtual environment with only
+> `requirements-actions.txt` installed.
 
 ---
 
 ## Architecture
 
 ```
-                  ┌─────────────────────────────┐
-                  │  Streamlit chat UI (8501)   │
-                  │  colour cards, button       │
-                  │  render, handover banner    │
-                  └──────────────┬──────────────┘
-                                 │ HTTP POST /webhooks/rest/webhook
-                                 ▼
-    ┌───────────────────────────────────────────────────────────┐
-    │  Rasa Core + NLU (5005)                                   │
-    │  - DIETClassifier (WhitespaceTokenizer + Regex /          │
-    │    LexicalSyntactic / CountVectors featurisers)           │
-    │  - FallbackClassifier (threshold 0.4)                     │
-    │  - RulePolicy + TEDPolicy + UnexpecTEDIntentPolicy        │
-    │  - Two-stage fallback → action_default_fallback           │
-    └──────────────┬────────────────────────────────────────────┘
-                   │ POST /webhook  (custom action decisions)
-                   ▼
-    ┌───────────────────────────────────────────────────────────┐
-    │  Actions server (5055)                                    │
-    │  - ValidateTripPlanningForm (adaptive required_slots +    │
-    │    per-slot validators)                                   │
-    │  - ActionSuggestEcoHotels (OSM proxy signals, no false    │
-    │    certification claims)                                  │
-    │  - ActionDescribePlace (Wikipedia REST)                   │
-    │  - ActionHumanHandover (full transcript + intent bundle)  │
-    │  - ...9 more                                              │
-    └──────────────┬────────────────────────────────────────────┘
-                   │
-    ┌──────────────┴────────┬────────────────┬─────────────────┐
-    │ Nominatim             │ Open-Meteo     │ Frankfurter     │
-    │ (geocoding, live)     │ (weather)      │ (currency)      │
-    │                       │                │                 │
-    │ Wikipedia REST        │ Overpass       │ Climatiq        │
-    │ (place summary)       │ (POI, OFFLINE  │ (carbon, live;  │
-    │                       │  pre-fetched   │  local BEIS     │
-    │                       │  to JSON)      │  table if down) │
-    └───────────────────────┴────────────────┴─────────────────┘
+  Streamlit UI (8501)  -- POST /webhooks/rest/webhook -->  Rasa (5005)
+  renders bot buttons,                                     NLU: WhitespaceTokenizer, RegexFeaturizer,
+  colour cards,                                            LexicalSyntacticFeaturizer, CountVectors
+  handover banner                                          (word + char_wb 1-4), DIETClassifier,
+                                                           FallbackClassifier (0.70 / ambiguity 0.1),
+                                                           SafetyGate (custom, deterministic)
+                                                           Core: RulePolicy, MemoizationPolicy,
+                                                           TEDPolicy, UnexpecTEDIntentPolicy
+                                                                  |
+                                                                  | POST /webhook
+                                                                  v
+                                                           Action server (5055), actions/actions.py
+                                                           adaptive trip form, transport and carbon
+                                                           ranking, hotels, activities, place
+                                                           descriptions, weather, currency,
+                                                           clarification and human handover
+                                                                  |
+        Nominatim (live) · Open-Meteo (live) · Frankfurter (live) · Wikipedia (live)
+        Climatiq (live, local table as fallback) · Overpass (pre-fetched to data/eco_data/)
 ```
 
-Rasa's own file processing order at training time: `config.yml` → `domain.yml`
-→ `data/nlu.yml` → `data/rules.yml` → `data/stories.yml`. At runtime the
-Streamlit UI POSTs JSON to the Rasa REST endpoint; Rasa's policies pick the
-next action; custom actions are dispatched to the actions server over the
-`action_endpoint` URL defined in `endpoints.yml` (or `endpoints.docker.yml`
-for compose).
+Main behaviours, with the course material they follow:
+
+- **Adaptive form** (`ValidateTripPlanningForm.required_slots`): destination,
+  origin, dates, budget and sustainability level are always asked; transport
+  preference only after "high" sustainability, trip length only on a budget under
+  500 EUR. Free-text answers are validated and re-asked when unusable.
+- **Buttons generated by custom actions**: the destination question offers the
+  cities with pre-fetched data; the preference questions are also asked by
+  `action_ask_trip_planning_form_*` actions. Preference buttons send
+  `/inform{...}` payloads, so a click skips NLU.
+- **Two-stage clarification**: a low-confidence message gets the classifier's two
+  best guesses as readable buttons, then a rephrase request with the bot's scope,
+  then a human handover.
+- **Human handover** (`action_human_handover`): a ticket with collected slots, the
+  last trip plan, the last intent and its confidence, and the recent transcript.
+  In this demo the package is written to the action server's log; no ticketing
+  system or human advisor is connected, and the bot says so.
+- **Safety**: a deterministic gate (`components/safety_gate.py`,
+  `data/safety_patterns.yml`) rejects empty or over-long input and routes visa,
+  health and safety questions and abuse to fixed replies. It is conservative and
+  incomplete by design; the NLU intents remain a second layer.
+- **Follow-up context**: a request that names no place ("and hotels?") uses the
+  destination of the last completed plan and says so.
 
 ---
 
-## External APIs used
+## External APIs
 
-Following the module's revised API guidance (see `Checks/README.md` — Amadeus
-for Developers was decommissioned on 17 July 2026):
+Amadeus, named in the assignment brief, was decommissioned on 17 July 2026; the
+module's Eco-Travel APIs guide lists the replacements used here.
 
-| API              | Key required | Rate limit               | Called from                      |
-|------------------|:------------:|--------------------------|----------------------------------|
-| **Nominatim**    | No           | 1 req/sec, User-Agent    | Live from actions server         |
-| **Overpass**     | No           | Best-effort              | **Offline** — see below          |
-| **Wikipedia**    | No           | Generous                 | Live from actions server         |
-| **Open-Meteo**   | No           | Generous                 | Live from actions server         |
-| **Frankfurter**  | No           | Generous                 | Live from actions server         |
-| **Climatiq**     | Yes (free)   | 2,500 calls/month (free) | Live per-mode carbon, with fallback |
+| API          | Key | Use | Called |
+|--------------|:---:|---|---|
+| Nominatim    | no  | geocoding | live, at most 1 request/second, identifying User-Agent |
+| Overpass     | no  | hotels, transit stops, attractions | **offline**: `scripts/fetch_pois.py` writes `data/eco_data/*.json` |
+| Wikipedia    | no  | place summaries | live |
+| Open-Meteo   | no  | weather | live |
+| Frankfurter  | no  | exchange rates | live |
+| Climatiq     | yes (free tier) | carbon per transport mode | live, with a local factor table as fallback |
 
-Nominatim and Overpass are volunteer-funded and require an identifying
-User-Agent. This project sets `EcoTravelAdvisor/1.0 (barislaca94@gmail.com)`;
-change it in `actions/actions.py` (`USER_AGENT`) and
-`scripts/fetch_pois.py` if you fork the repo.
+Overpass is never called during a conversation: retries can take far longer than
+the brief's three-second target, so the data is fetched ahead of time. Set
+`ECO_USER_AGENT` in `.env` to your own contact address if you run or fork the bot.
 
-### Why Overpass is pre-fetched, not called live
+**Carbon figures.** `estimate_carbon()` sends one batched Climatiq request per
+answer (2.5 s timeout, results cached per mode and distance). Without a key, or if
+the call fails, the local table (`EMISSION_FACTORS`, BEIS 2023 / Our World in Data)
+answers instead, and every reply names the source it used.
+`python scripts/climatiq_check.py` compares the two per mode.
 
-The assignment brief requires responses "under three seconds for critical
-interactions." Overpass frequently returns `504 Gateway Timeout` or blocks
-under load. Running Overpass live from a conversation turn would violate
-that latency budget. Instead, `scripts/fetch_pois.py` queries Overpass once
-per supported city and writes the results to
-`data/eco_data/<city>_(hotels|transit|attractions).json`. The actions
-server reads those JSON files at request time.
-
-Re-run the script when the supported city list changes:
-
-```bash
-python scripts/fetch_pois.py                       # everything
-python scripts/fetch_pois.py Copenhagen Oslo Paris # subset
-```
-
-### Carbon figures: Climatiq, with a local fallback
-
-`estimate_carbon()` in `actions/actions.py` batches one Climatiq request per
-answer (2.5 s timeout, results cached per mode and rounded distance). If
-`CLIMATIQ_API_KEY` is unset, or the call fails, the local `EMISSION_FACTORS`
-table answers instead. Either way the reply names the source it used, so a
-local average is never presented as a live lookup.
-
-```bash
-cp .env.example .env         # then paste your key into CLIMATIQ_API_KEY
-python scripts/climatiq_check.py
-```
-
-`climatiq_check.py` estimates 100 passenger-km for every mode and prints the
-Climatiq figure next to the local one. Activity IDs are version-specific, so
-when Climatiq retires one the script searches for replacements and prints the
-candidates. Verified against data version `^21` on 2026-09-16:
-
-| Mode | Climatiq (per 100 pkm) | Local table | Source |
-|---|---:|---:|---|
-| Train | 3.09 kg | 3.10 kg | BEIS |
-| Bus (coach factor) | 3.95 kg | 4.00 kg | BEIS |
-| Car | 16.42 kg | 16.40 kg | UBA |
-| Flight, short haul | 12.58 kg | 12.60 kg | BEIS |
-| Flight, long haul | 11.70 kg | 12.60 kg | BEIS |
-
-Two deliberate choices sit behind that table. `bus` maps to Climatiq's
-*coach* factor, because the local-bus factor models urban stop-start driving
-rather than the city-to-city journeys this bot compares. Flights switch
-activity ID at 3,700 km: BEIS publishes separate short- and long-haul
-factors, and the undifferentiated average understates a short hop by about a
-third.
+**Costs** are indicative per-kilometre averages, not fares: no fare source is
+connected. Every answer that shows a price says so.
 
 ---
 
-## Sustainability & ethics
+## Sustainability and ethics
 
-The assignment brief flags **greenwashing** as an ethical risk in tourism
-tech. This bot addresses that risk explicitly:
-
-- Hotel data comes from OpenStreetMap, which does **not** carry reliable
-  eco-certification tags. The bot **never** claims a specific property is
-  certified.
-- Instead it computes and displays *proxy* signals: distance to the nearest
-  **rail, metro or tram** stop, room count (small = smaller footprint per
-  stay), and presence/absence of a `parking` tag.
-- Rail distance is graded (under 300 m / 800 m / 1500 m) rather than a single
-  threshold. An earlier version counted any `public_transport=stop_position`
-  node, which meant a bus stop 20 m away — something nearly every city-centre
-  hotel has — and every hotel scored the same. Measuring tag coverage across
-  the cached cities showed `parking` present on under 2% of hotels, so it
-  almost never contributes; `stars` (37%) is used only as a price proxy, and
-  `wheelchair` (42%) is reported for accessibility but never scored.
-- Missing tags never lower a score. OSM omissions are far more common than
-  OSM falsehoods, so absence is treated as unknown, not as a negative.
-- Every hotel response ends with an explicit disclaimer stating the
-  signals are proxies and pointing users to independent certification
-  sources (Green Key, EU Ecolabel, LEED).
-- Carbon offset suggestions link to verified programmes (Gold Standard,
-  Atmosfair, myclimate, Klima) and remind the user that offsets should
-  *complement* low-emission choices, not replace them.
-
-Data privacy: the bot keeps conversation state in Rasa's in-memory
-tracker store for a single session. No persistent user data is written to
-disk beyond the on-host trained model. The handover package printed to the
-actions log is intended to be forwarded to a Slack/Zendesk-style ticketing
-system in production; the demo prints it to stdout so it can be reviewed
-without external services.
+- OpenStreetMap carries almost no eco-certification data, so the bot **never**
+  calls a hotel certified. It ranks hotels by proxy signals (distance to rail,
+  metro or tram; small scale; no car park), says they are proxies, and points to
+  independent certification schemes. Missing tags never lower a score.
+- Colour bands are always paired with words ("Low emission"), so colour is never
+  the only carrier of meaning. A trip-plan card without a carbon figure is a
+  neutral info box.
+- Offset schemes are listed by name and address as starting points, not
+  endorsements, with the caveat that offsets complement, not replace, low-emission
+  choices.
+- **Privacy**: conversation state lives in Rasa's in-memory tracker store and is
+  lost on restart; nothing is written to a database. A handover writes the
+  conversation summary to the action server's log, which a real deployment would
+  have to treat as personal data (GDPR). The bot never asks for payment or
+  passport details.
 
 ---
 
-## Testing
+## Evaluation
 
-### NLU cross-validation
+The NLU numbers below are from the report's measurement protocol. Validation and
+test numbers are kept apart: the dev sets and cross-validation were used for every
+choice; the frozen final test set was run once, on 2026-10-04, after all choices
+were made.
 
-```bash
-rasa test nlu --cross-validation --folds 3
-```
+| What | Result |
+|---|---|
+| Paired 3×3 cross-validation, 544 examples, macro F1 (validation) | DIET 0.673 · TF-IDF word + LR 0.524 · TF-IDF word + char + LR 0.645 (gate off); DIET 0.700 with the SafetyGate |
+| Final test, 92 sentences, classifier level (official) | accuracy 0.793 · macro F1 0.796 · request_human_advisor recall 6/6 · 13 of 20 intents reach F1 ≥ 0.85 |
+| Final test, bot decisions at threshold 0.70 (official) | 64 of 84 in-scope requests answered, 92.2% of them correctly; 23.8% sent to clarification |
 
-Artefacts land under `results/`:
+The official numbers belong to model `20261003-172117-obvious-link`. The served
+model, `20261004-141855-sparse-octagon`, differs only in the dialogue layer (the
+preference buttons were moved into custom actions after the final test); its NLU
+component files are byte-identical. The final test files (`tests/final_test*.yml`)
+are pinned by SHA-256 in `tests/test_actions.py` and must never be used for
+training or tuning. Button clicks skip NLU, so these figures describe typed input.
 
-- `intent_report.json` — per-intent precision / recall / F1
-- `intent_confusion_matrix.png`
-- `intent_histogram.png` — confidence distribution
-- `DIETClassifier_*` — entity extraction metrics
-
-Current figures (model `20260917-115128-vintage-clone`): **0.721 mean
-accuracy** over three 3-fold runs. Repeating the same command on the same data
-varies by up to 0.049, so single-run comparisons are meaningless at this
-corpus size. The figure is lower than earlier phases (0.772) because two
-deliberately broad intents were added — `off_topic` and `bot_challenge` — at
-the same time as user-facing behaviour improved; `evaluation/README.md`
-explains that trade-off and records every run.
-
-### Dialogue smoke test
-
-```bash
-rasa run actions &                                  # the script uses the real action server
-python scripts/dialogue_smoke.py models/<model>.tar.gz
-```
-
-Drives whole conversations through `Agent.handle_text` — the code path the
-server uses — and fails a turn that is slow, silent, or missing its expected
-reply. A turn over 30 seconds dumps every thread's Python stack and aborts.
-
-It exists because of a bug no other test could see. `core_fallback_action_name`
-was set to `action_two_stage_fallback`, a loop meant for messages the NLU did
-not understand. When a message *was* understood but no rule covered it — "What
-is 2+2" is classified as `inform` — that loop activated, found nothing to
-clarify, closed without replying, and was chosen again: 255 times in 25
-seconds, until the chat UI gave up. NLU tests only classify, `rasa test core`
-replays stories without the live prediction loop, and the unit tests stub
-Rasa out entirely. The fix is `action_core_fallback`, which answers once and
-rewinds the message.
-
-### NLU regression set
-
-Cross-validation can only test phrasings that are already in the training
-data, which is exactly why it missed the regression that prompted this suite:
-adding training examples to three weak intents made `"How are you"` classify
-as `goodbye` with 0.91 confidence, because five of the new `goodbye` examples
-contained the word "you". No metric moved, because the phrase was nowhere in
-the corpus.
-
-`tests/nlu_regression.yml` is a held-out set of realistic phrasings — the ones
-that broke, plus normal task requests, plus genuinely off-topic messages. It
-is never trained on.
-
-```bash
-rasa test nlu --nlu tests/nlu_regression.yml \
-              --model models/<model>.tar.gz \
-              --out results/regression
-```
-
-### Unit tests
+### Running the tests
 
 ```bash
 pip install -r requirements-dev.txt
-pytest tests/test_actions.py -v
+pytest tests/test_actions.py -q          # 176 unit tests, no network (all APIs stubbed)
+rasa test core --stories tests/test_stories.yml --model models/20261004-141855-sparse-octagon.tar.gz
+rasa run actions &                       # the smoke test uses the real action server
+python scripts/dialogue_smoke.py models/20261004-141855-sparse-octagon.tar.gz
 ```
 
-86 tests, no network: Nominatim, Open-Meteo, Frankfurter, Wikipedia and
-Climatiq are all stubbed. Every API-backed action is checked three ways — a
-normal answer, a transport failure, and a malformed body — because the brief
-requires each action to handle failed API responses rather than crash. The
-adaptive form branches are tested here, by calling `required_slots()`
-directly (see the note below on why the story tests cannot do it).
+- **Unit tests** check every API-backed action three ways (normal answer,
+  transport failure, malformed body), the form's adaptive branches, the safety
+  gate, and that the dev and final test sets share no sentence with the training
+  data.
+- **Story tests**: `tests/test_stories.yml` holds 19 stories; `rasa test core`
+  reports 16, because inside a form every turn predicts the same action, so the
+  adaptive-branch stories collapse into one (the branches are unit-tested
+  instead). Result on the served model: 16/16 stories, 61/61 actions.
+- **Smoke test**: 64 turns through `Agent.handle_text`, failing any turn that is
+  slow (> 3 s), silent or wrong. One turn fails, a privacy question that goes to
+  clarification (known limitation below).
 
-### Dialogue tests
-
-Eleven story tests in `tests/test_stories.yml` cover the adaptive form
-branches, the two-stage clarification loop, trip plan → human handover,
-Wikipedia → hotels, weather → activities, carbon → offset, and a
-course-companion regression check.
-
-```bash
-rasa test core --stories tests/test_stories.yml
-```
-
-Outputs: `results/story_report.json`, `results/story_confusion_matrix.png`,
-`results/failed_test_stories.yml`.
-
-`rasa test core` reports **8** stories from the 11 written, and that is worth
-understanding rather than papering over. It evaluates predicted *actions*;
-inside a form the predicted action is always `trip_planning_form`, and which
-question the form asks next is decided by `required_slots()` on the action
-server — which this command never runs. The four adaptive-branch stories are
-therefore identical from its point of view and get collapsed into one. They
-document the branches; `tests/test_actions.py` tests them.
-
-### Frozen results
-
-`results/` is overwritten by every `rasa test` run, so each evaluation the
-report cites is copied into `evaluation/<name>/`. See `evaluation/README.md`
-for what each snapshot represents.
+Measurement scripts: `threshold_sweep.py` (fallback threshold on the dev sets),
+`safety_gate_report.py`, `baseline_tfidf_lr.py`, `cv_compare.py`, `cv_epochs.py`,
+`cv_min_ngram.py`, `final_test_decisions.py`; each documents its usage at the top.
 
 ---
-
-## When the bot does not understand
-
-Three stages, each of which admits plainly that the bot did not follow — and
-then says what it *can* do, so the user is not left guessing:
-
-1. **Clarification.** `action_default_ask_affirmation` offers DIET's top two
-   guesses as buttons with readable labels ("When assignments are due", not
-   `ask_deadlines`), plus "Plan a sustainable trip" and "None of these".
-2. **Rephrase.** `utter_ask_rephrase` lists what the bot handles and offers
-   the three most common tasks as buttons.
-3. **Human handover.** `action_default_fallback` escalates with the full
-   conversation context, as the brief requires.
-
-A message the bot recognises as off-topic ("what is 17 times 34", "tell me a
-joke") skips the guessing and goes straight to the scope explanation, via the
-`off_topic` intent. That intent is kept separate from `out_of_scope`, which
-Rasa's two-stage fallback reserves for the "None of these" denial inside the
-clarification loop.
-
-`FallbackClassifier.threshold` was raised from 0.4 to 0.6 on the evidence in
-`scripts/threshold_sweep.py`: across 56 held-out in-scope messages the lowest
-correct prediction scores 0.91, so the higher cut-off costs nothing, while
-messages the bot should not answer score far lower.
-
-```bash
-python scripts/threshold_sweep.py models/<model>.tar.gz
-```
 
 ## Known limitations
 
-- **Copenhagen and Oslo POI data missing.** Overpass returned SSL errors on
-  the initial fetch. Re-run `python scripts/fetch_pois.py Copenhagen Oslo`
-  when the Overpass API is stable. The action degrades gracefully with a
-  friendly "run the pre-fetch script" message for missing cities.
-- **`ask_place_description` intent F1 is low** (~0.12 on cross-validation).
-  Its "tell me about X" phrasing overlaps `ask_about_tool`. Adding a dozen
-  more disambiguating training examples would improve this considerably.
-- **Ticket prices are estimates, not fares.** Amadeus was decommissioned and
-  no free API returns per-route fares, so `EST_COST_EUR_PER_KM` holds average
-  European costs per kilometre. Every answer that shows a price says so.
-- **Carbon falls back silently in one sense only.** If Climatiq is
-  unreachable, the local table answers instead — the figures stay close
-  (both derive from BEIS 2023) and the reply names the source that was
-  actually used, but it is an average rather than a live lookup.
-- **Handover is a demo stub.** The full context package is printed to the
-  actions server log; a real deployment would post it to Slack, Zendesk or
-  an email queue. See `_build_handover_package()` in `actions/actions.py`.
+- Weak intents on the final test: `ask_currency` (currency names rather than ISO
+  codes), `inform` without context, `bot_challenge` / `off_topic` on personal
+  questions to the bot. These were not tuned on the test set; they are reported.
+- Privacy questions phrased as questions about the bot can go to clarification
+  instead of the privacy answer.
+- Hotel data exists for Amsterdam, Barcelona, Berlin, Kyoto, Lisbon and Paris;
+  Paris has no pre-fetched attractions. Activity ideas also cover Copenhagen and
+  Oslo, which have no hotel data.
+- The first question about a new route can exceed three seconds while Nominatim
+  and Climatiq are called; repeated questions are served from an in-process cache.
+- The handover is a demo: the package goes to a log, not to a person.
+- Streamlit is a prototype UI, as the brief notes; there is no hotel carousel and
+  no voice input.
 
 ---
 
-## Deployment notes (HuggingFace Spaces)
+## Data sources and licences
 
-The module recommends HuggingFace Spaces Docker SDK for hosting. Adapting
-`docker-compose.yml` to a single-container Space is straightforward: use a
-supervisord (or a tiny bash wrapper) to run `rasa run actions &` and
-`rasa run --enable-api ... &` in the same container, then `streamlit run`
-in the foreground. Set `RASA_URL=http://localhost:5005/...` inside that
-container.
-
-For a multi-container hosting environment (Fly.io, Railway,
-Docker-in-Docker VMs), the current three-service compose file works
-unchanged; expose only the `streamlit` service publicly.
+- `data/eco_data/*.json` contain data from **OpenStreetMap**, © OpenStreetMap
+  contributors, available under the Open Database License (ODbL):
+  https://www.openstreetmap.org/copyright. The extracts are distributed here under
+  the same licence.
+- `data/nlu_public.yml`: user messages from CLINC150 (Larson et al., 2019;
+  CC BY 3.0) and MultiWOZ 2.2 (MIT licence); `data/nlu_sgd.yml`: user turns from
+  the Schema-Guided Dialogue dataset (Rastogi et al., 2020; CC BY-SA 4.0, and that
+  file is distributed under the same licence). Full references, DOIs and the
+  changes made are in each file's header.
 
 ---
 
 ## Repository layout
 
-See `HANDOFF.md` for the full file map and rationale. Short version:
-
 ```
-config.yml                # NLU pipeline + policies
-domain.yml                # intents, entities, slots, form, responses, buttons
-data/nlu.yml              # training examples
-data/rules.yml            # deterministic intent → action
-data/stories.yml          # multi-turn dialogue paths
-data/eco_data/*.json      # pre-fetched OSM POIs
-actions/actions.py        # 13 custom actions + helpers
-scripts/fetch_pois.py     # Overpass pre-fetch tool
-streamlit_app.py          # UI
-tests/test_stories.yml    # story tests
-Dockerfile.rasa           # + Dockerfile.actions, Dockerfile.streamlit
-docker-compose.yml
-endpoints.yml             # local dev (localhost:5055)
-endpoints.docker.yml      # compose (actions:5055)
+config.yml, domain.yml        NLU pipeline and policies; intents, slots, form, responses
+data/                         training data (nlu*.yml), rules, stories, safety patterns, OSM extracts
+actions/actions.py            custom actions (19 classes, incl. the form validator)
+components/safety_gate.py     deterministic input and safety gate (custom NLU component)
+models/                       the served model
+streamlit_app.py              chat UI
+tests/                        unit tests, story tests, dev sets, frozen final test set
+scripts/                      data fetching, measurement and smoke-test scripts
+Dockerfile.*, docker-compose.yml, endpoints.docker.yml   containers
+endpoints.yml, credentials.yml                           local Rasa configuration
 ```
-
----
 
 ## Credit
 
-Assignment: *Eco-Travel Advisor — Conversational Agent for Sustainable
-Tourism Planning using the Rasa Platform*. Course leader: Dr. Abdelaziz
-Triki. Author: Baris Alaca (MSc AI, BSBI Berlin, cohort G1).
+Assignment: *Eco-Travel Advisor — Conversational Agent for Sustainable Tourism
+Planning using the Rasa Platform*, BSBI Berlin. Author: Baris Alaca.

@@ -21,4 +21,6 @@ COPY data/eco_data/ data/eco_data/
 
 EXPOSE 5055
 
-CMD ["rasa", "run", "actions", "-p", "5055"]
+# The image installs rasa-sdk only, which has no `rasa` command; this is the
+# SDK's own entry point.
+CMD ["python", "-m", "rasa_sdk", "--actions", "actions", "--port", "5055"]

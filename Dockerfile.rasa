@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# System build deps needed by Rasa's Python dependencies (tensorflow, spaCy).
+# Build tools for Rasa's Python dependencies; curl for the healthcheck.
 RUN apt-get update && apt-get install -y --no-install-recommends \
       build-essential \
       curl \
@@ -16,16 +16,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements-rasa.txt .
 RUN pip install --upgrade "pip<25" && pip install -r requirements-rasa.txt
 
-# Rasa project files. Model directory is expected to contain a trained model
-# (`.tar.gz`); if absent, mount a volume or run `rasa train` before start.
 COPY config.yml domain.yml endpoints.docker.yml credentials.yml ./
+# data/safety_patterns.yml is read by the SafetyGate component when the model loads.
 COPY data/ data/
-# Custom NLU component referenced in config.yml (SafetyGate); it reads
-# data/safety_patterns.yml, which the line above already copies.
+# Custom NLU component referenced in config.yml (SafetyGate).
 COPY components/ components/
-COPY models/ models/
+# Only the served model, named explicitly: Rasa would otherwise load whichever
+# model in models/ is newest.
+COPY models/20261004-141855-sparse-octagon.tar.gz models/
 
 EXPOSE 5005
 
-CMD ["rasa", "run", "--enable-api", "--cors", "*", \
-     "--endpoints", "endpoints.docker.yml", "-i", "0.0.0.0", "-p", "5005"]
+# No --enable-api: the chat webhook (/webhooks/rest/webhook) works without it,
+# while the HTTP API would let anyone read any conversation's tracker or
+# replace the model (Rasa has no authentication unless a token is set).
+# No --cors: only the Streamlit server calls Rasa, never a browser.
+CMD ["rasa", "run", "--endpoints", "endpoints.docker.yml", \
+     "--model", "models/20261004-141855-sparse-octagon.tar.gz", \
+     "-i", "0.0.0.0", "-p", "5005"]

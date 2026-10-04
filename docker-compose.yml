@@ -1,18 +1,16 @@
 # Local orchestration of the three services making up the Eco-Travel Advisor.
 #
 # Usage:
+#   cp .env.example .env      # required by env_file below; the key inside is optional
 #   docker compose up --build
 #   # then browse to http://localhost:8501
 #
-# Ports are exposed on the host so you can also point a browser or curl at
-# the individual services directly:
-#   Streamlit UI  -> http://localhost:8501
-#   Rasa API      -> http://localhost:5005
-#   Actions       -> http://localhost:5055/health
+# Only the Streamlit UI is published on the host. Rasa and the action server
+# are reachable only on the internal network (brief, page-5 diagram:
+# "internal net — action server not public").
 #
-# The `models/` directory is required at build time for the Rasa image.
-# Retrain locally with `rasa train` before rebuilding if you change any
-# yml files.
+# The Rasa image uses the trained model committed in models/ (see
+# Dockerfile.rasa). Retrain and update that file name if any yml file changes.
 
 services:
 
@@ -21,15 +19,16 @@ services:
       context: .
       dockerfile: Dockerfile.rasa
     image: eco-travel-rasa
-    ports:
-      - "5005:5005"
+    expose:
+      - "5005"
     depends_on:
       - actions
     networks:
       - eco-net
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5005/status"]
+      # Root route: /status exists only with --enable-api, which is off.
+      test: ["CMD", "curl", "-f", "http://localhost:5005/"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -39,8 +38,8 @@ services:
       context: .
       dockerfile: Dockerfile.actions
     image: eco-travel-actions
-    ports:
-      - "5055:5055"
+    expose:
+      - "5055"
     networks:
       - eco-net
     restart: unless-stopped
