@@ -16,7 +16,10 @@ the design, the evaluation and its limitations in full.
 
 Requirements: Python 3.10 and `pip` (macOS or Linux shown; Windows works with the
 usual path changes). A trained model is included in `models/`, so no training is
-needed to run the bot.
+needed to run the bot. The model was trained on an Apple-silicon Mac;
+`components/keras_compat.py` makes it load the same way on Linux, Windows and
+Intel Macs (without it, Keras refuses the saved optimizer state there and Rasa
+runs without its intent classifier and dialogue policy).
 
 ```bash
 # 1. Virtual environment and dependencies (exact versions are pinned)
@@ -62,6 +65,27 @@ Streamlit server, never a browser, calls Rasa.
 > machine, which has no Docker installation. The action server's start command and
 > pinned requirements were checked in a clean virtual environment with only
 > `requirements-actions.txt` installed.
+
+## Hosted demo (Hugging Face Spaces)
+
+The bot runs at https://barisalaca-ecofriendly-chatbot.hf.space (Space page:
+https://huggingface.co/spaces/BarisAlaca/EcoFriendly_ChatBot). The Space uses the
+Docker SDK and the files in `deploy/huggingface/`: Rasa, the action server and
+Streamlit run in one container, and only Streamlit (port 7860) is reachable from
+outside. Conversations are kept in memory while the Space runs.
+
+To deploy your own copy:
+
+1. Create a Space with the Docker SDK.
+2. Put the three files of `deploy/huggingface/` (`Dockerfile`, `start.sh`, and
+   `README.md`, which holds the Space settings) at the root of a folder, together
+   with `requirements-rasa.txt`, `requirements-actions.txt`,
+   `requirements-streamlit.txt`, `config.yml`, `domain.yml`, `endpoints.yml`,
+   `credentials.yml`, `streamlit_app.py`, `data/`, `components/`, `actions/` and
+   `models/20261004-141855-sparse-octagon.tar.gz`.
+3. Upload the folder: `hf upload <user>/<space> <folder> --repo-type space`.
+4. Optional: add `CLIMATIQ_API_KEY` under the Space's settings as a secret; it
+   never goes into the image or the repository.
 
 ---
 
@@ -201,7 +225,7 @@ which NLU parses like typed text).
 
 ```bash
 pip install -r requirements-dev.txt
-pytest tests/test_actions.py -q          # 176 unit tests, no network (all APIs stubbed)
+pytest tests/test_actions.py -q          # 180 unit tests, no network (all APIs stubbed)
 rasa test core --stories tests/test_stories.yml --model models/20261004-141855-sparse-octagon.tar.gz
 rasa run actions &                       # the smoke test uses the real action server
 python scripts/dialogue_smoke.py models/20261004-141855-sparse-octagon.tar.gz
@@ -268,11 +292,13 @@ config.yml, domain.yml        NLU pipeline and policies; intents, slots, form, r
 data/                         training data (nlu*.yml), rules, stories, safety patterns, OSM extracts
 actions/actions.py            custom actions (19 classes, incl. the form validator)
 components/safety_gate.py     deterministic input and safety gate (custom NLU component)
+components/keras_compat.py    loads the model with its training optimizer on any OS
 models/                       the served model
 streamlit_app.py              chat UI
 tests/                        unit tests, story tests, dev sets, frozen final test set
 scripts/                      data fetching, measurement and smoke-test scripts
 Dockerfile.*, docker-compose.yml, endpoints.docker.yml   containers
+deploy/huggingface/           single-container image for Hugging Face Spaces
 endpoints.yml, credentials.yml                           local Rasa configuration
 ```
 

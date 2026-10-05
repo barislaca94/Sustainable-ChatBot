@@ -1,0 +1,5 @@
+# Streamlit sends usage statistics to its developers by default
+# (browser.gatherUsageStats, default True). Turned off: the bot keeps no
+# data beyond the running conversation, and its UI should not send any either.
+[browser]
+gatherUsageStats = false

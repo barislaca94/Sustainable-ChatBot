@@ -16,6 +16,8 @@ COPY requirements-streamlit.txt .
 RUN pip install --upgrade "pip<25" && pip install -r requirements-streamlit.txt
 
 COPY streamlit_app.py .
+# Turns off Streamlit's usage statistics.
+COPY .streamlit/ .streamlit/
 
 EXPOSE 8501
 
