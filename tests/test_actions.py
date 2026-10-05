@@ -1136,6 +1136,16 @@ def test_safety_gate_without_a_patterns_file_still_validates_input(tmp_path):
     assert long_msg.get("intent")["name"] == "invalid_input"
 
 
+def test_custom_components_select_the_legacy_adam_optimizer():
+    # The served model was trained with the legacy Adam (Apple-silicon Mac);
+    # without this, Linux, Windows and Intel Macs load DIET and TED untrained.
+    import tensorflow as tf
+
+    import components  # noqa: F401
+
+    assert tf.keras.optimizers.Adam is tf.keras.optimizers.legacy.Adam
+
+
 def test_safety_patterns_file_points_at_domain_intents():
     import re
     import yaml
