@@ -1566,10 +1566,11 @@ class ActionSuggestTransport(Action):
         if caveat:
             dispatcher.utter_message(text=caveat)
 
-        # Alert on the high-emission option, quantified against the best one.
+        # Alert on the high-emission option, quantified against the best one
+        # (not on a long route, where the low-carbon option may not exist).
         worst = max(options, key=lambda o: o["carbon_kg"])
         best = min(options, key=lambda o: o["carbon_kg"])
-        if worst["band"] == "🔴" and worst is not best:
+        if worst["band"] == "🔴" and worst is not best and not caveat:
             factor = worst["carbon_kg"] / best["carbon_kg"] if best["carbon_kg"] else 0
             dispatcher.utter_message(
                 text=(
@@ -1887,7 +1888,7 @@ class ActionSubmitTripForm(Action):
         # (brief: the card is "driven by the carbon score"). With no figure —
         # no origin, or the map service down — the card is a neutral info box,
         # not a green one that would suggest a low-emission result.
-        header_band = best["band"] if best else "ℹ️"
+        header_band = best["band"] if best and not long_route_caveat else "ℹ️"
         # The band word goes with the colour (never colour alone); the info
         # box has no band to name.
         header_label = f"{BAND_LABELS[header_band]} · " if header_band in BAND_LABELS else ""
@@ -1901,11 +1902,9 @@ class ActionSubmitTripForm(Action):
             f"Sustainability priority: {level}"
             + (f" · transport preference: {preference.replace('_', ' ')}" if preference else ""),
         ]
-        if best:
+        if best and not long_route_caveat:
             summary.append(
-                ("Best match on carbon and cost (see the note on long routes): "
-                 if long_route_caveat else "Recommended way to get there: ")
-                + f"{best['mode']} "
+                f"Recommended way to get there: {best['mode']} "
                 f"(~{best['carbon_kg']:.0f} kg CO2e, ~{best['cost_eur']:.0f} EUR one way)."
             )
         dispatcher.utter_message(text="\n".join(summary))
@@ -2358,6 +2357,17 @@ class ActionCoreFallback(Action):
         return [UserUtteranceReverted()]
 
 
+# Month names and relative dates. A date typed against the budget question
+# ("15-20 August") otherwise parses as a 15-20 EUR range. "may" counts only
+# next to a day number, so "I may spend 500" stays a budget.
+_DATE_WORDS = re.compile(
+    r"\b(january|february|march|april|june|july|august|september|october|november|"
+    r"december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\b"
+    r"|\b\d{1,2}(st|nd|rd|th)?\s+may\b|\bmay\s+\d{1,2}\b"
+    r"|\bnext (week|month)\b|\btomorrow\b|\btoday\b"
+)
+
+
 class ValidateTripPlanningForm(FormValidationAction):
     """Adaptive trip-planning form.
 
@@ -2426,7 +2436,19 @@ class ValidateTripPlanningForm(FormValidationAction):
         else entirely, then confirm the place exists. A map service that is
         down must not block the form, so that case is accepted with a note.
         """
-        intent = ((tracker.latest_message or {}).get("intent") or {}).get("name")
+        latest = tracker.latest_message or {}
+        # At activation Rasa validates slots that are already filled
+        # (rasa/core/actions/forms.py, FormAction.activate); no slot has been
+        # requested yet. A place filled by an earlier question ("green transport
+        # from Paris to Barcelona") but not named in the message that starts the
+        # plan is not an answer to this form, so it is asked again instead of
+        # being used silently (Making a Bot Behave §6.3: "Second run skips
+        # questions"; Worksheet 3: "slot stores last extracted value across turns").
+        if tracker.get_slot("requested_slot") is None \
+                and text.lower() not in str(latest.get("text") or "").lower():
+            return {slot: None}
+
+        intent = (latest.get("intent") or {}).get("name")
         if intent in ("off_topic", "bot_challenge"):
             question = ("Where would you like to travel?" if slot == "destination"
                         else "Where will you be travelling from?")
@@ -2509,6 +2531,12 @@ class ValidateTripPlanningForm(FormValidationAction):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> Dict[Text, Any]:
+        if _DATE_WORDS.search(str(slot_value or "").lower()):
+            dispatcher.utter_message(
+                text="That looks like a date, not a budget. About how much do you want "
+                     "to spend in EUR? (e.g. 800)"
+            )
+            return {"budget": None}
         budget, is_range = parse_budget(slot_value)
         if budget is None:
             dispatcher.utter_message(text="I need a number for the budget, e.g. 800.")

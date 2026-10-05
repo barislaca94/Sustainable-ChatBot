@@ -807,10 +807,11 @@ def test_required_slots_does_not_mutate_the_list_it_is_given():
 
 
 def validate(slot: str, value: Any, slots: Optional[Dict[str, Any]] = None):
+    """Validate `value` as the user's answer to the question for `slot`."""
     form = actions.ValidateTripPlanningForm()
     dispatcher = CollectingDispatcher()
     result = getattr(form, f"validate_{slot}")(
-        value, dispatcher, make_tracker(slots), {}
+        value, dispatcher, make_tracker({"requested_slot": slot, **(slots or {})}), {}
     )
     return result, texts(dispatcher)
 
@@ -898,7 +899,8 @@ def test_validate_origin_accepts_the_answer_when_the_map_service_is_down(monkeyp
 def validate_with_intent(slot: str, value: str, intent: str):
     form = actions.ValidateTripPlanningForm()
     dispatcher = CollectingDispatcher()
-    tracker = make_tracker(latest_message={"intent": {"name": intent}})
+    tracker = make_tracker(slots={"requested_slot": slot},
+                           latest_message={"intent": {"name": intent}})
     result = getattr(form, f"validate_{slot}")(value, dispatcher, tracker, {})
     return result, texts(dispatcher)
 
@@ -1628,4 +1630,49 @@ def test_a_long_route_marks_no_overland_option_as_recommended(monkeypatch):
         latest_message={"text": "green transport from London to Kyoto"}), {})
     replies = texts(dispatcher)
     assert not any("RECOMMENDED" in r for r in replies)
+    assert any(r.startswith("⚠️ About 9,478 km") for r in replies)
+
+
+def _activation(slot: str, value: str, message: str):
+    """Validate a place that is already filled when the form starts (no slot requested yet)."""
+    form = actions.ValidateTripPlanningForm()
+    dispatcher = CollectingDispatcher()
+    tracker = make_tracker(latest_message={"text": message, "intent": {"name": "plan_trip"}})
+    return getattr(form, f"validate_{slot}")(value, dispatcher, tracker, {})
+
+
+def test_a_place_left_from_an_earlier_question_is_asked_again():
+    # "green transport from Paris to Barcelona" filled origin; the plan that
+    # follows must ask where the user travels from instead of reusing Paris.
+    assert _activation("origin", "Paris", "I want to plan a sustainable trip") == {"origin": None}
+    assert _activation("destination", "Barcelona", "/plan_trip") == {"destination": None}
+
+
+def test_a_place_named_in_the_message_that_starts_the_plan_is_kept():
+    assert _activation("destination", "Barcelona", "plan a sustainable trip to Barcelona") \
+        == {"destination": "Barcelona"}
+    assert _activation("origin", "Lisbon", "plan a trip from lisbon to Berlin") == {"origin": "Lisbon"}
+
+
+@pytest.mark.parametrize("text", ["15-20 August", "next week", "Aug 3 to 10", "from 5 may"])
+def test_validate_budget_rejects_a_date(text):
+    result, messages = validate("budget", text)
+    assert result["budget"] is None
+    assert "looks like a date" in messages[0]
+
+
+def test_validate_budget_keeps_may_as_a_verb():
+    assert validate("budget", "I may spend about 500")[0]["budget"] == "500"
+
+
+def test_a_long_route_plan_card_is_neutral_and_recommends_nothing(monkeypatch):
+    monkeypatch.setattr(actions, "approx_distance_result", lambda o, d: (9478.0, actions.GEOCODE_OK))
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    dispatcher = CollectingDispatcher()
+    actions.ActionSubmitTripForm().run(dispatcher, make_tracker(slots={
+        "destination": "Kyoto", "origin": "London", "budget": "3000",
+        "sustainability_level": "high", "transport_preference": "any_low_carbon"}), {})
+    replies = texts(dispatcher)
+    assert replies[0].startswith("ℹ️ Trip plan — Kyoto from London")
+    assert not any("Recommended way" in r or "RECOMMENDED" in r for r in replies)
     assert any(r.startswith("⚠️ About 9,478 km") for r in replies)
