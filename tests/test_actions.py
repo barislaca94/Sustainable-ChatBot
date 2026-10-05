@@ -1568,3 +1568,64 @@ def test_a_route_in_the_message_is_used_without_mentioning_the_last_plan(monkeyp
         latest_message={"text": "green transport from Berlin to Paris"}), {})
     assert texts(dispatcher)[0].startswith("Berlin → Paris")
     assert not any("trip plan" in t for t in texts(dispatcher))
+
+
+# --------------------------------------------------------------------------
+# Plan follow-ups, long routes and missing data
+# --------------------------------------------------------------------------
+
+PLANNED = json.dumps({"destination": "Lisbon", "origin": "Madrid", "budget_eur": "400",
+                      "sustainability_level": "high", "transport_preference": "train_or_bus"})
+
+
+def test_the_plans_green_transport_button_keeps_the_plans_preferences(monkeypatch):
+    # The form clears its slots on submit; the plan's own button must not bring
+    # flights back for a user who asked for train or bus only.
+    monkeypatch.setattr(actions, "approx_distance_result", lambda o, d: (503.0, actions.GEOCODE_OK))
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    dispatcher = CollectingDispatcher()
+    actions.ActionSuggestTransport().run(dispatcher, make_tracker(
+        slots={"destination": "Lisbon", "origin": "Madrid", "last_trip_summary": PLANNED},
+        latest_message={"text": '/ask_green_transport{"destination": "Lisbon", "origin": "Madrid"}'}), {})
+    replies = texts(dispatcher)
+    assert "Using the preferences from your trip plan." in replies[0]
+    assert "Ranked for 'high' sustainability" in replies[0]
+    assert "Left out at your request: Car, Flight." in replies[0]
+
+
+def test_plan_preferences_are_not_borrowed_for_another_destination():
+    level, preference, budget, from_plan = actions.trip_preferences(
+        make_tracker(slots={"last_trip_summary": PLANNED}), "Paris")
+    assert (level, preference, budget, from_plan) == (None, None, None, False)
+
+
+def test_form_answers_win_over_the_last_plan():
+    level, preference, _, from_plan = actions.trip_preferences(
+        make_tracker(slots={"sustainability_level": "low", "last_trip_summary": PLANNED}), "Lisbon")
+    assert (level, preference, from_plan) == ("low", None, False)
+
+
+def test_long_routes_warn_that_overland_options_are_unchecked():
+    assert actions.overland_caveat(9500.0, ["bus", "flight"]).startswith("⚠️ About 9,500 km")
+    assert actions.overland_caveat(1200.0, ["bus", "flight"]) is None   # short enough
+    assert actions.overland_caveat(9500.0, ["flight"]) is None          # nothing overland listed
+
+
+def test_a_plan_without_data_says_what_is_missing(monkeypatch):
+    monkeypatch.setattr(actions, "approx_distance_result", lambda o, d: (0.0, actions.GEOCODE_OK))
+    dispatcher = CollectingDispatcher()
+    actions.ActionSubmitTripForm().run(dispatcher, make_tracker(
+        slots={"destination": "Hallstatt", "budget": "900", "sustainability_level": "medium"}), {})
+    note = [t for t in texts(dispatcher) if t.startswith("ℹ️ I don't have")]
+    assert note and "places to stay or activity ideas for Hallstatt" in note[0]
+
+
+def test_a_long_route_marks_no_overland_option_as_recommended(monkeypatch):
+    monkeypatch.setattr(actions, "approx_distance_result", lambda o, d: (9478.0, actions.GEOCODE_OK))
+    monkeypatch.setattr(actions, "climatiq_api_key", lambda: None)
+    dispatcher = CollectingDispatcher()
+    actions.ActionSuggestTransport().run(dispatcher, make_tracker(
+        latest_message={"text": "green transport from London to Kyoto"}), {})
+    replies = texts(dispatcher)
+    assert not any("RECOMMENDED" in r for r in replies)
+    assert any(r.startswith("⚠️ About 9,478 km") for r in replies)

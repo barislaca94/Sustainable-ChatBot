@@ -1328,6 +1328,50 @@ def place_in_context(tracker: Tracker,
     return origin, destination
 
 
+def trip_preferences(tracker: Tracker,
+                     destination: Optional[Text]) -> Tuple[Optional[Text], Optional[Text], Any, bool]:
+    """(sustainability level, transport preference, budget, from_plan).
+
+    The form slots win while they are set. The form clears them on submit,
+    so a follow-up about the planned destination (the plan's own "Green
+    transport" button, or "and how do I get there?") falls back to the
+    answers kept in last_trip_summary; from_plan tells the caller to say so.
+    """
+    level = tracker.get_slot("sustainability_level")
+    preference = tracker.get_slot("transport_preference")
+    budget = tracker.get_slot("budget")
+    if level or preference or budget:
+        return level, preference, budget, False
+    trip = _last_trip(tracker)
+    planned = str(trip.get("destination") or "")
+    if planned and destination and planned.lower() == str(destination).lower():
+        return (trip.get("sustainability_level"), trip.get("transport_preference"),
+                trip.get("budget_eur"), True)
+    return None, None, None, False
+
+
+OVERLAND_MODES = ("train", "bus", "coach", "car")
+
+
+def overland_caveat(distance_km: float, modes: List[Text]) -> Optional[Text]:
+    """A warning for long routes that still list train, bus or car.
+
+    Distances are great-circle and no route planner is connected, so the bot
+    cannot tell whether a rail or road connection exists (London to Kyoto
+    still produced a bus). The cut-off reuses the long-haul boundary of the
+    flight emission factors (CLIMATIQ_SHORT_HAUL_KM, 3,700 km).
+    """
+    if distance_km < CLIMATIQ_SHORT_HAUL_KM:
+        return None
+    if not any(m.lower() in OVERLAND_MODES for m in modes):
+        return None
+    return (
+        f"⚠️ About {distance_km:,.0f} km in a straight line: I don't check whether a "
+        "rail, bus or road route exists, so treat the overland options as rough "
+        "comparisons, not suggestions."
+    )
+
+
 # =============================================================================
 # Eco-travel actions
 # =============================================================================
@@ -1481,18 +1525,20 @@ class ActionSuggestTransport(Action):
             )
             return []
 
-        # Preferences carry over from the trip planning form when the user has
-        # filled it in this conversation; otherwise the weights default to
-        # "medium" and nothing is filtered out.
+        # Preferences come from the trip form while it is filled, or from the
+        # last completed plan when the question is about its destination;
+        # otherwise the weights default to "medium" and nothing is filtered out.
+        level, preference, budget, from_plan = trip_preferences(tracker, destination)
         options, excluded, source_label = score_transport_options(
             distance,
-            sustainability_level=tracker.get_slot("sustainability_level"),
-            transport_preference=tracker.get_slot("transport_preference"),
-            budget=tracker.get_slot("budget"),
+            sustainability_level=level,
+            transport_preference=preference,
+            budget=budget,
         )
 
         header = [f"{origin.title()} → {destination.title()}: about {distance:.0f} km."]
-        level = tracker.get_slot("sustainability_level")
+        if from_plan:
+            header.append("Using the preferences from your trip plan.")
         if level:
             w_c, w_p = SUSTAINABILITY_WEIGHTS.get(level, SUSTAINABILITY_WEIGHTS["medium"])
             header.append(
@@ -1507,11 +1553,18 @@ class ActionSuggestTransport(Action):
             )
         dispatcher.utter_message(text=" ".join(header))
 
+        # On a long route the overland options are unchecked, so none is
+        # marked as recommended (see overland_caveat).
+        caveat = overland_caveat(distance, [o["mode"] for o in options])
+
         # One message per option so the UI can colour each as its own card.
         for index, option in enumerate(options):
             dispatcher.utter_message(
-                text=format_transport_option(option, recommended=(index == 0))
+                text=format_transport_option(option, recommended=(index == 0 and not caveat))
             )
+
+        if caveat:
+            dispatcher.utter_message(text=caveat)
 
         # Alert on the high-emission option, quantified against the best one.
         worst = max(options, key=lambda o: o["carbon_kg"])
@@ -1828,6 +1881,8 @@ class ActionSubmitTripForm(Action):
             )
 
         best = travel_options[0] if travel_options else None
+        long_route_caveat = (overland_caveat(distance, [o["mode"] for o in travel_options])
+                             if travel_options else None)
         # The card colour comes from the carbon figure of the recommended mode
         # (brief: the card is "driven by the carbon score"). With no figure —
         # no origin, or the map service down — the card is a neutral info box,
@@ -1848,7 +1903,9 @@ class ActionSubmitTripForm(Action):
         ]
         if best:
             summary.append(
-                f"Recommended way to get there: {best['mode']} "
+                ("Best match on carbon and cost (see the note on long routes): "
+                 if long_route_caveat else "Recommended way to get there: ")
+                + f"{best['mode']} "
                 f"(~{best['carbon_kg']:.0f} kg CO2e, ~{best['cost_eur']:.0f} EUR one way)."
             )
         dispatcher.utter_message(text="\n".join(summary))
@@ -1857,8 +1914,11 @@ class ActionSubmitTripForm(Action):
         if travel_options:
             for index, option in enumerate(travel_options[:3]):
                 dispatcher.utter_message(
-                    text=format_transport_option(option, recommended=(index == 0))
+                    text=format_transport_option(
+                        option, recommended=(index == 0 and not long_route_caveat))
                 )
+            if long_route_caveat:
+                dispatcher.utter_message(text=long_route_caveat)
             if excluded:
                 dispatcher.utter_message(
                     text=(
@@ -1915,6 +1975,18 @@ class ActionSubmitTripForm(Action):
             lines.extend(f"• {a}" for a in acts[:3])
             lines.append(ACTIVITIES_CAVEAT)
             dispatcher.utter_message(text="\n".join(lines))
+
+        # Say what is missing rather than leaving sections out silently.
+        missing = [label for label, found in (("places to stay", ranked),
+                                              ("activity ideas", acts)) if not found]
+        if missing:
+            dispatcher.utter_message(
+                text=(
+                    f"ℹ️ I don't have {' or '.join(missing)} for {destination.title()} yet. "
+                    f"Cities with hotel data: {SUPPORTED_CITIES_HINT}. A human advisor "
+                    "can help with other places."
+                )
+            )
 
         top_offset = CARBON_OFFSET_PROGRAMS[0]
         offset_line = (f"If you offset, compare schemes first, for example "

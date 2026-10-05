@@ -225,7 +225,7 @@ which NLU parses like typed text).
 
 ```bash
 pip install -r requirements-dev.txt
-pytest tests/test_actions.py -q          # 180 unit tests, no network (all APIs stubbed)
+pytest tests/test_actions.py -q          # 186 unit tests, no network (all APIs stubbed)
 rasa test core --stories tests/test_stories.yml --model models/20261004-141855-sparse-octagon.tar.gz
 rasa run actions &                       # the smoke test uses the real action server
 python scripts/dialogue_smoke.py models/20261004-141855-sparse-octagon.tar.gz
@@ -265,6 +265,13 @@ Measurement scripts: `threshold_sweep.py` (fallback threshold on the dev sets),
   Oslo, which have no hotel data.
 - The first question about a new route can exceed three seconds while Nominatim
   and Climatiq are called; repeated questions are served from an in-process cache.
+- Distances are straight-line and no route planner is connected, so the bot
+  cannot tell whether a rail or road connection exists; above 3,700 km it says
+  so and marks no overland option as recommended.
+- Places named earlier in a conversation stay in its slots: after a question
+  such as "carbon footprint of a train from Berlin to Paris", a trip plan started
+  next does not ask for that origin and destination again (the plan card names
+  them; "stop" starts the form over).
 - The handover is a demo: the package goes to a log, not to a person.
 - Streamlit is a prototype UI, as the brief notes; there is no hotel carousel and
   no voice input.
