@@ -1686,3 +1686,26 @@ def test_no_activities_button_for_a_place_without_activity_data(monkeypatch):
     titles = [b["title"] for m in dispatcher.messages for b in m.get("buttons") or []]
     assert not any(t.startswith("Community activities") for t in titles)
     assert actions.has_activity_data("Kyoto") and actions.has_activity_data("Oslo")
+
+
+
+@pytest.mark.parametrize("answer, place", [
+    ("I live in Berlin", "Berlin"),
+    ("I'd like to go to Barcelona", "Barcelona"),
+    ("somewhere near Hallstatt", "Hallstatt"),
+    ("Hallstatt", "Hallstatt"),
+    ("Lisbon please", "Lisbon"),
+])
+def test_place_from_answer_finds_the_place_in_a_sentence(answer, place):
+    assert actions.place_from_answer(answer) == place
+
+
+def test_place_from_answer_prefers_the_nlu_entity():
+    entities = [{"entity": "origin", "value": "Graz"}]
+    assert actions.place_from_answer("we're coming over from Graz", entities) == "Graz"
+
+
+def test_a_sentence_answer_fills_the_place_slot_with_the_city(monkeypatch):
+    monkeypatch.setattr(actions, "geocode_city_result", lambda city: ((52.5, 13.4), actions.GEOCODE_OK))
+    assert validate("origin", "I live in Hamburg", {"destination": "Lisbon"})[0] == {"origin": "Hamburg"}
+    assert validate("destination", "I'd like to go to Barcelona")[0] == {"destination": "Barcelona"}

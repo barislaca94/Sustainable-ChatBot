@@ -229,7 +229,7 @@ which NLU parses like typed text).
 
 ```bash
 pip install -r requirements-dev.txt
-pytest tests/test_actions.py -q          # 195 unit tests, no network (all APIs stubbed)
+pytest tests/test_actions.py -q          # 202 unit tests, no network (all APIs stubbed)
 rasa test core --stories tests/test_stories.yml --model models/20261004-141855-sparse-octagon.tar.gz
 rasa run actions &                       # the smoke test uses the real action server
 python scripts/dialogue_smoke.py models/20261004-141855-sparse-octagon.tar.gz

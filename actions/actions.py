@@ -788,6 +788,33 @@ def nearby_cultural_sites(city: str, limit: int = 4) -> List[Dict[str, Any]]:
     return sites
 
 
+_PLACE_AFTER_PREPOSITION = re.compile(
+    r"\b(?:in|to|from|visit|visiting|near)\s+([A-Za-zÀ-ÿ' .\-]{2,40})$", re.IGNORECASE)
+
+
+def place_from_answer(text: Text, entities: Optional[List[Dict[Text, Any]]] = None) -> Text:
+    """The place inside a typed answer such as "I live in Berlin".
+
+    Place questions in the form are filled from the whole reply (from_text),
+    so a sentence used to be looked up as if it were a city name. In order:
+    a place entity the NLU found in the reply, a city the bot has data for
+    named in it, the words after a final "in / to / from"; otherwise the
+    reply itself (a plain "Hallstatt" stays as it is).
+    """
+    lowered = text.lower()
+    for e in entities or []:
+        value = str(e.get("value") or "")
+        if e.get("entity") in ("destination", "origin", "city_name") and value \
+                and value.lower() in lowered:
+            return value
+    known = set(supported_cities()) | {c.title() for c in LOCAL_ACTIVITIES}
+    for city in sorted(known, key=len, reverse=True):
+        if re.search(rf"\b{re.escape(city.lower())}\b", lowered):
+            return city
+    match = _PLACE_AFTER_PREPOSITION.search(text.strip(" .!?"))
+    return match.group(1).strip() if match else text
+
+
 def has_activity_data(city: str) -> bool:
     """True when the activities answer has something to show for `city`,
     so no button offers activities the bot does not have."""
@@ -2432,6 +2459,7 @@ class ValidateTripPlanningForm(FormValidationAction):
         if not text:
             dispatcher.utter_message(text="I need a destination — a city name works best.")
             return {"destination": None}
+        text = place_from_answer(text, (tracker.latest_message or {}).get("entities"))
         if text[0].isdigit():
             dispatcher.utter_message(text="That doesn't look like a city name. Try 'Barcelona' or 'Kyoto'.")
             return {"destination": None}
@@ -2499,6 +2527,8 @@ class ValidateTripPlanningForm(FormValidationAction):
         domain: Dict[Text, Any],
     ) -> Dict[Text, Any]:
         text = str(slot_value or "").strip()
+        if text:
+            text = place_from_answer(text, (tracker.latest_message or {}).get("entities"))
         if len(text) < 2 or text[0].isdigit():
             dispatcher.utter_message(
                 text="Which city are you starting from? A city name works best."
