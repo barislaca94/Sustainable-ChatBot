@@ -1676,3 +1676,13 @@ def test_a_long_route_plan_card_is_neutral_and_recommends_nothing(monkeypatch):
     assert replies[0].startswith("ℹ️ Trip plan — Kyoto from London")
     assert not any("Recommended way" in r or "RECOMMENDED" in r for r in replies)
     assert any(r.startswith("⚠️ About 9,478 km") for r in replies)
+
+
+def test_no_activities_button_for_a_place_without_activity_data(monkeypatch):
+    monkeypatch.setattr(actions, "approx_distance_result", lambda o, d: (0.0, actions.GEOCODE_OK))
+    dispatcher = CollectingDispatcher()
+    actions.ActionSubmitTripForm().run(dispatcher, make_tracker(
+        slots={"destination": "Hallstatt", "budget": "900", "sustainability_level": "medium"}), {})
+    titles = [b["title"] for m in dispatcher.messages for b in m.get("buttons") or []]
+    assert not any(t.startswith("Community activities") for t in titles)
+    assert actions.has_activity_data("Kyoto") and actions.has_activity_data("Oslo")

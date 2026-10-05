@@ -167,12 +167,16 @@ fork the bot.
 
 **Carbon figures.** `estimate_carbon()` sends one batched Climatiq request per
 answer (2.5 s timeout, results cached per mode and distance). Without a key, or if
-the call fails, the local table (`EMISSION_FACTORS`, BEIS 2023 / Our World in Data)
-answers instead, and every reply names the source it used.
+the call fails, the local table (`EMISSION_FACTORS`) answers instead, and every
+reply names the source it used. The local values match the factors Climatiq
+serves for the same activities (checked on 2026-10-05, data version `^21`):
+UK DESNZ/BEIS conversion factors 2026 for train, coach and short-haul flight, and
+the German Environment Agency (UBA) list, 2024, for car.
 `python scripts/climatiq_check.py` compares the two per mode.
 
-**Costs** are indicative per-kilometre averages, not fares: no fare source is
-connected. Every answer that shows a price says so.
+**Costs** are rough per-kilometre planning assumptions, not fares: no fare source
+is connected and no published source gives these figures for every mode. Every
+answer that shows a price says so.
 
 ---
 
@@ -225,7 +229,7 @@ which NLU parses like typed text).
 
 ```bash
 pip install -r requirements-dev.txt
-pytest tests/test_actions.py -q          # 194 unit tests, no network (all APIs stubbed)
+pytest tests/test_actions.py -q          # 195 unit tests, no network (all APIs stubbed)
 rasa test core --stories tests/test_stories.yml --model models/20261004-141855-sparse-octagon.tar.gz
 rasa run actions &                       # the smoke test uses the real action server
 python scripts/dialogue_smoke.py models/20261004-141855-sparse-octagon.tar.gz

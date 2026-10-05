@@ -8,7 +8,7 @@ CLIMATIQ_API_KEY in `.env`:
     python scripts/climatiq_check.py
 
 For every transport mode it estimates 100 passenger-km and prints the result
-next to the local BEIS 2023 / Our World in Data figure. If an ID no longer
+next to the local table's figure (EMISSION_FACTORS). If an ID no longer
 resolves, it queries Climatiq's /search endpoint and prints candidate
 replacements to paste into `CLIMATIQ_ACTIVITY_IDS`.
 """
@@ -120,7 +120,7 @@ def main() -> int:
         print(
             "CLIMATIQ_API_KEY is not set.\n"
             "Put it in .env at the repo root (see .env.example), then re-run.\n"
-            "Without it the bot uses the local BEIS 2023 / Our World in Data table\n"
+            "Without it the bot uses its local factor table (EMISSION_FACTORS)\n"
             "and says so."
         )
         return 1

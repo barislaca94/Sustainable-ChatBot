@@ -788,6 +788,12 @@ def nearby_cultural_sites(city: str, limit: int = 4) -> List[Dict[str, Any]]:
     return sites
 
 
+def has_activity_data(city: str) -> bool:
+    """True when the activities answer has something to show for `city`,
+    so no button offers activities the bot does not have."""
+    return bool(LOCAL_ACTIVITIES.get((city or "").lower()) or nearby_cultural_sites(city))
+
+
 # Offset schemes listed as starting points only. Names and addresses, no
 # ratings: the earlier "verified", "backed by WWF" and "CDM-certified" notes
 # had no source in this project, and the lecturer's Eco-Travel APIs README
@@ -808,12 +814,15 @@ OFFSET_CAVEAT = (
 
 # kg CO2e per passenger-km, used whenever Climatiq is unavailable.
 #
-# These were re-derived on 2026-09-16 from the same BEIS/UBA factors Climatiq
-# serves (measured with scripts/climatiq_check.py) so that a fallback answer
-# does not contradict a live one. The earlier table used a domestic-flight
-# figure (0.255) for every flight, which roughly doubled short-haul estimates.
-# Ferry, bicycle and walk are not covered by CLIMATIQ_ACTIVITY_IDS below and
-# keep their Our World in Data values.
+# Aligned on 2026-09-16 with the factors Climatiq serves for the activity ids
+# below (scripts/climatiq_check.py), so that a fallback answer does not
+# contradict a live one. Re-checked on 2026-10-05 against Climatiq data
+# version ^21, which names its sources: train, coach and short-haul flight from
+# the UK government (DESNZ/BEIS) "Greenhouse gas reporting: conversion factors
+# 2026"; car from the German Environment Agency (UBA) emission factor list
+# V2.1, 2024. The earlier table used a domestic-flight figure (0.255) for every
+# flight, which roughly doubled short-haul estimates. Ferry, bicycle and walk
+# are not covered by CLIMATIQ_ACTIVITY_IDS and keep the earlier table values.
 EMISSION_FACTORS = {
     "flight":  0.126,
     "plane":   0.126,
@@ -826,7 +835,7 @@ EMISSION_FACTORS = {
     "walk":    0.0,
 }
 
-LOCAL_SOURCE_LABEL = "local BEIS 2023 / Our World in Data table"
+LOCAL_SOURCE_LABEL = "local table of DESNZ 2026 and UBA 2024 factors"
 
 # Words users write for a transport mode -> the mode name the carbon tables use
 # "Emissions for driving to Prague" used to be priced as a flight,
@@ -973,7 +982,7 @@ def climatiq_api_key() -> Optional[str]:
 
 
 def local_carbon(mode: Text, distance_km: float) -> float:
-    """Carbon estimate from the built-in BEIS 2023 / Our World in Data table."""
+    """Carbon estimate from the built-in factor table (EMISSION_FACTORS)."""
     factor = EMISSION_FACTORS.get(mode.lower(), EMISSION_FACTORS["flight"])
     return distance_km * factor
 
@@ -1147,7 +1156,9 @@ MAP_UNAVAILABLE_MESSAGE = (
 # labels every figure as an estimate rather than implying a live quote.
 
 # EUR per passenger-km plus a fixed component (booking fees, airport transfer,
-# station access). Indicative European averages, 2026.
+# station access). Rough planning assumptions chosen for this prototype;
+# no published source gives these figures for all modes, so every answer
+# labels them as estimates.
 EST_COST_EUR_PER_KM = {
     "train":  0.14,
     "bus":    0.06,
@@ -1288,7 +1299,7 @@ def format_transport_option(option: Dict[Text, Any], recommended: bool = False) 
 
 
 COST_DISCLAIMER = (
-    "Costs are indicative averages per kilometre, not live fares — no fare "
+    "Costs are rough per-kilometre planning assumptions, not live fares — no fare "
     "source is connected (Amadeus, the planned one, was decommissioned). Treat "
     "them as an order of magnitude and check a booking site before deciding."
 )
@@ -1484,10 +1495,11 @@ class ActionDescribePlace(Action):
                 "title": f"Hotels in {destination.title()}",
                 "payload": f'/ask_eco_hotels{{"destination":"{destination}"}}',
             })
-        buttons.append({
-            "title": f"Community activities in {destination.title()}",
-            "payload": f'/ask_local_activities{{"destination":"{destination}"}}',
-        })
+        if has_activity_data(destination):
+            buttons.append({
+                "title": f"Community activities in {destination.title()}",
+                "payload": f'/ask_local_activities{{"destination":"{destination}"}}',
+            })
 
         dispatcher.utter_message(text="\n".join(lines), buttons=buttons or None)
         return [SlotSet("destination", destination)]
@@ -2001,11 +2013,12 @@ class ActionSubmitTripForm(Action):
              # and without it the button would ask for the origin again.
              "payload": json_payload("ask_green_transport",
                                      destination=destination, origin=origin)},
-            {"title": f"Community activities in {destination.title()}",
-             "payload": f'/ask_local_activities{{"destination":"{destination}"}}'},
             {"title": "Talk to a human advisor",
              "payload": "/request_human_advisor"},
         ]
+        if has_activity_data(destination):
+            buttons.insert(1, {"title": f"Community activities in {destination.title()}",
+                               "payload": f'/ask_local_activities{{"destination":"{destination}"}}'})
         dispatcher.utter_message(
             text=f"{offset_line}\nWhat would you like to do next?",
             buttons=buttons,
