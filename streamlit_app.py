@@ -104,18 +104,28 @@ def call_rasa(message: str, sender: str) -> list[dict]:
 
 # ---------- Sidebar ----------
 st.sidebar.title("Navigation")
-st.sidebar.markdown("Use this panel to configure the bot")
 page = st.sidebar.selectbox("Go to", ["Home", "Chat", "About"])
 
 if st.sidebar.button("Clear Chat"):
     reset_conversation()
 
-message_count = sum(1 for m in st.session_state.get("messages", []) if m["role"] == "user")
-st.sidebar.write(f"Messages sent: {message_count}")
+
+def user_message_count() -> int:
+    return sum(1 for m in st.session_state.get("messages", []) if m["role"] == "user")
+
+
+HANDOVER_NOTE = "🎫 Handover requested — a ticket with your context was logged."
+
+# Placeholders: the sidebar is drawn before a new message is handled, so the
+# chat block below refreshes them once the reply has arrived (otherwise the
+# count and the handover note lag one message behind).
+count_slot = st.sidebar.empty()
+count_slot.write(f"Messages sent: {user_message_count()}")
 st.sidebar.caption(f"Conversation id: `{sender_id()}`")
 
+handover_slot = st.sidebar.empty()
 if st.session_state.get("handover_active"):
-    st.sidebar.warning("🎫 Handover requested — a ticket with your context was logged.")
+    handover_slot.warning(HANDOVER_NOTE)
 
 st.sidebar.markdown("---")
 st.sidebar.caption(
@@ -284,6 +294,10 @@ elif page == "Chat":
                     with cols[i % 3]:
                         st.button(b["title"], key=f"botbtn_{count}_{i}")
 
+        count_slot.write(f"Messages sent: {user_message_count()}")
+        if st.session_state["handover_active"]:
+            handover_slot.warning(HANDOVER_NOTE)
+
 elif page == "About":
     st.header("About")
     st.write(
@@ -298,7 +312,8 @@ elif page == "About":
         - Rasa Core (RulePolicy + TEDPolicy + UnexpecTEDIntentPolicy)
         - Custom actions server (hotel ranking, activities, carbon calculators)
         - Live APIs: Nominatim (geocoding), Open-Meteo (weather),
-          Frankfurter (currency), Wikipedia (place summaries)
+          Frankfurter (currency), Wikipedia (place summaries), Climatiq
+          (carbon estimates, with a local factor table when it is unavailable)
         - OpenStreetMap POI data pre-fetched offline via Overpass
 
         **Sustainability features:**

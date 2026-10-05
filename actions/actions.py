@@ -464,7 +464,7 @@ def signals_score(signals: Dict[str, Any]) -> Tuple[float, str]:
 
 
 def format_signals(signals: Dict[str, Any]) -> str:
-    """Human-readable summary of the proxy signals we have for a hotel."""
+    """Human-readable summary of the proxy signals recorded for a hotel."""
     parts: List[str] = []
     rail = signals.get("nearest_rail_m")
     stop = signals.get("nearest_stop_m")
